@@ -39,7 +39,11 @@ Authors
 #include "fvCFD.H"
 #include "fvBlockMatrix.H"
 #include "singlePhaseTransportModel.H"
-#include "RASModel.H"
+//#include "RASModel.H"
+#include "vector7.H"
+#include "sphericalTensor7.H"
+#include "diagTensor7.H"
+#include "tensor7.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -53,6 +57,7 @@ int main(int argc, char *argv[])
 #   include "initContinuityErrs.H"
 #   include "initConvergenceCheck.H"
 
+/*
     Info<< "\nStarting time loop\n" << endl;
     while (runTime.loop())
     {
@@ -64,7 +69,7 @@ int main(int argc, char *argv[])
         p.storePrevIter();
 
         // Initialize the Up block system (matrix, source and reference to Up)
-        fvBlockMatrix<vector4> UpEqn(Up);
+        fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
 
         // Assemble and insert momentum equation
 #       include "UEqn.H"
@@ -93,7 +98,7 @@ int main(int argc, char *argv[])
 
         p.relax();
 
-        turbulence->correct();
+        // turbulence->correct();
         runTime.write();
 
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
@@ -101,7 +106,8 @@ int main(int argc, char *argv[])
             << nl << endl;
 
 #       include "convergenceCheck.H"
-    }
+    }*/
+
 
     Info<< "End\n" << endl;
 

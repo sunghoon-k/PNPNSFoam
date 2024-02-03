@@ -8,8 +8,10 @@
     // Momentum equation
     fvVectorMatrix UEqn
     (
-        fvm::div(phi, U)
-      + turbulence->divDevReff()
+        fvm::ddt(U)
+      + fvm::div(phi, U)
+      + fvm::laplacian(nu, U)
+      // + fvm::grad(rhoE/rho, phiE)
     );
 
     rAU = 1.0/UEqn.A();
@@ -17,5 +19,5 @@
     // Under-relax momentum. Note this will destroy the H and A
     UEqn.relax();
 
-    UpEqn.insertEquation(0, UEqn);
+    PNPNSEqn.insertEquation(0, UEqn);
 }
