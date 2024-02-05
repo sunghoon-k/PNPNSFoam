@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 #   include "initContinuityErrs.H"
 #   include "initConvergenceCheck.H"
 
-/*
+
     Info<< "\nStarting time loop\n" << endl;
     while (runTime.loop())
     {
@@ -80,12 +80,13 @@ int main(int argc, char *argv[])
         // Assemble and insert coupling terms
 #       include "couplingTerms.H"
 
+/*
         // Solve the block matrix
-        maxResidual = cmptMax(UpEqn.solve().initialResidual());
+        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
 
         // Retrieve solution
-        UpEqn.retrieveSolution(0, U.internalField());
-        UpEqn.retrieveSolution(3, p.internalField());
+        PNPNSEqn.retrieveSolution(0, U.internalField());
+        PNPNSEqn.retrieveSolution(3, p.internalField());
 
         U.correctBoundaryConditions();
         p.correctBoundaryConditions();
@@ -106,7 +107,9 @@ int main(int argc, char *argv[])
             << nl << endl;
 
 #       include "convergenceCheck.H"
-    }*/
+
+*/
+    }
 
 
     Info<< "End\n" << endl;

@@ -712,6 +712,11 @@ PNPNSFoam.dep: createFields.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createPhi.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/initContinuityErrs.H
 PNPNSFoam.dep: initConvergenceCheck.H
+PNPNSFoam.dep: readBlockSolverControls.H
+PNPNSFoam.dep: readFieldBounds.H
+PNPNSFoam.dep: UEqn.H
+PNPNSFoam.dep: pEqn.H
+PNPNSFoam.dep: couplingTerms.H
 $(OBJECTS_DIR)/PNPNSFoam.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPNSFoam.o:
 	@SOURCE_DIR=.

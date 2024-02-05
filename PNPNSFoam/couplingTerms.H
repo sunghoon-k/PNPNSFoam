@@ -7,7 +7,8 @@
     rhoE += (zPlus*cPlus*F_const);
     rhoE += (zMinus*cMinus*F_const);
 
-    BlockLduSystem<vector, vector> phiEInU(rhoE/rho*fvm::grad(phiE));
+    BlockLduSystem<vector, vector> phiEInU(fvm::grad(phiE));
+    phiEInU*=-rhoE.internalField()/rhoE;
 
     // Calculate div U coupling.  Could be calculated only once since
     // it is only geometry dependent.  VV, 9/June/2014
