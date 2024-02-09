@@ -8,8 +8,8 @@
         Info<< "p: " << p1.value() << " " << p2.value()
             << ".  Bounding." << endl;
 
-        p.max(pMin);
-        p.min(pMax);
+        p.max(pMin); // max(p, pMin)
+        p.min(pMax); // min(p, pMax)
         p.correctBoundaryConditions();
     }
 
@@ -21,12 +21,41 @@
     {
         Info<< "U: " << U1.value() << ".  Bounding." << endl;
 
+        // pos: return 1, if input >= 0
+        // pos(magU - UMax) == 1, if |U| >= UMax
+        // neg: return 1, if input < 0
+        // neg(magU - UMax) == 0, if |U| >= UMax
+        // Ulimiter = UMax/(|U|+smallU) or 1
         volScalarField Ulimiter = pos(magU - UMax)*UMax/(magU + smallU)
             + neg(magU - UMax);
         Ulimiter.max(scalar(0));
         Ulimiter.min(scalar(1));
+        // 0 <= Ulimiter <= 1
 
         U *= Ulimiter;
         U.correctBoundaryConditions();
+    }
+
+/**************************************************************************/
+    // Bound the concentration
+    dimensionedScalar dimensioned_cPlus = min(cPlus);    
+    dimensionedScalar dimensioned_cMinus = min(cMinus);
+
+    if (dimensioned_cPlus < cPlusMin) // when the concentration is negative
+    {
+        Info<< "cPlus: " << dimensioned_cPlus.value() << " "
+            << ".  Bounding." << endl;
+
+        cPlus.max(cPlusMin); // max(cPlus, cPlusMin)
+        cPlus.correctBoundaryConditions();
+    }
+
+    if (dimensioned_cMinus < cMinusMin) // when the concentration is negative
+    {
+        Info<< "cMinus: " << dimensioned_cMinus.value() << " "
+            << ".  Bounding." << endl;
+
+        cMinus.max(cMinusMin); // max(cPlus, cPlusMin)
+        cMinus.correctBoundaryConditions();
     }
 }

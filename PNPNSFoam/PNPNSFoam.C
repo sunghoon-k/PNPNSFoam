@@ -40,64 +40,81 @@ Authors
 #include "fvBlockMatrix.H"
 #include "singlePhaseTransportModel.H"
 //#include "RASModel.H"
-#include "vector7.H"
-#include "sphericalTensor7.H"
-#include "diagTensor7.H"
-#include "tensor7.H"
+#include "simpleControl.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
 
-#   include "setRootCase.H"
-#   include "createTime.H"
-#   include "createMesh.H"
-#   include "createFields.H"
-#   include "initContinuityErrs.H"
-#   include "initConvergenceCheck.H"
+    #include "setRootCase.H"
+    #include "createTime.H"
+    #include "createMesh.H"
 
+    simpleControl simple(mesh);
+
+    #include "createFields.H"
+    #include "initContinuityErrs.H"
+    #include "createControls.H"
+    #include "initConvergenceCheck.H"
 
     Info<< "\nStarting time loop\n" << endl;
-    while (runTime.loop())
+    while (simple.loop())
     {
-#       include "readBlockSolverControls.H"
-#       include "readFieldBounds.H"
+        #include "readBlockSolverControls.H"
+        #include "readFieldBounds.H"
+        #include "CourantNo.H"
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        p.storePrevIter();
+        for (int i=0; i<nInIter; i++)
+        {
+            p.storePrevIter();
 
-        // Initialize the Up block system (matrix, source and reference to Up)
-        fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
+            // Initialize the Up block system (matrix, source and reference to Up)
+            fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
 
-        // Assemble and insert momentum equation
-#       include "UEqn.H"
+            // Assemble and insert momentum equation
+            #include "UEqn.H"
 
-        // Assemble and insert pressure equation
-#       include "pEqn.H"
+            // Assemble and insert pressure equation
+            #include "pEqn.H"
 
-        // Assemble and insert coupling terms
-#       include "couplingTerms.H"
+            // Assemble and insert pressure equation
+            #include "psiEEqn.H"
 
-/*
-        // Solve the block matrix
-        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
+            // Assemble and insert pressure equation
+            #include "cEqn.H"
 
-        // Retrieve solution
-        PNPNSEqn.retrieveSolution(0, U.internalField());
-        PNPNSEqn.retrieveSolution(3, p.internalField());
+            // Assemble and insert coupling terms
+            #include "couplingTerms.H"
 
-        U.correctBoundaryConditions();
-        p.correctBoundaryConditions();
 
-        phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
+            // Solve the block matrix
+    //        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
+            maxResidual = cmptMax(PNPNSEqn.solve().finalResidual());
 
-#       include "continuityErrs.H"
+            // Retrieve solution
+            PNPNSEqn.retrieveSolution(0, U.internalField());
+            PNPNSEqn.retrieveSolution(3, p.internalField());
+            PNPNSEqn.retrieveSolution(4, psiE.internalField());
+            PNPNSEqn.retrieveSolution(5, cPlus.internalField());
+            PNPNSEqn.retrieveSolution(6, cMinus.internalField());
 
-#       include "boundPU.H"
+            U.correctBoundaryConditions();
+            p.correctBoundaryConditions();
+            psiE.correctBoundaryConditions();
+            cPlus.correctBoundaryConditions();
+            cMinus.correctBoundaryConditions();
 
-        p.relax();
+            phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
+
+            #include "continuityErrs.H"
+
+            #include "boundPU.H"
+
+            p.relax();            
+        }
 
         // turbulence->correct();
         runTime.write();
@@ -106,9 +123,9 @@ int main(int argc, char *argv[])
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
 
-#       include "convergenceCheck.H"
+        #include "convergenceCheck.H" 
 
-*/
+
     }
 
 

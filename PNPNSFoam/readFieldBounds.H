@@ -12,3 +12,9 @@
 
     fieldBounds.lookup(U.name()) >> UMax.value();
     dimensionedScalar smallU("smallU", dimVelocity, 1e-10);
+
+/**************************************************************************************/
+    // concentration bounds
+    dimensionedScalar cPlusMin("cPlusMin", cPlus.dimensions(), 0);
+    dimensionedScalar cMinusMin("cMinusMin", cMinus.dimensions(), 0);
+    
