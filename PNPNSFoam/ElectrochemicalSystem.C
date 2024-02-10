@@ -8,6 +8,17 @@ namespace Foam
 	defineTypeNameAndDebug(ElectrochemicalSystem, 0);
 }
 
+// independent constant
+
+/*
+e(dimensionedScalar("e",		dimensionSet( 0, 0, 1, 0, 0, 1, 0 ),	1.6021766208e-19)),
+kB(dimensionedScalar("kB",		dimensionSet( 1, 2, -2, -1, 0, 0, 0 ),	1.38064852e-23)),
+eps0(dimensionedScalar("eps0",	dimensionSet(-1, -3, 4, 0, 0, 2, 0),	8.8541878176e-12)),
+NA(dimensionedScalar("NA",		dimensionSet(0, 0, 0, 0, -1, 0, 0),		6.022140857e+23)),
+F(dimensionedScalar("F",		(e * NA).dimensions(),					(e * NA).value())),
+*/
+
+
 // constructor
 Foam::ElectrochemicalSystem::ElectrochemicalSystem
 (
@@ -20,16 +31,19 @@ phiStart_(readScalar(dict.subDict("phiDyMBoundary").lookup("phiStart"))),
 phiEnd_(readScalar(dict.subDict("phiDyMBoundary").lookup("phiEnd"))),
 phiInterval_(readScalar(dict.subDict("phiDyMBoundary").lookup("phiInterval"))),
 phiInstant_(phiStart_),
-objects(mesh_, mesh_.time().timeName())
-/*
+objects(mesh_, mesh_.time().timeName()),
+
+// independent constant
+e("e", dimensionSet( 0, 0, 1, 0, 0, 1, 0 ),	1.6021766208e-19),
+kB("kB", dimensionSet( 1, 2, -2, -1, 0, 0, 0 ),	1.38064852e-23),
+eps0("eps0", dimensionSet(-1, -3, 4, 0, 0, 2, 0),	8.8541878176e-12),
+NA("NA", dimensionSet(0, 0, 0, 0, -1, 0, 0),		6.022140857e+23),
+F("F", (e * NA).dimensions(),	(e * NA).value()),
+
+// dependent constant
+T(dict.subDict("Electrolyte").lookup("T")),
 l0(dict.subDict("Electrolyte").lookup("l0")),
 c0(dict.subDict("Electrolyte").lookup("C0")),
-T_const(dict.subDict("Electrolyte").lookup("T_const")),
-e_const(dict.subDict("Electrolyte").lookup("e_const")),
-kB_const(dict.subDict("Electrolyte").lookup("kB_const")),
-F_const(dict.subDict("Electrolyte").lookup("F_const")),
-NA_const(dict.subDict("Electrolyte").lookup("NA_const")), // Avogadro
-eps0(dict.subDict("Electrolyte").lookup("eps0")),
 epsr(dict.subDict("Electrolyte").lookup("epsr")),
 // wsc(dict.subDict("Electrolyte").lookup("wsc")),
 rho(dict.subDict("Electrolyte").lookup("rho")),
@@ -39,9 +53,23 @@ zPlus(dict.subDict("Ions").subDict("cPlus").lookup("zPlus")),
 DPlus(dict.subDict("Ions").subDict("cPlus").lookup("DPlus")),
 zMinus(dict.subDict("Ions").subDict("cMinus").lookup("zMinus")),
 DMinus(dict.subDict("Ions").subDict("cMinus").lookup("DMinus"))
-*/
+
 {
   /*
+  // dependent constant
+  dimensionedScalar Foam::ElectrochemicalSystem::T(dict.subDict("Electrolyte").lookup("T"));
+  dimensionedScalar Foam::ElectrochemicalSystem::l0(dict.subDict("Electrolyte").lookup("l0"));
+  dimensionedScalar Foam::ElectrochemicalSystem::c0(dict.subDict("Electrolyte").lookup("C0"));
+  dimensionedScalar Foam::ElectrochemicalSystem::epsr(dict.subDict("Electrolyte").lookup("epsr"));
+  // wsc(dict.subDict("Electrolyte").lookup("wsc")),
+  dimensionedScalar Foam::ElectrochemicalSystem::rho(dict.subDict("Electrolyte").lookup("rho"));
+  // mu(dict.subDict("Electrolyte").lookup("mu")),
+  dimensionedScalar Foam::ElectrochemicalSystem::nu(dict.subDict("Electrolyte").lookup("nu"));
+  dimensionedScalar Foam::ElectrochemicalSystem::zPlus(dict.subDict("Ions").subDict("cPlus").lookup("zPlus"));
+  dimensionedScalar Foam::ElectrochemicalSystem::DPlus(dict.subDict("Ions").subDict("cPlus").lookup("DPlus"));
+  dimensionedScalar Foam::ElectrochemicalSystem::zMinus(dict.subDict("Ions").subDict("cMinus").lookup("zMinus"));
+  dimensionedScalar Foam::ElectrochemicalSystem::DMinus(dict.subDict("Ions").subDict("cMinus").lookup("DMinus"));
+
   scalar D0 = 0.5*(DPlus.value() + DMinus.value());
   DimlDPlus = DPlus.value()/D0;
   DimlDMinus = DMinus.value()/D0;

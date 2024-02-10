@@ -23,13 +23,14 @@ class ElectrochemicalSystem
 	scalar phiInterval_;
 	scalar phiInstant_;
 	IOobjectList objects;
-/*
+
 public:
-	dimensionedScalar DPlus, DMinus;
-	dimensionedScalar zPlus, zMinus;
-	dimensionedScalar l0, c0, T_const, e_const, kB_const, F_const, NA_const, eps0, epsr, rho, mu, nu; // wsc
-	scalar DimlD1, DimlD2, Pe; // dimensionless constant
-*/
+	// independent constant
+	dimensionedScalar e, kB, eps0, NA, F;
+
+	// dependent constant
+	dimensionedScalar T, l0, c0, epsr, rho, nu, zPlus, DPlus, zMinus, DMinus;
+	// scalar DimlD1, DimlD2, Pe; // dimensionless constant
 
 public:
 	TypeName("ElectrochemicalSystem");

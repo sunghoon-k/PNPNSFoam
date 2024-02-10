@@ -4,24 +4,24 @@ Info << "****************************************************************" << en
 //Calculate reference values for DimensionLess-Form of Equations
 // Calculate average-diffusivity
 
-dimensionedScalar l0(transportProperties.subDict("Electrolyte").lookup("l0"));
-dimensionedScalar c0(transportProperties.subDict("Electrolyte").lookup("c0"));
-dimensionedScalar T(transportProperties.subDict("Electrolyte").lookup("T"));
-dimensionedScalar e(transportProperties.subDict("Electrolyte").lookup("e"));
-dimensionedScalar kB(transportProperties.subDict("Electrolyte").lookup("kB"));
-dimensionedScalar F(transportProperties.subDict("Electrolyte").lookup("F"));
-dimensionedScalar NA(transportProperties.subDict("Electrolyte").lookup("NA"));
-dimensionedScalar eps0(transportProperties.subDict("Electrolyte").lookup("eps0"));
-dimensionedScalar epsr(transportProperties.subDict("Electrolyte").lookup("epsr"));
+dimensionedScalar l0(ECsystem.l0);
+dimensionedScalar c0(ECsystem.c0);
+dimensionedScalar T(ECsystem.T);
+dimensionedScalar e(ECsystem.e);
+dimensionedScalar kB(ECsystem.kB);
+dimensionedScalar F(ECsystem.F);
+dimensionedScalar NA(ECsystem.NA);
+dimensionedScalar eps0(ECsystem.eps0);
+dimensionedScalar epsr(ECsystem.epsr);
 // dimensionedScalar wsc(transportProperties.subDict("Electrolyte").lookup("wsc"));
-dimensionedScalar rho(transportProperties.subDict("Electrolyte").lookup("rho"));
+dimensionedScalar rho(ECsystem.rho);
 // dimensionedScalar mu(transportProperties.subDict("Electrolyte").lookup("mu"));
-dimensionedScalar nu(transportProperties.subDict("Electrolyte").lookup("nu"));
+dimensionedScalar nu(ECsystem.nu);
 dimensionedScalar mu = nu/rho;
-dimensionedScalar zPlus(transportProperties.subDict("Ions").subDict("cPlus").lookup("z"));
-dimensionedScalar DPlus(transportProperties.subDict("Ions").subDict("cPlus").lookup("D"));
-dimensionedScalar zMinus(transportProperties.subDict("Ions").subDict("cMinus").lookup("z"));
-dimensionedScalar DMinus(transportProperties.subDict("Ions").subDict("cMinus").lookup("D"));
+dimensionedScalar zPlus(ECsystem.zPlus);
+dimensionedScalar DPlus(ECsystem.DPlus);
+dimensionedScalar zMinus(ECsystem.zMinus);
+dimensionedScalar DMinus(ECsystem.DMinus);
 // dimensionedScalar D0("D0",dimensionSet(0,2,-1,0,0,0,0), (D1.value() + D2.value())/2);
 dimensionedScalar D0("D0", (DPlus + DMinus)/2);
 Info << "Average-diffusivity: " << D0.value() << endl;
@@ -84,3 +84,7 @@ scalar Pe = (U0*l0/D0).value();
 Info << "Pelec Number: " << Pe << endl;
 
 Info << "****************************************************************" << endl;
+
+/*
+
+*/
