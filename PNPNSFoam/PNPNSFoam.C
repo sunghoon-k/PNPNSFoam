@@ -61,7 +61,11 @@ int main(int argc, char *argv[])
 
     #include "NormalizedParameters.H"
 
+    bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
     scalar phiInstant_ = 0;
+    double timeEnd = runTime.endTime().value();
+    double timeLap = 1.0;
+
     while(ECsystem.phiRun())
     {
         phiInstant_ = ECsystem.phiInstant();
@@ -77,6 +81,8 @@ int main(int argc, char *argv[])
                 }
             }
         }
+    
+        runTime.setEndTime(timeEnd*timeLap);
 
         Info<< "\nStarting time loop\n" << endl;
         while (runTime.loop())
@@ -139,13 +145,15 @@ int main(int argc, char *argv[])
             // turbulence->correct();
             runTime.write();
 
+            // 반복문을 돌다가 수렴하지 않으면 break
+            #include "convergenceCheck.H"
+
             Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
                 << "  ClockTime = " << runTime.elapsedClockTime() << " s"
                 << nl << endl;
         } // Time loop closed
 
-        // 반복문을 돌다가 수렴하지 않으면 break
-        #include "convergenceCheck.H"
+        timeLap+=1.0;
 
         ECsystem.changePhi();
 
