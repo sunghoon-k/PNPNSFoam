@@ -55,5 +55,5 @@
 # 2 "<command-line>" 2
 # 1 "files"
 PNPNSFoam.C
-
+ElectrochemicalSystem.C
 EXE = $(FOAM_USER_APPBIN)/PNPNSFoam

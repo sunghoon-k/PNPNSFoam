@@ -1,2 +1,3 @@
 LOCAL_OBJECTS = \
-PNPNSFoam.o
+PNPNSFoam.o\
+ElectrochemicalSystem.o

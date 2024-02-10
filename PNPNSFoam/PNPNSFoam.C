@@ -41,6 +41,7 @@ Authors
 #include "singlePhaseTransportModel.H"
 //#include "RASModel.H"
 #include "simpleControl.H"
+#include "ElectrochemicalSystem.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -51,82 +52,104 @@ int main(int argc, char *argv[])
     #include "createTime.H"
     #include "createMesh.H"
 
-    simpleControl simple(mesh);
+//    simpleControl simple(mesh);
 
     #include "createFields.H"
     #include "initContinuityErrs.H"
     #include "createControls.H"
     #include "initConvergenceCheck.H"
 
-    Info<< "\nStarting time loop\n" << endl;
-    while (simple.loop())
+    #include "NormalizedParameters.H"
+
+    scalar phiInstant_ = 0;
+    while(ECsystem.phiRun())
     {
-        #include "readBlockSolverControls.H"
-        #include "readFieldBounds.H"
-        #include "CourantNo.H"
-
-        Info<< "Time = " << runTime.timeName() << nl << endl;
-
-        for (int i=0; i<nInIter; i++)
+        phiInstant_ = ECsystem.phiInstant();
+        Info << "\n-------------- | psiE = " << phiInstant_<< " |--------------"<<endl;
+        forAll(mesh.boundary(),patchI)
         {
-            p.storePrevIter();
-
-            // Initialize the Up block system (matrix, source and reference to Up)
-            fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
-
-            // Assemble and insert momentum equation
-            #include "UEqn.H"
-
-            // Assemble and insert pressure equation
-            #include "pEqn.H"
-
-            // Assemble and insert pressure equation
-            #include "psiEEqn.H"
-
-            // Assemble and insert pressure equation
-            #include "cEqn.H"
-
-            // Assemble and insert coupling terms
-            #include "couplingTerms.H"
-
-
-            // Solve the block matrix
-    //        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
-            maxResidual = cmptMax(PNPNSEqn.solve().finalResidual());
-
-            // Retrieve solution
-            PNPNSEqn.retrieveSolution(0, U.internalField());
-            PNPNSEqn.retrieveSolution(3, p.internalField());
-            PNPNSEqn.retrieveSolution(4, psiE.internalField());
-            PNPNSEqn.retrieveSolution(5, cPlus.internalField());
-            PNPNSEqn.retrieveSolution(6, cMinus.internalField());
-
-            U.correctBoundaryConditions();
-            p.correctBoundaryConditions();
-            psiE.correctBoundaryConditions();
-            cPlus.correctBoundaryConditions();
-            cMinus.correctBoundaryConditions();
-
-            phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
-
-            #include "continuityErrs.H"
-
-            #include "boundPU.H"
-
-            p.relax();            
+            if(mesh.boundary()[patchI].name() == phiDyMBound)
+            {
+                scalarField& psiEb = psiE.boundaryField()[patchI];
+                forAll(psiEb, faceI)
+                {
+                    psiEb[faceI] = phiInstant_;
+                }
+            }
         }
 
-        // turbulence->correct();
-        runTime.write();
+        Info<< "\nStarting time loop\n" << endl;
+        while (runTime.loop())
+        {
+            #include "readBlockSolverControls.H"
+            #include "readFieldBounds.H"
+            #include "CourantNo.H"
 
-        Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
-            << "  ClockTime = " << runTime.elapsedClockTime() << " s"
-            << nl << endl;
+            Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        #include "convergenceCheck.H" 
+            for (int i=0; i<nInIter; i++)
+            {
+                p.storePrevIter();
+
+                // Initialize the Up block system (matrix, source and reference to Up)
+                fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
+
+                // Assemble and insert momentum equation
+                #include "UEqn.H"
+
+                // Assemble and insert pressure equation
+                #include "pEqn.H"
+
+                // Assemble and insert pressure equation
+                #include "psiEEqn.H"
+
+                // Assemble and insert pressure equation
+                #include "cEqn.H"
+
+                // Assemble and insert coupling terms
+                #include "couplingTerms.H"
 
 
-    }
+                // Solve the block matrix
+        //        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
+                maxResidual = cmptMax(PNPNSEqn.solve().finalResidual()); // residual = b - A*x_n
+
+                // Retrieve solution
+                PNPNSEqn.retrieveSolution(0, U.internalField());
+                PNPNSEqn.retrieveSolution(3, p.internalField());
+                PNPNSEqn.retrieveSolution(4, psiE.internalField());
+                PNPNSEqn.retrieveSolution(5, cPlus.internalField());
+                PNPNSEqn.retrieveSolution(6, cMinus.internalField());
+
+                U.correctBoundaryConditions();
+                p.correctBoundaryConditions();
+                psiE.correctBoundaryConditions();
+                cPlus.correctBoundaryConditions();
+                cMinus.correctBoundaryConditions();
+
+                phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
+
+                #include "continuityErrs.H"
+
+                #include "boundPU.H"
+
+                p.relax();            
+            } // Inner loop closed
+
+            // turbulence->correct();
+            runTime.write();
+
+            Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
+                << "  ClockTime = " << runTime.elapsedClockTime() << " s"
+                << nl << endl;
+        } // Time loop closed
+
+        // 반복문을 돌다가 수렴하지 않으면 break
+        #include "convergenceCheck.H"
+
+        ECsystem.changePhi();
+
+    } // phiRun() loop closed
 
 
     Info<< "End\n" << endl;

@@ -6,12 +6,13 @@
     // gradient schemes with limiters.  VV, 9/June/2014
     BlockLduSystem<vector, vector> pInU(fvm::grad(p));
 
-    volScalarField rhoE( psiE * dimensionedScalar("norm", epsilon0.dimensions()/dimArea, 0.) );
-    rhoE += (zPlus*cPlus*F_const);
-    rhoE += (zMinus*cMinus*F_const);
+    volScalarField rhoE( psiE * dimensionedScalar("norm", eps0.dimensions()/dimArea, 0.) );
+    rhoE += (zPlus*cPlus*F);
+    rhoE += (zMinus*cMinus*F);
 
     BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
-    psiEInU*=-rhoE.internalField()/rhoE;
+    // rhoE/rho;
+    psiEInU*=(rhoE.internalField()/rho.value());
 
     PNPNSEqn.insertBlockCoupling(0, 3, pInU, true); // 0: U <- 3: p
     PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
@@ -29,8 +30,8 @@
     /* Poisson Equation */
 
     // Add off-diagonal coupling terms
-    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp((F_const*zPlus)/(epsilon0*epsilonr), cPlus));
-    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp((F_const*zMinus)/(epsilon0*epsilonr), cMinus));
+    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp((F*zPlus)/(eps0*epsr), cPlus));
+    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp((F*zMinus)/(eps0*epsr), cMinus));
 
     PNPNSEqn.insertEquationCoupling(4, 5, Sp_fvScalarMatrix_cPlus); // 4: psiE <- 5: cPlus
     PNPNSEqn.insertEquationCoupling(4, 6, Sp_fvScalarMatrix_cMinus); // 4: psiE <- 6: cMinus

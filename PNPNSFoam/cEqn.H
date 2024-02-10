@@ -7,8 +7,8 @@ rhoE += ( zMinus * cMinus * const_F );
 
 surfaceScalarField phiE(linearInterpolate(fvc::grad(psiE)) & mesh.Sf());
 
-surfaceScalarField mobilityPlus((DPlus*e_const*zPlus/(k_const*T_const))*phiE);
-surfaceScalarField mobilityMinus((DMinus*e_const*zMinus/(k_const*T_const))*phiE);
+surfaceScalarField mobilityPlus((DPlus * e * zPlus/(kB * T))*phiE);
+surfaceScalarField mobilityMinus((DMinus * e * zMinus/(kB * T))*phiE);
 
 fvScalarMatrix cPlusEqn
 (

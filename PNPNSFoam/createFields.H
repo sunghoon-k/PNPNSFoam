@@ -131,6 +131,9 @@
         )
     );
 
+    ElectrochemicalSystem ECsystem(mesh, transportProperties);
+
+/*
     dimensionedScalar nu
     (
         transportProperties.lookup("nu")
@@ -190,3 +193,7 @@
     (
         transportProperties.lookup("T_const")
     );
+
+*/
+
+    word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
