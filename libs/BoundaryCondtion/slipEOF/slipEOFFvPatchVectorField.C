@@ -43,7 +43,7 @@ slipEOFFvPatchVectorField
     fixedValueFvPatchVectorField(p, iF),
     zetaPotential_(),
     epsr_(),
-    nu_(),
+    mu_(),
     rho_()
 //    elecM_()
 {}
@@ -61,7 +61,7 @@ slipEOFFvPatchVectorField
     fixedValueFvPatchVectorField(ptf, p, iF, mapper),
     zetaPotential_(ptf.zetaPotential_),
     epsr_(ptf.epsr_),
-    nu_(ptf.nu_),
+    mu_(ptf.mu_),
     rho_(ptf.rho_)
 //    elecM_(ptf.elecM_)   
 {}
@@ -77,7 +77,7 @@ slipEOFFvPatchVectorField
     fixedValueFvPatchVectorField(p, iF),
     zetaPotential_(readScalar(dict.lookup("zetaPotential"))),
     epsr_(readScalar(dict.lookup("epsr"))),
-    nu_(readScalar(dict.lookup("nu"))),
+    mu_(readScalar(dict.lookup("mu"))),
     rho_(readScalar(dict.lookup("rho")))
 //    elecM_(readScalar(dict.lookup("elecMobility")))
 {
@@ -98,7 +98,7 @@ slipEOFFvPatchVectorField
     fixedValueFvPatchVectorField(tppsf, iF),
     zetaPotential_(tppsf.zetaPotential_),
     epsr_(tppsf.epsr_),
-    nu_(tppsf.nu_),
+    mu_(tppsf.mu_),
     rho_(tppsf.rho_)
 //    elecM_(tppsf.elecM_) 
 {}
@@ -122,11 +122,11 @@ void Foam::slipEOFFvPatchVectorField::updateCoeffs()
     dimensionedScalar eps0 = ElectrochemicalSystem::eps0;
     scalar zetaPotential = zetaPotential_;
     scalar epsr = epsr_;
-    scalar nu = nu_;
+    scalar mu = mu_;
     scalar rho = rho_;
-    scalar mu = nu/rho;
+    scalar nu = mu/rho;
             
-    scalar elecM = (eps0.value()*epsr)*zetaPotential/mu;
+    scalar elecM = (eps0.value()*epsr)*zetaPotential/nu;
 
     vectorField::operator=( elecM * Ef.boundaryField()[patch().index()] );
          
@@ -141,8 +141,8 @@ void Foam::slipEOFFvPatchVectorField::write(Ostream& os) const
         << zetaPotential_ << token::END_STATEMENT << nl;
     os.writeKeyword("epsr")
         << epsr_ << token::END_STATEMENT << nl;
-    os.writeKeyword("nu")
-        << nu_ << token::END_STATEMENT << nl;
+    os.writeKeyword("mu")
+        << mu_ << token::END_STATEMENT << nl;
     os.writeKeyword("rho")
         << rho_ << token::END_STATEMENT << nl;
     writeEntry("value", os);

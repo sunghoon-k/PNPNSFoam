@@ -68,7 +68,7 @@ class slipEOFFvPatchVectorField
        
         scalar zetaPotential_;
         scalar epsr_;
-        scalar nu_;
+        scalar mu_;
         scalar rho_;
 
 public:

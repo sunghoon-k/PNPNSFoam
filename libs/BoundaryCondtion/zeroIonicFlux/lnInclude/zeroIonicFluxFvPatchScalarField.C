@@ -68,9 +68,11 @@ Foam::zeroIonicFluxFvPatchScalarField::zeroIonicFluxFvPatchScalarField
 )
 :
     fixedGradientFvPatchScalarField(p, iF),
-    zib_(0),
-    T_(0)
+    zib_(readScalar(dict.lookup("zib"))),
+    T_(readScalar(dict.lookup("T")))
 {
+    Info<< "zib = " << zib_ << nl << endl;
+    Info<< "T = " << T_ << nl << endl;
 
     if (dict.found("value") && dict.found("gradient"))
     {
@@ -153,7 +155,7 @@ void Foam::zeroIonicFluxFvPatchScalarField::updateCoeffs()
     const volScalarField& psiE_ =
         db().lookupObject<volScalarField>("psiE");
         
-    scalarField Epatch( (psiE_).boundaryField()[patch().index()].snGrad() );
+    scalarField Epatch( psiE_.boundaryField()[patch().index()].snGrad() );
            
     gradient() = -(*this) * e * zib * Epatch / (kB * T);      
      

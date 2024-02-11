@@ -16,8 +16,8 @@ dimensionedScalar epsr(ECsystem.epsr);
 // dimensionedScalar wsc(transportProperties.subDict("Electrolyte").lookup("wsc"));
 dimensionedScalar rho(ECsystem.rho);
 // dimensionedScalar mu(transportProperties.subDict("Electrolyte").lookup("mu"));
-dimensionedScalar nu(ECsystem.nu);
-dimensionedScalar mu = nu/rho;
+dimensionedScalar mu(ECsystem.mu);
+dimensionedScalar nu = mu/rho;
 dimensionedScalar zPlus(ECsystem.zPlus);
 dimensionedScalar DPlus(ECsystem.DPlus);
 dimensionedScalar zMinus(ECsystem.zMinus);
@@ -41,11 +41,11 @@ Info << "Potential-scale: " << psiE0.value() << endl;
 // Info << "IonicFluxDensity-scale: " << IFD0.value() << endl;
 
  // Calculate velocity-scale
-dimensionedScalar U0("U0", epsr*eps0*sqr(psiE0)/(mu*l0));
+dimensionedScalar U0("U0", epsr*eps0*sqr(psiE0)/(nu*l0));
 Info << "Velocity-scale: " << U0.value() << endl;
 
  // Calculate pressure-scale
-dimensionedScalar p0("p0", mu*U0/l0);
+dimensionedScalar p0("p0", nu*U0/l0);
 Info << "pressure-scale: " << p0.value() << endl;
 
  // Calculate surfacecharge-scale
@@ -72,11 +72,11 @@ Info << "Dimensionless Debye-Length: " << Epsilon << endl;
 Info << "Epsilon2: " << Epsilon2 << endl;
 
  // Calculate Schmidt Number
-scalar Sc = (mu/(rho*D0)).value();
+scalar Sc = (nu/(rho*D0)).value();
 Info << "Schmidt Number: " << Sc << endl;
 
  // Calculate Reynold Number
-scalar Re = (U0*l0*rho/mu).value();
+scalar Re = (U0*l0*rho/nu).value();
 Info << "Reynold Number: " << Re << endl;
 
  // Calculate Pelec Number

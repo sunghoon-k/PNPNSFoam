@@ -1,1 +1,1 @@
-LIB = $(FOAM_USER_LIBBIN)/libZeroIonicFlux
+LIB = $(FOAM_USER_LIBBIN)/libzeroIonicFlux

@@ -32,16 +32,16 @@ objects(mesh_, mesh_.time().timeName()),
 
 T(dict.subDict("Electrolyte").lookup("T")),
 l0(dict.subDict("Electrolyte").lookup("l0")),
-c0(dict.subDict("Electrolyte").lookup("C0")),
+c0(dict.subDict("Electrolyte").lookup("c0")),
 epsr(dict.subDict("Electrolyte").lookup("epsr")),
 // wsc(dict.subDict("Electrolyte").lookup("wsc")),
 rho(dict.subDict("Electrolyte").lookup("rho")),
 // mu(dict.subDict("Electrolyte").lookup("mu")),
-nu(dict.subDict("Electrolyte").lookup("nu")),
-zPlus(dict.subDict("Ions").subDict("cPlus").lookup("zPlus")),
-DPlus(dict.subDict("Ions").subDict("cPlus").lookup("DPlus")),
-zMinus(dict.subDict("Ions").subDict("cMinus").lookup("zMinus")),
-DMinus(dict.subDict("Ions").subDict("cMinus").lookup("DMinus"))
+mu(dict.subDict("Electrolyte").lookup("mu")),
+zPlus(dict.subDict("Ions").subDict("cPlus").lookup("z")),
+DPlus(dict.subDict("Ions").subDict("cPlus").lookup("D")),
+zMinus(dict.subDict("Ions").subDict("cMinus").lookup("z")),
+DMinus(dict.subDict("Ions").subDict("cMinus").lookup("D"))
 
 
 /*

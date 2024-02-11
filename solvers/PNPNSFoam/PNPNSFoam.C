@@ -40,7 +40,7 @@ Authors
 #include "fvBlockMatrix.H"
 #include "singlePhaseTransportModel.H"
 //#include "RASModel.H"
-#include "simpleControl.H"
+//#include "simpleControl.H"
 #include "ElectrochemicalSystem.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

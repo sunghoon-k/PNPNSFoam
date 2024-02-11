@@ -705,15 +705,11 @@ PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvBlockMatrix.C
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvBlockMatrixOperations.C
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/transportModels/incompressible/singlePhaseTransportModel/singlePhaseTransportModel.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/transportModels/incompressible/transportModel/transportModel.H
-PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/simpleControl.H
-PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControl.H
+PNPNSFoam.dep: ../../libs/ElectrochemicalSystem/lnInclude/ElectrochemicalSystem.H
+PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/wordReList.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/wordRe.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/OSspecific/POSIX/lnInclude/regExp.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/wordReI.H
-PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControlI.H
-PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/solutionControlTemplates.C
-PNPNSFoam.dep: ../../libs/ElectrochemicalSystem/lnInclude/ElectrochemicalSystem.H
-PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/wordReList.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/IOobjectList.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/HashPtrTable.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/HashPtrTable.C

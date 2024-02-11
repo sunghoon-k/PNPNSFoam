@@ -29,7 +29,7 @@ public:
 	static dimensionedScalar e, kB, eps0, NA, F;
 
 	// dependent constant
-	dimensionedScalar T, l0, c0, epsr, rho, nu, zPlus, DPlus, zMinus, DMinus;
+	dimensionedScalar T, l0, c0, epsr, rho, mu, zPlus, DPlus, zMinus, DMinus;
 	// scalar DimlD1, DimlD2, Pe; // dimensionless constant
 
 public:
