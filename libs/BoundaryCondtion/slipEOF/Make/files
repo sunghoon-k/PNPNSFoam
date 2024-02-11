@@ -1,0 +1,3 @@
+slipEOFFvPatchVectorField.C
+
+LIB = $(FOAM_USER_LIBBIN)/libSlipEOF

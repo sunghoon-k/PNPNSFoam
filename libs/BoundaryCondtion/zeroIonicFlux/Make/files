@@ -1,0 +1,3 @@
+zeroIonicFluxFvPatchScalarField.C
+
+LIB = $(FOAM_USER_LIBBIN)/libZeroIonicFlux
