@@ -12,24 +12,37 @@ surfaceScalarField mobilityMinus((DMinus * e * zMinus/(kB * T))*phiE);
 
 fvScalarMatrix cPlusEqn
 (
-    fvm::ddt(cPlus)
-  + fvm::div(phi, cPlus)    
+//    fvm::ddt(cPlus)
+    fvm::div(phi, cPlus)    
     ==
     fvm::laplacian(DPlus, cPlus)
   + fvm::div(mobilityPlus, cPlus)
 );
 
+if(solveTransient)
+{
+  cPlusEqn += fvm::ddt(cPlus);
+}
+
 fvScalarMatrix cMinusEqn
 (
-    fvm::ddt(cMinus)
-  + fvm::div(phi, cMinus)    
+//    fvm::ddt(cMinus)
+    fvm::div(phi, cMinus)    
     ==
     fvm::laplacian(DMinus, cMinus)
   + fvm::div(mobilityMinus, cMinus)
 );
 
+if(solveTransient)
+{
+  cMinusEqn += fvm::ddt(cMinus);
+}
+
 cPlusEqn.relax();
 cMinusEqn.relax();
+
+cPlusEqn *= cScaling;
+cMinusEqn *= cScaling;
 
 PNPNSEqn.insertEquation(5, cPlusEqn);
 PNPNSEqn.insertEquation(6, cMinusEqn);

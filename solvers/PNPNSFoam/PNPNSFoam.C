@@ -62,9 +62,16 @@ int main(int argc, char *argv[])
     #include "NormalizedParameters.H"
 
     bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
+
     scalar phiInstant_ = 0;
     double timeEnd = runTime.endTime().value();
     double timeLap = 1.0;
+    scalar UScaling = (t0/U0).value();
+    scalar pScaling = (U0/l0).value();
+    scalar psiEScaling = (sqr(l0)/psiE0).value();
+    scalar cScaling = (t0/c0).value();
+
+    bool convergenceInnerLoop = false;
 
     while(ECsystem.phiRun())
     {
@@ -77,7 +84,7 @@ int main(int argc, char *argv[])
                 scalarField& psiEb = psiE.boundaryField()[patchI];
                 forAll(psiEb, faceI)
                 {
-                    psiEb[faceI] = phiInstant_;
+                    psiEb[faceI] = phiInstant_ * psiE0.value(); // psiE0: thermal voltage
                 }
             }
         }
@@ -91,10 +98,12 @@ int main(int argc, char *argv[])
             #include "readFieldBounds.H"
             #include "CourantNo.H"
 
+            convergenceInnerLoop = false;
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
             for (int i=0; i<nInIter; i++)
             {
+
                 p.storePrevIter();
 
                 // Initialize the Up block system (matrix, source and reference to Up)
@@ -118,6 +127,7 @@ int main(int argc, char *argv[])
 
                 // Solve the block matrix
         //        maxResidual = cmptMax(PNPNSEqn.solve().initialResidual());
+//                maxResidual = cmptMax(PNPNSEqn.solve().finalResidual()); // residual = b - A*x_n
                 maxResidual = cmptMax(PNPNSEqn.solve().finalResidual()); // residual = b - A*x_n
 
                 // Retrieve solution
@@ -134,25 +144,30 @@ int main(int argc, char *argv[])
                 cMinus.correctBoundaryConditions();
 
                 phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
-
+                // volScalarField pressSource = fvc::interpolate(rAU)*(fvc::interpolate(fvc::grad(p)) & mesh.Sf())
+                
                 #include "continuityErrs.H"
-
+   
                 #include "boundPU.H"
 
                 p.relax();            
+                
+                // 반복문을 돌다가 수렴하면 break
+                //#include "convergenceCheck.H"
+                
             } // Inner loop closed
 
             // turbulence->correct();
             runTime.write();
-
-            // 반복문을 돌다가 수렴하지 않으면 break
-            #include "convergenceCheck.H"
 
             Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
                 << "  ClockTime = " << runTime.elapsedClockTime() << " s"
                 << nl << endl;
         } // Time loop closed
 
+//        if(convergenceInnerLoop == false)
+//        {break;}
+        
         timeLap+=1.0;
 
         ECsystem.changePhi();

@@ -17,5 +17,5 @@ fvScalarMatrix psiEEqn
 );
 
 psiEEqn.relax();
-
+psiE *= psiEScaling;
 PNPNSEqn.insertEquation(4, psiEEqn);

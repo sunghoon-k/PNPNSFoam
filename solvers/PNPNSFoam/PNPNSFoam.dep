@@ -747,7 +747,6 @@ PNPNSFoam.dep: cEqn.H
 PNPNSFoam.dep: couplingTerms.H
 PNPNSFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/continuityErrs.H
 PNPNSFoam.dep: boundPU.H
-PNPNSFoam.dep: convergenceCheck.H
 $(OBJECTS_DIR)/PNPNSFoam.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPNSFoam.o:
 	@SOURCE_DIR=.

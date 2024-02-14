@@ -72,11 +72,11 @@ Info << "Dimensionless Debye-Length: " << Epsilon << endl;
 Info << "Epsilon2: " << Epsilon2 << endl;
 
  // Calculate Schmidt Number
-scalar Sc = (nu/(rho*D0)).value();
+scalar Sc = (nu/D0).value();
 Info << "Schmidt Number: " << Sc << endl;
 
  // Calculate Reynold Number
-scalar Re = (U0*l0*rho/nu).value();
+scalar Re = (U0*l0/nu).value();
 Info << "Reynold Number: " << Re << endl;
 
  // Calculate Pelec Number

@@ -15,4 +15,5 @@ fvScalarMatrix pEqn
 
 pEqn.setReference(pRefCell, pRefValue);
 
+pEqn *= pScaling;
 PNPNSEqn.insertEquation(3, pEqn);
