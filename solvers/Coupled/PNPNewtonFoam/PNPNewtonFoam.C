@@ -60,15 +60,15 @@ int main(int argc, char *argv[])
     double timeEnd = runTime.endTime().value();
     double timeLap = 1.0;
 
-    bool solveTransient = false;
+    bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
     scalar maxResidual = 10;
     scalar cPlusResidual = 10;
     scalar cMinusResidual = 10;
     scalar cMaxResidual = 10;
     scalar psiEResidual = 10;
+    scalar psiEScaling = 1000;
     bool reachedResidual = false;
     Info<< "\nStarting time loop\n" << endl;
-    scalar currentIter = 0;
 
     while(ECsystem.phiRun())
     {
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
                 }
             }
         }
-        
+    
         runTime.setEndTime(timeEnd*timeLap);
 
         Info<< "\nStarting time loop\n" << endl;
@@ -94,39 +94,49 @@ int main(int argc, char *argv[])
             reachedResidual = false;
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
-            for(int OuterIter = 0; OuterIter < nOuterIter; OuterIter++)
+            for (int i=0; i<nOuterIter; i++)
             {
-                currentIter = 0;
-                cPlusResidual = 10;
-                while(currentIter++ < nInnerIter and cPlusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
+
+                for (int j=0; j<nInnerIter; j++)
                 {
-                    #include "cPlusEqn.H"
-                }
-                    //#include "psiEEqn.H"
-                currentIter = 0;
-                cMinusResidual = 10;
-                while(currentIter++ < nInnerIter and cMinusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
-                {
-                    #include "cMinusEqn.H"
-                }
-                        
-                currentIter = 0;
-                psiEResidual = 10;
-                while(currentIter++ < nInnerIter and psiEResidual > 1e-6)// for (int j=0; j<nInnerIter; j++)
-                {
+                    fvBlockMatrix<vector3> PNPEqn(PNP);
+
                     #include "psiEEqn.H"
-                    //#include "cEqn.H"
+                    #include "cEqn.H"
+                    #include "couplingTerms.H"
 
+                    psiE.storePrevIter();
+                    cPlus.storePrevIter();
+                    cMinus.storePrevIter(); 
+                    
+                    volScalarField psiEF(fvc::laplacian(psiE) + F*(zPlus*cPlus+zMinus*cMinus)/(eps0*epsr));                 
+                    volScalarField cPlusF(-fvc::laplacian(DPlus, cPlus) - fvc::div(mobilityPlus * phiE, cPlus));
+                    volScalarField cMinusF(-fvc::laplacian(DMinus, cMinus) - fvc::div(mobilityMinus * phiE, cMinus));
+                    
+                    maxResidual = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
+
+                    // Retrieve solution
+                    PNPEqn.retrieveSolution(0, psiE.internalField());
+                    PNPEqn.retrieveSolution(1, cPlus.internalField());
+                    PNPEqn.retrieveSolution(2, cMinus.internalField());
+
+                    psiEResidual = max(psiE.internalField());
+                    cPlusResidual = max(cPlus.internalField());
+                    cMinusResidual = max(cMinus.internalField());
+
+                    psiE = -psiE + psiE.prevIter();                    
+                    cPlus = -cPlus + cPlus.prevIter();                    
+                    cMinus = -cMinus + cMinus.prevIter();                    
+
+                    psiE.correctBoundaryConditions();
+                    cPlus.correctBoundaryConditions();
+                    cMinus.correctBoundaryConditions();
+                
+                    Info<< "maxResidual = " << maxResidual << nl
+                        << endl;
                 } // Inner loop closed
-
-            }
-            
-            maxResidual = max(cMaxResidual, psiEResidual);
-            Info<< "cPlusResidual = " << cPlusResidual << nl
-                << "cMinusResidual = " << cMinusResidual << nl
-                << "psiEResidual = " << psiEResidual << nl 
-                << endl;
-
+                
+                
 /*
                 // Segregated solver에서는 이 기준을 사용할 필요가 없다. 
                 // 왜냐? 이미 fvSolution 의 기준으로 이미 tolerance를 통과했기 때문
@@ -140,7 +150,7 @@ int main(int argc, char *argv[])
                 }
 
 */
-            
+            }
 
             // turbulence->correct();
             runTime.write();
@@ -150,6 +160,16 @@ int main(int argc, char *argv[])
                 << nl << endl;
 
         } // Time loop closed
+
+/*
+        if (!reachedResidual)
+        {
+            Info<< "\nConvergece not reached\n" << endl;
+            break;
+        }
+
+*/
+
 
         timeLap+=1.0;
 

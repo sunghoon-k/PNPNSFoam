@@ -29,7 +29,7 @@ writeCompression off;
 timeFormat      general;
 timePrecision   6;
 runTimeModifiable true;
-libs ("libzeroIonicFlux.so" "libslipEOF.so" "libElectrochemicalSystem.so");
+libs ("libzeroIonicFlux.so" "libslipEOF.so" "libElectrochemicalSystem.so" "electrokinBC.so");
 nInIter 15; //15;
 nNSPNPIteration  100;
 PNPNStransient no;

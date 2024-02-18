@@ -104,7 +104,8 @@ int main(int argc, char *argv[])
                     #include "psiEEqn.H"
                     #include "cEqn.H"
                     #include "couplingTerms.H"
-                 
+               
+
                     maxResidual = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
 
                     // Retrieve solution

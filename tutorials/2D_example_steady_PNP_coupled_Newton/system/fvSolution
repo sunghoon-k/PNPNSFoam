@@ -17,7 +17,115 @@ FoamFile
 
 solvers
 {
+/*
+    psiE
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-05;
+        relTol           0;
+    }
+*/
+/*
+    psiE
+    {
+
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-32;
+        relTol          1e-32;
+	maxIter		2000;
+    }
+    psiE
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-15;
+        relTol           0; // 0이면 상대 오차 기준 사용하지 않음
+    }
+
+Valid asymmetric matrix preconditioners are :
+
+9
+(
+AMG
+DILU
+GAMG
+ILU0
+ILUC0
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+Valid symmetric matrix preconditioners are :
+
+10
+(
+AMG
+Cholesky
+DIC
+DILU
+FDIC
+GAMG
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+*/
+
+    psiE
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+
+    cPlus
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+
+    cMinus
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+
+/*
+BlockAMG
+Cholesky
+GaussSeidel
+ILUCp
+diagonal
+none
+
+*/
     PNP
+    {
+        solver BiCGStab;
+        preconditioner none;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000;
+    }
+/*
+    psiE
     {
         solver BiCGStab;
         preconditioner Cholesky;
@@ -28,6 +136,8 @@ solvers
         minIter 1;
         maxIter 5000;
     }
+
+*/
 
 //     Up
 //     {
@@ -87,10 +197,26 @@ fieldBounds
 
 relaxationFactors
 {
-    U   0.999;
+    fields
+    {
+        psiE 1.0;
+        cPlus 1.0;
+        cMinus 1.0;
+    }
+
+    equations
+    {
+        psiEEqn 1.0;
+        cPlusEqn 1.0;
+        cMinusEqn 1.0;
+    }
 }
 
-SIMPLE{}
+SIMPLE
+{
+    nOuterIter 15;
+    nInnerIter 15;
+}
 /*
 solvers
 {

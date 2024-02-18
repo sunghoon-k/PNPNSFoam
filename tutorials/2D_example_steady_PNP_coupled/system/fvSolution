@@ -43,6 +43,38 @@ solvers
         tolerance        1e-15;
         relTol           0; // 0이면 상대 오차 기준 사용하지 않음
     }
+
+Valid asymmetric matrix preconditioners are :
+
+9
+(
+AMG
+DILU
+GAMG
+ILU0
+ILUC0
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+Valid symmetric matrix preconditioners are :
+
+10
+(
+AMG
+Cholesky
+DIC
+DILU
+FDIC
+GAMG
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
 */
 
     psiE
@@ -72,10 +104,19 @@ solvers
 	maxIter		 2000;
     }
 
+/*
+BlockAMG
+Cholesky
+GaussSeidel
+ILUCp
+diagonal
+none
+
+*/
     PNP
     {
         solver BiCGStab;
-        preconditioner diagonal;
+        preconditioner none;
 
         tolerance 1e-15;
         relTol  1e-15;
@@ -83,18 +124,11 @@ solvers
         minIter 1;
         maxIter 5000;
     }
-
 /*
     psiE
     {
         solver BiCGStab;
         preconditioner Cholesky;
-BlockAMG
-Cholesky
-GaussSeidel
-ILUCp
-diagonal
-none
 
         tolerance 1e-15;
         relTol  1e-15;
@@ -172,16 +206,16 @@ relaxationFactors
 
     equations
     {
-        psiEEqn 0.7;
-        cPlusEqn 0.7;
-        cMinusEqn 0.7;
+        psiEEqn 1.0;
+        cPlusEqn 1.0;
+        cMinusEqn 1.0;
     }
 }
 
 SIMPLE
 {
-    nOuterIter 3;
-    nInnerIter 1;
+    nOuterIter 15;
+    nInnerIter 15;
 }
 /*
 solvers

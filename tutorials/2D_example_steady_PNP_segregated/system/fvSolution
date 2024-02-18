@@ -43,6 +43,26 @@ solvers
         tolerance        1e-15;
         relTol           0; // 0이면 상대 오차 기준 사용하지 않음
     }
+
+Valid asymmetric matrix preconditioners are :
+
+9
+(
+AMG
+DILU
+GAMG
+ILU0
+ILUC0
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+Valid symmetric matrix preconditioners are :
+
+10
+(
 AMG
 Cholesky
 DIC
@@ -53,6 +73,7 @@ ILUCp
 SymGaussSeidel
 diagonal
 none
+)
 
 */
 
@@ -62,7 +83,7 @@ none
         preconditioner   DILU;
         tolerance        1e-25;
         relTol           1e-25;
-	maxIter		 5000;
+	maxIter		 2000;
     }
 
     cPlus
@@ -71,7 +92,7 @@ none
         preconditioner   DILU;
         tolerance        1e-25;
         relTol           1e-25;
-	maxIter		 5000;
+	maxIter		 2000;
     }
 
     cMinus
@@ -80,7 +101,7 @@ none
         preconditioner   DILU;
         tolerance        1e-25;
         relTol           1e-25;
-	maxIter		 5000;
+	maxIter		 2000;
     }
 
 /*
@@ -173,8 +194,8 @@ relaxationFactors
 
 SIMPLE
 {
-    nOuterIter 10;
-    nInnerIter 10;
+    nOuterIter 15;
+    nInnerIter 15;
 }
 /*
 solvers

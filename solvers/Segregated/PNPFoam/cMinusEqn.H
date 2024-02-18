@@ -24,5 +24,7 @@
   }
 
   cMinusResidual = cMinusEqn.solve().initialResidual();
+
+  Info << "calculate boundary condition" << nl << endl;
   cMinus.correctBoundaryConditions();
 }
