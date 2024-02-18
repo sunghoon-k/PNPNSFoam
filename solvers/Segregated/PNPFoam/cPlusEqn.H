@@ -4,8 +4,8 @@
   fvScalarMatrix cPlusEqn
   (
   //    fvm::ddt(cPlus)
-    - fvm::laplacian(DPlus, cPlus)
-    - fvm::div(mobilityPlus * phiE, cPlus)
+    - fvm::laplacian(DPlus * NA, cPlus)
+    - fvm::div(mobilityPlus * phiE * NA, cPlus)
     //- fvm::div(mobilityPlus * phiE, cPlus)
     //- fvc::laplacian(mobilityPlus * cPlus, psiE)
   );
@@ -23,6 +23,8 @@
   {
     cPlusEqn.relax();
   }
+
+  //cPlusEqn *= (NA).value();
 
   cPlusResidual = cPlusEqn.solve().initialResidual();
   cPlus.correctBoundaryConditions();

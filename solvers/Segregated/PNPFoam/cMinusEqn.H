@@ -4,8 +4,8 @@
   fvScalarMatrix cMinusEqn
   (
   //    fvm::ddt(cPlus)
-    - fvm::laplacian(DMinus, cMinus)
-    - fvm::div(mobilityMinus * phiE, cMinus)
+    - fvm::laplacian(DMinus*NA, cMinus)
+    - fvm::div(mobilityMinus*NA * phiE, cMinus)
 
     //- fvm::div(mobilityMinus * phiE, cMinus)
     //- fvc::laplacian(mobilityMinus * cMinus, psiE)
@@ -25,6 +25,7 @@
     cMinusEqn.relax();
   }
 
+  //cMinusEqn *= (NA).value();
   cMinusResidual = cMinusEqn.solve().initialResidual();
 
   //Info << "calculate boundary condition" << nl << endl;
