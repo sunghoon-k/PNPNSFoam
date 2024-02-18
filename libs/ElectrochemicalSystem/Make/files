@@ -1,0 +1,3 @@
+ElectrochemicalSystem.C
+
+LIB = $(FOAM_USER_LIBBIN)/libElectrochemicalSystem

@@ -1,0 +1,2 @@
+SOURCE = \
+fixedFlux/fixedFluxFvPatchScalarField.C

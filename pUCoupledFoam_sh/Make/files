@@ -1,0 +1,4 @@
+pUCoupledFoam_sh.C
+
+EXE = $(FOAM_USER_APPBIN)/pUCoupledFoam_sh
+
