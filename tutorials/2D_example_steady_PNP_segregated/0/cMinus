@@ -28,7 +28,11 @@ boundaryField
 	T		300;
 	value           uniform 1;
 
+
 /*
+	type		fixedValue;
+	value		uniform 1;
+
 	type            zeroIonicFlux;
 	zib		-1;        
 	T		300;

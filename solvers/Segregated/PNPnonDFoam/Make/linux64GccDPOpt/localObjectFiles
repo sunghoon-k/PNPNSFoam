@@ -1,0 +1,2 @@
+LOCAL_OBJECTS = \
+PNPnonDFoam_segregated.o
