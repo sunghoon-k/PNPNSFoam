@@ -1,3 +1,0 @@
-OBJECTS = \
-$(OBJECTS_DIR)/PNPNSFoam.o\
-$(OBJECTS_DIR)/ElectrochemicalSystem.o

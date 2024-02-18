@@ -1,3 +1,0 @@
-SOURCE = \
-PNPNSFoam.C\
-ElectrochemicalSystem.C
