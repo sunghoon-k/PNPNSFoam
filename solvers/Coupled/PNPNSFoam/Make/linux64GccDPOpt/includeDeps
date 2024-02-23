@@ -1,1 +1,1 @@
-include PNPNSFoam.dep
+include PNPNSnonDFoam.dep

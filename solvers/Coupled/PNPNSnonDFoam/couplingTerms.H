@@ -26,8 +26,8 @@
     /* Poisson Equation */
 
     // Add off-diagonal coupling terms
-    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp((e*zPlus)/(eps0*epsr), cPlus));
-    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp((e*zMinus)/(eps0*epsr), cMinus));
+    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::SuSp((e*zPlus)/(eps0*epsr), cPlus));
+    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::SuSp((e*zMinus)/(eps0*epsr), cMinus));
 
     PNPNSEqn.insertEquationCoupling(4, 5, Sp_fvScalarMatrix_cPlus); // 4: psiE <- 5: cPlus
     PNPNSEqn.insertEquationCoupling(4, 6, Sp_fvScalarMatrix_cMinus); // 4: psiE <- 6: cMinus

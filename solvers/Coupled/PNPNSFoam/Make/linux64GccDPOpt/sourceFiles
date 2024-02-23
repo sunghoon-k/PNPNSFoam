@@ -1,2 +1,2 @@
 SOURCE = \
-PNPNSFoam.C
+PNPNSnonDFoam.C

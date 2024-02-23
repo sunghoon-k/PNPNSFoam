@@ -33,7 +33,7 @@ Info << "Time-scale: " << t0.value() << endl;
 
  // Calculate potential-scale(Thermal voltage)
 // dimensionedScalar psiE0("psiE0",dimensionSet(1,2,-3,0,0,-1,0), (kB_const.value()*T_const.value())/(zPlus.value()*e_const.value()));
-dimensionedScalar psiE0("psiE0", (kB*T)/(zPlus*e));
+dimensionedScalar psiE0("psiE0", (kB*T)/(e));
 Info << "Potential-scale: " << psiE0.value() << endl;
 
  // Calculate IonicFluxDensity-scale

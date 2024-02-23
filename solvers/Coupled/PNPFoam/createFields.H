@@ -178,7 +178,7 @@
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        F*(zPlus*cPlus + zMinus*cMinus)
+        (1/NA)*F*(zPlus*cPlus + zMinus*cMinus)
     );
 
     Info << "Creating field PNP\n" << endl;

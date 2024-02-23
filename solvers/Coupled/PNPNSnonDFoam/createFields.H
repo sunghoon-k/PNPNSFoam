@@ -149,6 +149,7 @@
         -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
     );
 
+
     Info << "Reading field netCharge\n" << endl;
     volScalarField netCharge
     (
@@ -209,4 +210,18 @@
         ),
         mesh,
         dimensionedVector3("zero", dimless, vector3::zero)
+    );
+
+    Info << "Reading field bodyForce\n" << endl;
+    volVectorField bodyForce
+    (
+        IOobject
+        (
+            "bodyForce",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(psiE) * netCharge)
     );

@@ -1,2 +1,2 @@
 DEPENDENCIES = \
-PNPFoam.dep
+PNPnonDFoam.dep

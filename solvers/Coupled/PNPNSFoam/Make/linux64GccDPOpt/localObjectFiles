@@ -1,2 +1,2 @@
 LOCAL_OBJECTS = \
-PNPNSFoam.o
+PNPNSnonDFoam.o

@@ -1,3 +1,5 @@
+//    #include "NormalizedParameters.H"
+
     Info << "Reading field psiE\n" << endl;
     volScalarField psiE
     (
@@ -39,7 +41,6 @@
         ),
         mesh
     );
-
     Info << "Reading field p\n" << endl;
     volScalarField p
     (
@@ -68,19 +69,100 @@
         mesh
     );
 
-#   include "createPhi.H"
-// #   include "createPhiE.H"
+    #include "createPhi.H"
 
-/*
-    singlePhaseTransportModel laminarTransport(U, phi);
 
-    autoPtr<incompressible::RASModel> turbulence
+/**********************************************************************/
+    Info<< "Reading transportProperties\n" << endl;
+
+    IOdictionary transportProperties
     (
-        incompressible::RASModel::New(U, phi, laminarTransport)
+        IOobject
+        (
+            "transportProperties",
+            runTime.constant(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE
+        )
     );
-*/
-    // Block vector field for velocity (first entry) and pressure (second
-    // entry).
+
+    ElectrochemicalSystem ECsystem(mesh, transportProperties);
+    #include "NormalizedParameters.H"
+
+    word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
+
+
+    Info << "Reading field psiEGrad\n" << endl;
+    volVectorField psiEGrad
+    (
+        IOobject
+        (
+            "psiEGrad",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        fvc::grad(psiE)
+    );
+
+    Info << "Reading field phiE\n" << endl;
+    surfaceScalarField phiE
+    (
+        IOobject
+        (
+            "phiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        fvc::snGrad(psiE) * mesh.magSf()
+    );
+    
+    Info << "Reading field currentcPlus\n" << endl;
+    volVectorField currentcPlus
+    (
+        IOobject
+        (
+            "currentcPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(cPlus) * DPlus + mobilityPlus * psiEGrad * cPlus)
+    );
+    
+    Info << "Reading field currentcMinus\n" << endl;
+    volVectorField currentcMinus
+    (
+        IOobject
+        (
+            "currentcMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
+    );
+
+
+    Info << "Reading field netCharge\n" << endl;
+    volScalarField netCharge
+    (
+        IOobject
+        (
+            "netCharge",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        e*(zPlus*cPlus + zMinus*cMinus)
+    );
 
     Info << "Creating field PNPNS\n" << endl;
     volVector7Field PNPNS
@@ -115,85 +197,31 @@
     mesh.schemesDict().setFluxRequired(p.name());
     mesh.schemesDict().setFluxRequired("pcorr");
 
-
-/**********************************************************************/
-    Info<< "Reading transportProperties\n" << endl;
-
-    IOdictionary transportProperties
+    Info << "Creating field PNP\n" << endl;
+    volVector3Field PNP
     (
         IOobject
         (
-            "transportProperties",
-            runTime.constant(),
+            "PNP",
+            runTime.timeName(),
             mesh,
-            IOobject::MUST_READ,
+            IOobject::NO_READ,
             IOobject::NO_WRITE
-        )
+        ),
+        mesh,
+        dimensionedVector3("zero", dimless, vector3::zero)
     );
 
-    ElectrochemicalSystem ECsystem(mesh, transportProperties);
-
-/*
-    dimensionedScalar nu
+    Info << "Reading field bodyForce\n" << endl;
+    volVectorField bodyForce
     (
-        transportProperties.lookup("nu")
+        IOobject
+        (
+            "bodyForce",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(psiE) * netCharge)
     );
-
-    dimensionedScalar rho
-    (
-        transportProperties.lookup("rho")
-    );
-
-    dimensionedScalar zPlus
-    (
-        transportProperties.lookup("zPlus")
-    );
-
-    dimensionedScalar zMinus
-    (
-        transportProperties.lookup("zMinus")
-    );
-
-    dimensionedScalar DPlus
-    (
-        transportProperties.lookup("DPlus")
-    );
-
-    dimensionedScalar DMinus
-    (
-        transportProperties.lookup("DMinus")
-    );
-
-    dimensionedScalar epsilon0
-    (
-        transportProperties.lookup("epsilon0")
-    );
-
-    dimensionedScalar epsilonr
-    (
-        transportProperties.lookup("epsilonr")
-    );
-
-    dimensionedScalar F_const // Faraday's constant
-    (
-        transportProperties.lookup("F_const")
-    );
-
-    dimensionedScalar e_const // elementary charge
-    (
-        transportProperties.lookup("e_const")
-    );
-
-    dimensionedScalar k_const // Boltzmann's constant
-    (
-        transportProperties.lookup("k_const")
-    );
-
-    dimensionedScalar T_const // Boltzmann's constant
-    (
-        transportProperties.lookup("T_const")
-    );
-
-*/
-
-    word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));

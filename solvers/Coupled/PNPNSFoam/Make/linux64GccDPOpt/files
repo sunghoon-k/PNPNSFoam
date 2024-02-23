@@ -54,6 +54,6 @@
 
 # 2 "<command-line>" 2
 # 1 "files"
-PNPNSFoam.C
+PNPNSnonDFoam.C
 
-EXE = $(FOAM_USER_APPBIN)/PNPNSFoam
+EXE = $(FOAM_USER_APPBIN)/PNPNSnonDFoam
