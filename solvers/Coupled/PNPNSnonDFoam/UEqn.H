@@ -25,7 +25,7 @@
     rAU = 1.0/UEqn.A();
 
     // Under-relax momentum. Note this will destroy the H and A
-    UEqn.relax();
+    UEqn.relax(1.0);
 
     PNPNSEqn.insertEquation(0, UEqn);
 }

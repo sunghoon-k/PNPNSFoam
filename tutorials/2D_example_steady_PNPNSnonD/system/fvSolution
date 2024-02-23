@@ -1,0 +1,314 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+/*
+Valid asymmetric matrix preconditioners are :
+
+9
+(
+AMG
+DILU
+GAMG
+ILU0
+ILUC0
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+Valid symmetric matrix preconditioners are :
+
+10
+(
+AMG
+Cholesky
+DIC
+DILU
+FDIC
+GAMG
+ILUCp
+SymGaussSeidel
+diagonal
+none
+)
+
+
+BlockAMG
+Cholesky
+GaussSeidel
+ILUCp
+diagonal
+none
+
+*/
+
+    psiE
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+
+    cPlus
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+
+    cMinus
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-25;
+        relTol           1e-25;
+	maxIter		 2000;
+    }
+    PNPNS
+    {
+        solver BiCGStab;
+        preconditioner diagonal;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000;
+    }
+    PNP
+    {
+        solver BiCGStab;
+        preconditioner diagonal;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000;
+    }
+/*
+    psiE
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000;
+    }
+
+*/
+
+//     Up
+//     {
+//         solver          AMG;
+//         cycle           V-cycle;
+//         coarseningType  AAMG;
+//         norm            componentNorm;
+//         normComponent   0;
+
+//         nPreSweeps      4;
+//         nPostSweeps     4;
+//         groupSize       2;
+//         minCoarseEqns   4;
+//         nMaxLevels      10;
+//         scale           on;
+//         fineSmoother    ILU;
+//         coarseSmoother k ILU;
+
+//         minIter         0;
+//         maxIter         100;
+//         tolerance       1e-7;
+//         relTol          0.01;
+//     }
+
+    // Segregated
+    p
+    {
+        solver           CG;
+        preconditioner   DIC;
+        tolerance        1e-06;
+        relTol           0;
+    }
+    U
+    {
+        solver           BiCGStab;
+        preconditioner   DILU;
+        tolerance        1e-05;
+        relTol           0;
+    }
+}
+
+blockSolver
+{
+    convergence 1e-6;
+
+    pRefCell 0;
+    pRefValue 0;
+}
+
+fieldBounds
+{
+    U      15000;
+    p      -5e4 5e4;
+    cPlus   0;
+    cMinus  0;
+}
+
+relaxationFactors
+{
+    fields
+    {
+        psiE 1.0;
+        cPlus 1.0;
+        cMinus 1.0;
+    }
+
+    equations
+    {
+        psiEEqn 1.0;
+        cPlusEqn 1.0;
+        cMinusEqn 1.0;
+    }
+}
+
+SIMPLE
+{
+    nOuterIter 1;
+    nInnerIter 15;
+    nPNPIter 15;
+}
+/*
+solvers
+{
+    Up
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000; //5000;
+    }
+
+    p
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    pFinal
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    U
+    {
+        solver          BiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    blockPNP
+    {
+        solver          BiCGStab;//petsc;//
+        preconditioner  Cholesky;
+        
+        tolerance       1e-20;
+        relTol          1e-15;
+        
+        minIter         1;
+        maxIter         5000;
+		convergenceCriterion 1e-4;
+    }
+   PNPNS
+   {
+   	nNewtonIteration 5; 	// from controldic 
+	nNSPNPIteration  150;	// from controldic 
+	C1C2convergence  1e-3;	// from controldic 
+	PNPNStransient no;	// from controldic 
+	saveVtkFiles yes;     	// from controldic 
+   }
+}
+blockSolver
+{
+    convergence 1e-3;
+    pRefCell 0;
+    pRefValue 0;
+}
+
+convergenceCriterion 1e-4;
+PISO
+{
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+}
+
+fieldBounds
+{
+    U      15000;
+    p      -10e4 10e4;
+}
+
+relaxationFactors
+{
+    fields
+    {
+  //      p               0.3;
+    }
+
+    equations
+    {
+//        U               0.7;
+        k               0.7;
+        epsilon         0.7;
+        R               0.7;
+        nuTilda         0.7;
+    }
+}
+
+*/
+/*
+cache
+{
+    grad(U);
+    grad(p);
+    grad(k);
+    grad(omega);
+    grad(epsilon);
+}
+*/
+// ************************************************************************* //

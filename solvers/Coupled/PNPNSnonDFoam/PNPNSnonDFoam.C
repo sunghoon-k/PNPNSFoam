@@ -88,61 +88,35 @@ int main(int argc, char *argv[])
         {
             #include "readBlockSolverControls.H"
             #include "readFieldBounds.H"
-            #include "CourantNo.H"
+            // #include "CourantNo.H" // 얘는 delta time 수정용
             
             maxResidual = 10;
 
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
             scalar PNPIter = 0;
-            while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
+
+            Info<< "#############################################" << nl 
+            << "Get initial value from PNPEqn" << nl << endl;            
+            #include "PNPEqn.H"
+
+            if(solveTransient)
             {
-                p.storePrevIter();
-
-                fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
-                
-                netCharge = e*(zPlus*cPlus + zMinus*cMinus);
-
-                #include "UEqn.H"
-                #include "pEqn.H"
-                #include "psiEEqn.H"
-                #include "cEqn.H"
-                #include "couplingTerms.H"
-
-                maxResidual = cmptMax(PNPNSEqn.solve().initialResidual()); // residual = b - A*x_n
-                
-                // Retrieve solution
-                PNPNSEqn.retrieveSolution(0, U.internalField());
-                PNPNSEqn.retrieveSolution(3, p.internalField());
-                PNPNSEqn.retrieveSolution(4, psiE.internalField());
-                PNPNSEqn.retrieveSolution(5, cPlus.internalField());
-                PNPNSEqn.retrieveSolution(6, cMinus.internalField());
-
-                U.correctBoundaryConditions();
-                p.correctBoundaryConditions();
-                psiE.correctBoundaryConditions();
-                cPlus.correctBoundaryConditions();
-                cMinus.correctBoundaryConditions();
-
-                phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
+                while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
+                {
+                    #include "PNPNSEqn.H"
+                }
+            }
+            else // solve steady-state
+            {
+                while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
+                {
+                    #include "PNPNSEqn.H"
+                }
             }
             
             Info<< "maxResidual = " << maxResidual << nl
                 << endl;
-
-/*
-                // Segregated solver에서는 이 기준을 사용할 필요가 없다. 
-                // 왜냐? 이미 fvSolution 의 기준으로 이미 tolerance를 통과했기 때문
-                if (maxResidual < 1e-6 )
-                {
-                    reachedResidual = true;
-                    Info<< "\nConvergence reached\n" << endl;
-                    runTime.writeAndEnd();
-
-                    break;
-                }
-
-*/
             
             // turbulence->correct();
             runTime.write();

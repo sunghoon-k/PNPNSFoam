@@ -23,7 +23,7 @@ profilingInfo
         parentId        10;
         description     "Foam::Time::writeObject - outputTime";
         calls           3;
-        totalTime       0.09284;
+        totalTime       0.095816;
         childTime       0;
         onStack         1;
     }
@@ -33,8 +33,8 @@ profilingInfo
         parentId        1;
         description     "Foam::Time::writeObject";
         calls           3;
-        totalTime       0.093203;
-        childTime       0.09284;
+        totalTime       0.096205;
+        childTime       0.095816;
         onStack         1;
     }
 
@@ -42,8 +42,8 @@ profilingInfo
         id              1;
         description     "application::main";
         calls           1;
-        totalTime       0.886594;
-        childTime       0.78414;
+        totalTime       0.90428;
+        childTime       0.7963;
         onStack         1;
     }
 
@@ -62,7 +62,7 @@ profilingInfo
         parentId        1;
         description     "functionObjects_.execute()";
         calls           2;
-        totalTime       4e-06;
+        totalTime       5e-06;
         childTime       0;
         onStack         0;
     }
@@ -72,7 +72,7 @@ profilingInfo
         parentId        1;
         description     "functionObjects_.start()";
         calls           1;
-        totalTime       1e-05;
+        totalTime       1.3e-05;
         childTime       3e-06;
         onStack         0;
     }
@@ -82,8 +82,8 @@ profilingInfo
         parentId        1;
         description     "fvMatrix::solve_cMinus";
         calls           18;
-        totalTime       0.462256;
-        childTime       0.461273;
+        totalTime       0.468205;
+        childTime       0.467084;
         onStack         0;
     }
 
@@ -92,8 +92,8 @@ profilingInfo
         parentId        1;
         description     "fvMatrix::solve_cPlus";
         calls           32;
-        totalTime       0.165345;
-        childTime       0.163844;
+        totalTime       0.168174;
+        childTime       0.166632;
         onStack         0;
     }
 
@@ -102,8 +102,8 @@ profilingInfo
         parentId        1;
         description     "fvMatrix::solve_psiE";
         calls           4;
-        totalTime       0.063322;
-        childTime       0.06315;
+        totalTime       0.063698;
+        childTime       0.06349;
         onStack         0;
     }
 
@@ -112,7 +112,7 @@ profilingInfo
         parentId        6;
         description     "lduMatrix::solver_cMinus";
         calls           18;
-        totalTime       0.461273;
+        totalTime       0.467084;
         childTime       0;
         onStack         0;
     }
@@ -122,7 +122,7 @@ profilingInfo
         parentId        4;
         description     "lduMatrix::solver_cPlus";
         calls           32;
-        totalTime       0.163844;
+        totalTime       0.166632;
         childTime       0;
         onStack         0;
     }
@@ -132,7 +132,7 @@ profilingInfo
         parentId        8;
         description     "lduMatrix::solver_psiE";
         calls           4;
-        totalTime       0.06315;
+        totalTime       0.06349;
         childTime       0;
         onStack         0;
     }

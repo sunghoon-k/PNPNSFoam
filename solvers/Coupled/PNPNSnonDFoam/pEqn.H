@@ -6,8 +6,8 @@ surfaceScalarField presSource
     (
       (
         fvc::interpolate(fvc::grad(p)) 
-      + 
-        fvc::interpolate(netCharge) * fvc::interpolate(fvc::grad(psiE))
+      //+ 
+      //  fvc::interpolate(netCharge) * fvc::interpolate(fvc::grad(psiE))
       )& mesh.Sf()
     )
 );

@@ -92,8 +92,6 @@
 
     word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
 
-    dimensionedScalar mobilityPlus((e*DPlus*zPlus)/(kB*T));
-    dimensionedScalar mobilityMinus((e*DMinus*zMinus)/(kB*T));
 
     Info << "Reading field psiEGrad\n" << endl;
     volVectorField psiEGrad
@@ -197,3 +195,18 @@
 
     mesh.schemesDict().setFluxRequired(p.name());
     mesh.schemesDict().setFluxRequired("pcorr");
+
+    Info << "Creating field PNP\n" << endl;
+    volVector3Field PNP
+    (
+        IOobject
+        (
+            "PNP",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedVector3("zero", dimless, vector3::zero)
+    );
