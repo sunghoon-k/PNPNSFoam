@@ -1,2 +1,2 @@
 SOURCE = \
-PNPFoam_segregated.C
+PNPnonDFoam_segregated.C

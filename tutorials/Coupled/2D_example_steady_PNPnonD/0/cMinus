@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 -3 0 0 0 0 0 ];
+dimensions      [ 0 0 0 0 0 0 0 ];
 
 internalField   uniform 1;
 
@@ -23,9 +23,9 @@ boundaryField
 {
     bottom
     {
-	type            zeroIonicFlux;
+	type            zeroIonicFlux_nonD;
 	zib		-1;        
-	T		300;
+//	T		300;
 	value           uniform 1;
 
 

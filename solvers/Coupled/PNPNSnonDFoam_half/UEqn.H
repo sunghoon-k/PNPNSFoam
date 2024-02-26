@@ -7,19 +7,21 @@
         fvc::div(phi)
     );
 
+    dimensionedScalar ElectricBodyForce_one("ElectricBodyForce_one", (F*c0*psiE0/rho).dimensions(), 1.0);
+    dimensionedScalar nu_one("nu_one", nu.dimensions(), 1.0);
     // Momentum equation
     fvVectorMatrix UEqn
     (
 //        fvm::ddt(U)
-        fvm::div(phi, U)
+        Re * fvm::div(phi, U)
       ==
-        fvm::laplacian(nu, U)
-      - (netCharge/rho) * fvc::grad(psiE)
+        fvm::laplacian(nu_one, U)
+      - ElectricBodyForce_one * (netCharge/sqr(DebL_nonD)) * fvc::grad(psiE)
     );
 
     if(solveTransient)
     {
-        UEqn += fvm::ddt(U);
+        UEqn += (Re/Pe)*fvm::ddt(U);
     }
 
     rAU = 1.0/UEqn.A();

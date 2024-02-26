@@ -6,7 +6,7 @@ p.storePrevIter();
 
 fvBlockMatrix<vector4> NSEqn(NS);
 
-netCharge = e*(zPlus*cPlus + zMinus*cMinus);
+netCharge = (zPlus*cPlus + zMinus*cMinus);
 
 #include "UEqn.H"
 #include "pEqn.H"

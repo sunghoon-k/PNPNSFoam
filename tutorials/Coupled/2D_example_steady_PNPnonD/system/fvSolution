@@ -59,39 +59,13 @@ none
 
 */
 
-    psiE
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
-
-    cPlus
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
-
-    cMinus
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
     PNP
     {
         solver BiCGStab;
-        preconditioner diagonal;
+        preconditioner none;
 
-        tolerance 1e-15;
-        relTol  1e-15;
+        tolerance 1e-20;
+        relTol  1e-20;
 
         minIter 1;
         maxIter 5000;

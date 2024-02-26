@@ -54,6 +54,6 @@
 
 # 2 "<command-line>" 2
 # 1 "files"
-PNPFoam_segregated.C
+PNPnonDFoam_segregated.C
 
-EXE = $(FOAM_USER_APPBIN)/PNPFoam_segregated
+EXE = $(FOAM_USER_APPBIN)/PNPnonDFoam_segregated

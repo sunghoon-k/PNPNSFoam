@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
                 scalarField& psiEb = psiE.boundaryField()[patchI];
                 forAll(psiEb, faceI)
                 {
-                    psiEb[faceI] = phiInstant_ * psiE0.value(); // psiE0: thermal voltage
+                    psiEb[faceI] = phiInstant_; //  * psiE0.value(); // psiE0: thermal voltage
                 }
             }
         }
@@ -87,14 +87,19 @@ int main(int argc, char *argv[])
         while (runTime.loop())
         {
             #include "readBlockSolverControls.H"
+            #include "readFieldBounds.H"
+
             maxResidual = 10;
 
             reachedResidual = false;
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
-            scalar PNPIter = 0;
-            while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
+            // scalar PNPIter = 0;
+            // while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // 
+            for(int PNPIter = 0; PNPIter < nPNPIter; PNPIter++)
             {
+                bool bounded = false;
+
                 fvBlockMatrix<vector3> PNPEqn(PNP);
 
                 #include "psiEEqn.H"
@@ -111,6 +116,8 @@ int main(int argc, char *argv[])
                 psiE.correctBoundaryConditions();
                 cPlus.correctBoundaryConditions();
                 cMinus.correctBoundaryConditions();
+
+                #include "boundC.H"
             }
             
             Info<< "maxResidual = " << maxResidual << nl

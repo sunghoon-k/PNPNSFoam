@@ -1,1 +1,1 @@
-include PNPnonDFoam.dep
+include PNPFoam.dep

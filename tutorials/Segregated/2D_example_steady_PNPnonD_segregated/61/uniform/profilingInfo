@@ -1,0 +1,152 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       regIOobject;
+    location    "61/uniform";
+    object      profilingInfo;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+profilingInfo
+(
+
+    {
+        id              11;
+        parentId        10;
+        description     "Foam::Time::writeObject - outputTime";
+        calls           61;
+        totalTime       2.16472;
+        childTime       0;
+        onStack         1;
+    }
+
+    {
+        id              10;
+        parentId        1;
+        description     "Foam::Time::writeObject";
+        calls           61;
+        totalTime       2.16515;
+        childTime       2.16472;
+        onStack         1;
+    }
+
+    {
+        id              1;
+        description     "application::main";
+        calls           1;
+        totalTime       9.3692;
+        childTime       9.01469;
+        onStack         1;
+    }
+
+    {
+        id              3;
+        parentId        2;
+        description     "functionObjectList::read";
+        calls           1;
+        totalTime       4e-06;
+        childTime       0;
+        onStack         0;
+    }
+
+    {
+        id              13;
+        parentId        1;
+        description     "functionObjects_.end()";
+        calls           6;
+        totalTime       1.1e-05;
+        childTime       0;
+        onStack         0;
+    }
+
+    {
+        id              12;
+        parentId        1;
+        description     "functionObjects_.execute()";
+        calls           60;
+        totalTime       9e-05;
+        childTime       0;
+        onStack         0;
+    }
+
+    {
+        id              2;
+        parentId        1;
+        description     "functionObjects_.start()";
+        calls           1;
+        totalTime       1.4e-05;
+        childTime       4e-06;
+        onStack         0;
+    }
+
+    {
+        id              6;
+        parentId        1;
+        description     "fvMatrix::solve_cMinus";
+        calls           145;
+        totalTime       3.92052;
+        childTime       3.91334;
+        onStack         0;
+    }
+
+    {
+        id              4;
+        parentId        1;
+        description     "fvMatrix::solve_cPlus";
+        calls           93;
+        totalTime       1.94793;
+        childTime       1.94314;
+        onStack         0;
+    }
+
+    {
+        id              8;
+        parentId        1;
+        description     "fvMatrix::solve_psiE";
+        calls           68;
+        totalTime       0.98098;
+        childTime       0.978162;
+        onStack         0;
+    }
+
+    {
+        id              7;
+        parentId        6;
+        description     "lduMatrix::solver_cMinus";
+        calls           145;
+        totalTime       3.91334;
+        childTime       0;
+        onStack         0;
+    }
+
+    {
+        id              5;
+        parentId        4;
+        description     "lduMatrix::solver_cPlus";
+        calls           93;
+        totalTime       1.94314;
+        childTime       0;
+        onStack         0;
+    }
+
+    {
+        id              9;
+        parentId        8;
+        description     "lduMatrix::solver_psiE";
+        calls           68;
+        totalTime       0.978162;
+        childTime       0;
+        onStack         0;
+    }
+);
+
+
+// ************************************************************************* //

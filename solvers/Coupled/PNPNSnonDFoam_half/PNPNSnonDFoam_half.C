@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
                 scalarField& psiEb = psiE.boundaryField()[patchI];
                 forAll(psiEb, faceI)
                 {
-                    psiEb[faceI] = phiInstant_ * psiE0.value(); // psiE0: thermal voltage
+                    psiEb[faceI] = phiInstant_; // psiE0: thermal voltage
                 }
             }
         }

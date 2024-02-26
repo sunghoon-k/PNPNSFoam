@@ -1,0 +1,7 @@
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I../../ElectrochemicalSystem/lnInclude
+ 
+LIB_LIBS = \
+    -lfiniteVolume \
+    -L$(FOAM_USER_LIBBIN) -lElectrochemicalSystem

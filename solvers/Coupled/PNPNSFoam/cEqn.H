@@ -3,6 +3,7 @@
 
   fvScalarMatrix cPlusEqn
   (
+      fvm::div(phi, cPlus)
     - fvm::laplacian(DPlus, cPlus)
     - fvm::div(mobilityPlus * phiE, cPlus)
     //- fvm::div(mobilityPlus * phiE, cPlus)
@@ -11,6 +12,7 @@
 
   fvScalarMatrix cMinusEqn
   (
+      fvm::div(phi, cMinus)
     - fvm::laplacian(DMinus, cMinus)
     - fvm::div(mobilityMinus * phiE, cMinus)
     //- fvm::div(mobilityMinus * phiE, cMinus)

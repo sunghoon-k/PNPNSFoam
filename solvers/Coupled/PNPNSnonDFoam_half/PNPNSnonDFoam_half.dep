@@ -739,6 +739,7 @@ PNPNSnonDFoam_half.dep: initConvergenceCheck.H
 PNPNSnonDFoam_half.dep: readBlockSolverControls.H
 PNPNSnonDFoam_half.dep: readFieldBounds.H
 PNPNSnonDFoam_half.dep: PNPEqn.H
+PNPNSnonDFoam_half.dep: boundC.H
 PNPNSnonDFoam_half.dep: NSEqn.H
 PNPNSnonDFoam_half.dep: UEqn.H
 PNPNSnonDFoam_half.dep: pEqn.H

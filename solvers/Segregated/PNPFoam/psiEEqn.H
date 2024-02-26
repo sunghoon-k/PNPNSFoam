@@ -1,4 +1,5 @@
-netCharge = F*(zPlus*cPlus + zMinus*cMinus);
+netCharge = e*(zPlus*cPlus + zMinus*cMinus);
+Info << netCharge.dimensions() << endl;
 fvScalarMatrix psiEEqn
 (
     fvm::laplacian(psiE)

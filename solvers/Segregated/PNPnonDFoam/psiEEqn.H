@@ -1,10 +1,11 @@
-netCharge = e*(zPlus*cPlus + zMinus*cMinus);
-Info << netCharge.dimensions() << endl;
+netCharge = (zPlus*cPlus + zMinus*cMinus);
+// Info << netCharge.dimensions() << endl;
+
 fvScalarMatrix psiEEqn
 (
     fvm::laplacian(psiE)
     ==
-    - netCharge/(eps0*epsr)
+    - netCharge/sqr(DebL_nonD * l0_one)
 );
 if (currentIter != nOuterIter -1)
 {

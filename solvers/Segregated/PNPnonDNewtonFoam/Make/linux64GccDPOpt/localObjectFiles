@@ -1,0 +1,2 @@
+LOCAL_OBJECTS = \
+PNPnonDNewtonFoam_segregated.o

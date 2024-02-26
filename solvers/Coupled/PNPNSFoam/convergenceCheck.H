@@ -1,5 +1,5 @@
 // Check convergence
-if ((maxResidual < convergenceCriterion) && (sumLocalContErr < convergenceCriterion))
+if ((maxResidual < convergenceCriterion) && (sumLocalContErr < convergenceCriterion) && !bounded)
 {
     Info<< "reached convergence criterion: " << convergenceCriterion << endl;
 //    runTime.writeAndEnd();

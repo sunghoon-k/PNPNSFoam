@@ -5,6 +5,7 @@ Info << "****************************************************************" << en
 // Calculate average-diffusivity
 
 dimensionedScalar l0(ECsystem.l0);
+dimensionedScalar l0_one("l0_one", l0.dimensions(), 1.0);
 dimensionedScalar c0(ECsystem.c0);
 dimensionedScalar T(ECsystem.T);
 dimensionedScalar e(ElectrochemicalSystem::e);
@@ -24,52 +25,58 @@ dimensionedScalar zMinus(ECsystem.zMinus);
 dimensionedScalar DMinus(ECsystem.DMinus);
 // dimensionedScalar D0("D0",dimensionSet(0,2,-1,0,0,0,0), (D1.value() + D2.value())/2);
 dimensionedScalar D0("D0", (DPlus + DMinus)/2);
-Info << "Average-diffusivity: " << D0.value() << endl;
+//Info << "Average-diffusivity: " << D0.value() << endl;
+Info << "Average-diffusivity's value: " << D0.value() << " " << D0.dimensions()<< endl;
 
  // Calculate time-scale
 // dimensionedScalar t0("t0",dimensionSet(0,0,1,0,0,0,0), sqr(l0.value())/D0.value());
 dimensionedScalar t0("t0", sqr(l0)/D0);
-Info << "Time-scale: " << t0.value() << endl;
+// Info << "Time-scale: " << t0.value() << endl;
+Info << "Time-scale's value: " << t0.value() << " " << t0.dimensions()<< endl;
+dimensionedScalar t0_one("t0_one", t0.dimensions(), 1.0);
 
  // Calculate potential-scale(Thermal voltage)
 // dimensionedScalar psiE0("psiE0",dimensionSet(1,2,-3,0,0,-1,0), (kB_const.value()*T_const.value())/(zPlus.value()*e_const.value()));
 dimensionedScalar psiE0("psiE0", (kB*T)/(e));
-Info << "Potential-scale: " << psiE0.value() << endl;
+// Info << "Potential-scale: " << psiE0.value() << endl;
+Info << "Potential-scale's value: " << psiE0.value() << " " << psiE0.dimensions()<< endl;
 
  // Calculate IonicFluxDensity-scale
 // dimensionedScalar IFD0("IFD0",dimensionSet(0,-3,0,0,1,0,0), D0.value()*C0.value()/l0.value());
 // Info << "IonicFluxDensity-scale: " << IFD0.value() << endl;
 
  // Calculate velocity-scale
-dimensionedScalar U0("U0", epsr*eps0*sqr(psiE0)/(nu*l0));
-Info << "Velocity-scale: " << U0.value() << endl;
+dimensionedScalar U0("U0", epsr*eps0*sqr(psiE0)/(mu*l0));
+// Info << "Velocity-scale: " << U0.value() << endl;
+Info << "Velocity-scale's value: " << U0.value() << " " << U0.dimensions()<< endl;
 
  // Calculate pressure-scale
 dimensionedScalar p0("p0", nu*U0/l0);
-Info << "pressure-scale: " << p0.value() << endl;
+// Info << "pressure-scale: " << p0.value() << endl;
+Info << "pressure-scale's value: " << p0.value() << " " << p0.dimensions()<< endl;
 
  // Calculate surfacecharge-scale
-dimensionedScalar SC("SC", e*c0*l0*NA);
-Info << "surfacecharge-scale: " << SC.value() << endl;
+// dimensionedScalar SC("SC", e*c0*l0*NA);
+// Info << "surfacecharge-scale: " << SC.value() << endl;
 
  // Calculate Debye-Length
-dimensionedScalar DebL("DebL", Foam::sqrt(epsr*eps0*kB*T/(2*c0*sqr(e))));
-Info << "Debye-Length: " << DebL.value() << endl;
+dimensionedScalar DebL("DebL", Foam::sqrt(epsr*eps0*kB*T/(2*c0*NA*sqr(e))));
+Info << "Debye-Length's value: " << DebL.value() << " " << DebL.dimensions()<< endl;
 
  // Calculate dimensionless diffusion coefficients
-dimensionedScalar DimlDPlus("DimlDPlus", DPlus/D0);
+dimensionedScalar DPlus_nonD("DPlus_nonD", (DPlus/D0).value());
+// scalar DPlus_nonD = (DPlus/D0).value();
+Info << "Dimensionless diffusion coefficient DPlus_nonD: " << DPlus_nonD.value() << endl;
 
-Info << "Dimensionless diffusion coefficient DimlessDPlus: " << DimlDPlus.value() << endl;
-
-dimensionedScalar DimlDMinus("DimlDMinus", DMinus/D0);
-
-Info << "Dimensionless diffusion coefficient DimlessDMinus: " << DimlDMinus.value() << endl;
+dimensionedScalar DMinus_nonD("DMinus_nonD", (DMinus/D0).value());
+// scalar DMinus_nonD = (DMinus/D0).value();
+Info << "Dimensionless diffusion coefficient DMinus_nonD: " << DMinus_nonD.value() << endl;
 
  // Calculate dimensionless Debye-Length
-scalar Epsilon = (DebL/l0).value();
-scalar Epsilon2 = sqr(Epsilon);
-Info << "Dimensionless Debye-Length: " << Epsilon << endl;
-Info << "Epsilon2: " << Epsilon2 << endl;
+scalar DebL_nonD = (DebL/l0).value();
+// scalar Epsilon2 = sqr(Epsilon);
+Info << "Dimensionless Debye-Length: " << DebL_nonD << endl;
+// Info << "Epsilon2: " << Epsilon2 << endl;
 
  // Calculate Schmidt Number
 scalar Sc = (nu/D0).value();

@@ -132,7 +132,7 @@
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        -( fvc::grad(cPlus) * DPlus + mobilityPlus * psiEGrad * cPlus)
+        - DPlus_nonD * ( fvc::grad(cPlus) + psiEGrad * cPlus )
     );
     
     Info << "Reading field currentcMinus\n" << endl;
@@ -146,7 +146,7 @@
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
+        - DMinus_nonD * ( fvc::grad(cMinus) + psiEGrad * cMinus )
     );
 
     Info << "Reading field netCharge\n" << endl;
@@ -160,7 +160,7 @@
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        e*(zPlus*cPlus + zMinus*cMinus)
+        (zPlus*cPlus + zMinus*cMinus)
     );
 
     Info << "Creating field NS\n" << endl;

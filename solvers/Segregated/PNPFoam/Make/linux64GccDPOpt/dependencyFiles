@@ -1,2 +1,2 @@
 DEPENDENCIES = \
-PNPFoam_segregated.dep
+PNPnonDFoam_segregated.dep

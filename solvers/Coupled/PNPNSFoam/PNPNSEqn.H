@@ -28,7 +28,7 @@ cMinus.correctBoundaryConditions();
 phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
 
 #include "continuityErrs.H"
-#include "boundPU.H"
+#include "boundC.H"
 
 p.relax();
 

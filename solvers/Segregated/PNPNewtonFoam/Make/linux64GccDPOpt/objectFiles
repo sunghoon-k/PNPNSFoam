@@ -1,0 +1,2 @@
+OBJECTS = \
+$(OBJECTS_DIR)/PNPNewtonFoam_segregated.o

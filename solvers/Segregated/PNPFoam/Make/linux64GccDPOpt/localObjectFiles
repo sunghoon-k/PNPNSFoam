@@ -1,2 +1,2 @@
 LOCAL_OBJECTS = \
-PNPFoam_segregated.o
+PNPnonDFoam_segregated.o

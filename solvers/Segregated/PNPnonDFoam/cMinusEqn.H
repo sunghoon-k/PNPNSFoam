@@ -4,8 +4,8 @@
   fvScalarMatrix cMinusEqn
   (
   //    fvm::ddt(cPlus)
-    - fvm::laplacian(DMinus, cMinus)
-    - fvm::div(mobilityMinus * phiE, cMinus)
+    - fvm::laplacian(DMinus_nonD, cMinus)
+    - fvm::div(DMinus_nonD * phiE, cMinus)
 
     //- fvm::div(mobilityMinus * phiE, cMinus)
     //- fvc::laplacian(mobilityMinus * cMinus, psiE)
@@ -13,7 +13,7 @@
 
   if(solveTransient)
   {
-    cMinusEqn += fvm::ddt(cMinus);
+    cMinusEqn += (t0_one/sqr(l0_one)) * fvm::ddt(cMinus);
   }
 
   if (currentIter == nOuterIter -1)

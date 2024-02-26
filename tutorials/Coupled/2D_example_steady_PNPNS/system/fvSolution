@@ -88,13 +88,13 @@ none
     PNPNS
     {
         solver BiCGStab;
-        preconditioner diagonal;
+        preconditioner Cholesky;
 
         tolerance 1e-15;
         relTol  1e-15;
 
         minIter 1;
-        maxIter 50;
+        maxIter 2000;
     }
     PNP
     {

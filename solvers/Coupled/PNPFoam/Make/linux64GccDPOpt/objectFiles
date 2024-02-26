@@ -1,2 +1,2 @@
 OBJECTS = \
-$(OBJECTS_DIR)/PNPnonDFoam.o
+$(OBJECTS_DIR)/PNPFoam.o
