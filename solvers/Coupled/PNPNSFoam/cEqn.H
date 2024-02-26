@@ -1,11 +1,14 @@
 {
   phiE = fvc::snGrad(psiE) * mesh.magSf();
 
+  mobilityPlusphiE = mobilityPlus * phiE;
+  mobilityMinusphiE = mobilityMinus * phiE;
+
   fvScalarMatrix cPlusEqn
   (
       fvm::div(phi, cPlus)
     - fvm::laplacian(DPlus, cPlus)
-    - fvm::div(mobilityPlus * phiE, cPlus)
+    - fvm::div(mobilityPlusphiE, cPlus)
     //- fvm::div(mobilityPlus * phiE, cPlus)
     //- fvc::laplacian(mobilityPlus * cPlus, psiE)
   );
@@ -14,7 +17,7 @@
   (
       fvm::div(phi, cMinus)
     - fvm::laplacian(DMinus, cMinus)
-    - fvm::div(mobilityMinus * phiE, cMinus)
+    - fvm::div(mobilityMinusphiE, cMinus)
     //- fvm::div(mobilityMinus * phiE, cMinus)
     //- fvc::laplacian(mobilityMinus * cMinus, psiE)
   );

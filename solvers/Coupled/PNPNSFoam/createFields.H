@@ -120,7 +120,35 @@
         ),
         fvc::snGrad(psiE) * mesh.magSf()
     );
-    
+
+    Info << "Reading field mobilityPlusphiE\n" << endl;
+    surfaceScalarField mobilityPlusphiE
+    (
+        IOobject
+        (
+            "mobilityPlusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mobilityPlus * phiE
+    );
+
+    Info << "Reading field mobilityMinusphiE\n" << endl;
+    surfaceScalarField mobilityMinusphiE
+    (
+        IOobject
+        (
+            "mobilityMinusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mobilityMinus * phiE
+    );
+
     Info << "Reading field currentcPlus\n" << endl;
     volVectorField currentcPlus
     (

@@ -41,23 +41,45 @@
         ),
         mesh
     );
-/*
-    Info << "Reading field netCharge\n" << endl;
-    volScalarField netCharge
+
+    volScalarField psiE_old
     (
         IOobject
         (
-            "netCharge",
+            "psiE_old",
             runTime.timeName(),
             mesh,
-            IOobject::READ_IF_PRESENT,
-            IOobject::NO_WRITE
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
         ),
-        F*(zPlus*cPlus + zMinus*zMinus)
+        psiE
     );
 
-*/
+    volScalarField cPlus_old
+    (
+        IOobject
+        (
+            "cPlus_old",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        cPlus
+    );
 
+    volScalarField cMinus_old
+    (
+        IOobject
+        (
+            "cMinus_old",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        cMinus
+    );
 
 /**********************************************************************/
     Info<< "Reading transportProperties\n" << endl;
@@ -122,7 +144,7 @@
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        -( DPlus_nonD * fvc::grad(cPlus) + DPlus_nonD * psiEGrad * cPlus)
+        -( DPlus * fvc::grad(cPlus) + DPlus/psiE0 * psiEGrad * cPlus)
     );
     
     Info << "Reading field currentcMinus\n" << endl;
@@ -136,7 +158,7 @@
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        -( DMinus_nonD * fvc::grad(cMinus) + DMinus_nonD * psiEGrad * cMinus)
+        -( DMinus * fvc::grad(cMinus) + DMinus/psiE0 * psiEGrad * cMinus)
     );
 
     Info << "Reading field netCharge\n" << endl;
@@ -150,5 +172,5 @@
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        (zPlus*cPlus + zMinus*cMinus)
+        e*(zPlus*cPlus + zMinus*cMinus)
     );

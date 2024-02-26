@@ -110,33 +110,34 @@
         fvc::snGrad(psiE) * mesh.magSf()
     );
 
-    Info << "Reading field phicPlus\n" << endl;
-    surfaceScalarField phicPlus
+    Info << "Reading field DPlusphiE\n" << endl;
+    surfaceScalarField DPlusphiE
     (
         IOobject
         (
-            "phicPlus",
+            "DPlusphiE",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        fvc::snGrad(cPlus) * mesh.magSf()
+        DPlus_nonD * zPlus * phiE
+    );    
+
+    Info << "Reading field DMinusphiE\n" << endl;
+    surfaceScalarField DMinusphiE
+    (
+        IOobject
+        (
+            "DMinusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD * zMinus * phiE
     );    
     
-    Info << "Reading field phicMinus\n" << endl;
-    surfaceScalarField phicMinus
-    (
-        IOobject
-        (
-            "phicMinus",
-            runTime.timeName(),
-            mesh,
-            IOobject::NO_READ,
-            IOobject::NO_WRITE
-        ),
-        fvc::snGrad(cMinus) * mesh.magSf()
-    );
 /*
     Info << "Reading field phiMobility\n" << endl;
     surfaceScalarField phiMobilityPlus

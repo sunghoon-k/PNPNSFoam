@@ -62,7 +62,7 @@ none
     PNP
     {
         solver BiCGStab;
-        preconditioner none;
+        preconditioner diagonal;
 
         tolerance 1e-20;
         relTol  1e-20;

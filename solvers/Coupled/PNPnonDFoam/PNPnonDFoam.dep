@@ -740,6 +740,7 @@ PNPnonDFoam.dep: psiEEqn.H
 PNPnonDFoam.dep: cEqn.H
 PNPnonDFoam.dep: couplingTerms.H
 PNPnonDFoam.dep: boundC.H
+PNPnonDFoam.dep: convergenceCheck.H
 $(OBJECTS_DIR)/PNPnonDFoam.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPnonDFoam.o:
 	@SOURCE_DIR=.

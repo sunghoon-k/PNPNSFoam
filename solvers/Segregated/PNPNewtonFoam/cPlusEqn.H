@@ -1,21 +1,19 @@
 {
-  phiE = fvc::snGrad(psiE) * mesh.magSf();
-
-  surfaceScalarField J1 = -DPlus * (fvc::snGrad(cPlus) + (zPlus/psiE0) * fvc::interpolate(cPlus) * fvc::snGrad(psiE)) * mesh.magSf();
+  // surfaceScalarField jcPlus = -DPlus * (fvc::snGrad(cPlus_old) + (zPlus/psiE0) * fvc::interpolate(cPlus_old) * fvc::snGrad(psiE_old));
   fvScalarMatrix cPlusEqn
   (
   //    fvm::ddt(cPlus)
     - fvm::laplacian(DPlus, cPlus)
-    //- fvm::div(DPlus_nonD * phiE, cPlus)
+    - fvm::div((DPlus/psiE0) * phiE_old, cPlus)
     //- fvm::div(mobilityPlus * phiE, cPlus)
-    - fvc::laplacian((DPlus/psiE0) * cPlus, psiE)
+    // - fvc::laplacian((DPlus/psiE0) * cPlus, psiE)
     ==
-    - fvc::surfaceIntegrate(J1)
+    - ( - fvc::laplacian(DPlus, cPlus_old) - fvc::div((DPlus/psiE0) * phiE_old, cPlus_old) )
   );
 
   if(solveTransient)
   {
-    cPlusEqn += fvm::ddt(cPlus);
+    cPlusEqn += fvm::ddt(cPlus) + fvc::ddt(cPlus_old);
   }
 
   if (currentIter == nOuterIter -1)
@@ -28,6 +26,7 @@
   }
 
   cPlusResidual = cPlusEqn.solve().initialResidual();
+  cPlus += cPlus_old;
   cPlus.correctBoundaryConditions();
-
+  cPlus_old = cPlus;
 }

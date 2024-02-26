@@ -73,9 +73,11 @@ dimensionedScalar DMinus_nonD("DMinus_nonD", (DMinus/D0).value());
 Info << "Dimensionless diffusion coefficient DMinus_nonD: " << DMinus_nonD.value() << endl;
 
  // Calculate dimensionless Debye-Length
-scalar DebL_nonD = (DebL/l0).value();
+//scalar DebL_nonD = (DebL/l0).value();
+dimensionedScalar DebL_nonD("DebL_nonD", DebL/l0);
+
 // scalar Epsilon2 = sqr(Epsilon);
-Info << "Dimensionless Debye-Length: " << DebL_nonD << endl;
+Info << "Dimensionless Debye-Length: " << DebL_nonD.value() << endl;
 // Info << "Epsilon2: " << Epsilon2 << endl;
 
  // Calculate Schmidt Number

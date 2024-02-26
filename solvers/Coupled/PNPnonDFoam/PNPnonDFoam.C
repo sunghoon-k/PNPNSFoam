@@ -98,6 +98,15 @@ int main(int argc, char *argv[])
             // while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // 
             for(int PNPIter = 0; PNPIter < nPNPIter; PNPIter++)
             {
+                if(solveTransient)
+                {
+                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
+                }
+                else
+                {
+                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
+                }
+
                 bool bounded = false;
 
                 fvBlockMatrix<vector3> PNPEqn(PNP);
@@ -118,6 +127,7 @@ int main(int argc, char *argv[])
                 cMinus.correctBoundaryConditions();
 
                 #include "boundC.H"
+                #include "convergenceCheck.H"
             }
             
             Info<< "maxResidual = " << maxResidual << nl

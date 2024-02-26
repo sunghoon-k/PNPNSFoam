@@ -18,7 +18,7 @@ application     PNPNSFoam;
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
-endTime         10; // 1;
+endTime         1; // 1;
 deltaT          1;
 writeControl    timeStep;
 writeInterval   1;
@@ -30,8 +30,7 @@ timeFormat      general;
 timePrecision   6;
 runTimeModifiable true;
 libs ("libzeroIonicFlux_nonD.so" "libslipEOF.so" "libElectrochemicalSystem.so" "electrokinBC.so");
-nInIter 15; //15;
-nNSPNPIteration  100;
+
 PNPNStransient no;
 
 /*

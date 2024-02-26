@@ -733,9 +733,9 @@ PNPNewtonFoam_segregated.dep: $(WM_PROJECT_DIR)/src/foam/lnInclude/createMesh.H
 PNPNewtonFoam_segregated.dep: createFields.H
 PNPNewtonFoam_segregated.dep: NormalizedParameters.H
 PNPNewtonFoam_segregated.dep: createControls.H
+PNPNewtonFoam_segregated.dep: psiEEqn.H
 PNPNewtonFoam_segregated.dep: cPlusEqn.H
 PNPNewtonFoam_segregated.dep: cMinusEqn.H
-PNPNewtonFoam_segregated.dep: psiEEqn.H
 $(OBJECTS_DIR)/PNPNewtonFoam_segregated.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPNewtonFoam_segregated.o:
 	@SOURCE_DIR=.

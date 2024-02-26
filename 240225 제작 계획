@@ -1,4 +1,5 @@
 PNPNewtonFoam 을 만들어야 한다. 
+현재 문제점: PNPnonDFoam 이 작동 안한다...
 
 일단 segregated solver 에서 PNPNewtonFoam을 만들고, PNPnonDNewtonFoam 을 만든다. 
 차례대로 coupled solver 에서 PNPNewtonFoam을 만들고, PNPnonDNewtonFoam 을 만든다.

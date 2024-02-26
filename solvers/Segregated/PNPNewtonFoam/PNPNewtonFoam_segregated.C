@@ -96,13 +96,20 @@ int main(int argc, char *argv[])
 
             for(int OuterIter = 0; OuterIter < nOuterIter; OuterIter++)
             {
+                psiE_old = psiE;
+                // phiE = fvc::snGrad(psiE) * mesh.magSf();
+                surfaceScalarField phiE_old = fvc::snGrad(psiE_old) * mesh.magSf();
+
+                #include "psiEEqn.H"
                 currentIter = 0;
                 cPlusResidual = 10;
                 while(currentIter++ < nInnerIter and cPlusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
                 {
                     #include "cPlusEqn.H"
+                    #include "cMinusEqn.H"
+                    #include "psiEEqn.H"
                 }
-                    //#include "psiEEqn.H"
+/*
                 currentIter = 0;
                 cMinusResidual = 10;
                 while(currentIter++ < nInnerIter and cMinusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
@@ -118,6 +125,8 @@ int main(int argc, char *argv[])
                     //#include "cEqn.H"
 
                 } // Inner loop closed
+
+*/                    //#include "psiEEqn.H"
 
             }
             

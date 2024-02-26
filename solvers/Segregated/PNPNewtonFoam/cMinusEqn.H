@@ -1,21 +1,19 @@
 {
-  phiE = fvc::snGrad(psiE) * mesh.magSf();
-
-  surfaceScalarField jMinus = -DMinus * (fvc::snGrad(cMinus) + (zMinus/psiE0) * fvc::interpolate(cMinus) * fvc::snGrad(psiE)) * mesh.magSf();
+  // surfaceScalarField jcMinus = -DMinus * (fvc::snGrad(cMinus_old) + (zMinus/psiE0) * fvc::interpolate(cMinus_old) * fvc::snGrad(psiE_old));
   fvScalarMatrix cMinusEqn
   (
-  //    fvm::ddt(cPlus)
+  //    fvm::ddt(cMinus)
     - fvm::laplacian(DMinus, cMinus)
-    //- fvm::div(DPlus_nonD * phiE, cMinus)
-    //- fvm::div(mobilityPlus * phiE, cMinus)
-    - fvc::laplacian((DMinus/psiE0) * cMinus, psiE)
+    - fvm::div((DMinus/psiE0) * phiE_old, cMinus)
+    //- fvm::div(mobilityMinus * phiE, cMinus)
+    // - fvc::laplacian((DMinus/psiE0) * cMinus, psiE)
     ==
-    - fvc::surfaceIntegrate(jMinus)
+    - ( - fvc::laplacian(DMinus, cMinus_old) - fvc::div((DMinus/psiE0) * phiE_old, cMinus_old) )
   );
 
   if(solveTransient)
   {
-    cMinusEqn += fvm::ddt(cMinus);
+    cMinusEqn += fvm::ddt(cMinus) + fvc::ddt(cMinus_old);
   }
 
   if (currentIter == nOuterIter -1)
@@ -28,7 +26,8 @@
   }
 
   cMinusResidual = cMinusEqn.solve().initialResidual();
-
-  //Info << "calculate boundary condition" << nl << endl;
+  cMinus += cMinus_old;
   cMinus.correctBoundaryConditions();
+  cMinus_old = cMinus;
+
 }
