@@ -6,12 +6,12 @@
     // gradient schemes with limiters.  VV, 9/June/2014
     BlockLduSystem<vector, vector> pInU(fvm::grad(p));
 
-    BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
+    //BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
     // rhoE/rho;
-    psiEInU *= (netCharge.internalField()/rho.value());
+    //psiEInU *= (netCharge.internalField()/rho.value());
 
     PNPNSEqn.insertBlockCoupling(0, 3, pInU, true); // 0: U <- 3: p
-    PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
+    // PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Continuity Equation */
