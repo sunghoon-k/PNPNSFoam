@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PNPNSFoam" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/PNPNSFoam" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/PNPNSFoam" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../ElectrochemicalSystem.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../ElectrochemicalSystem.H" />
+		<Unit filename="../../MembraneVolumeModelling.H" />
+		<Unit filename="../../NSEqn.H" />
+		<Unit filename="../../NormalizedParameters.H" />
+		<Unit filename="../../PNPEqn.H" />
+		<Unit filename="../../PNPEqn_t.H" />
+		<Unit filename="../../PNP_NSEqn.H" />
+		<Unit filename="../../PowerDissipationCalculation.H" />
+		<Unit filename="../../UEqn.H" />
+		<Unit filename="../../cmtPrePost/cmtFileExport.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/cmtFileExport.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/cmtVTU.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/cmtVTU.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/internalWriter.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/internalWriter.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/internalWriterTemplates.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/readFields.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/readFields.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/vtkMesh.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/vtkMesh.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/vtkTopo.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/vtkTopo.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/writeFuns.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../cmtPrePost/vtk-vtu/writeFuns.H" />
+		<Unit filename="../../cmtPrePost/vtk-vtu/writeFunsTemplates.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../couplingTerms.H" />
+		<Unit filename="../../createFields.H" />
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchField.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchField.H" />
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchFields.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchFields.H" />
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchFieldsFwd.H" />
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchVectorNFields.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchVectorNFields.H" />
+		<Unit filename="../../fixedIonicFlux/fixedIonicFluxFvPatchVectorNFieldsFwd.H" />
+		<Unit filename="../../main_PNPNSFoam.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchField.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchField.H" />
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchFields.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchFields.H" />
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchFieldsFwd.H" />
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchVectorNFields.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchVectorNFields.H" />
+		<Unit filename="../../modifiedFixedValue/modifiedFixedValueFvPatchVectorNFieldsFwd.H" />
+		<Unit filename="../../pEqn.H" />
+		<Unit filename="../../petsc/petscSolver.H" />
+		<Unit filename="../../petsc/petscSolverImp.H" />
+		<Unit filename="../../readBlockSolverControls.H" />
+		<Unit filename="../../testBlockMatrix.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../transientPNP_NSFoam.H" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -5,7 +5,8 @@
         fvc::div(phi)
     );
 
-    volScalarField rhoEOverrho(netCharge/rho);
+    //volScalarField rhoEOverrho(netCharge/rho);
+    // Info << "rhoEOverrho" << rhoEOverrho.dimensions() << endl;
     // Momentum equation
     fvVectorMatrix UEqn
     (
@@ -13,7 +14,7 @@
       fvm::div(phi, U)
       ==
       fvm::laplacian(nu, U)
-    + rhoEOverrho * fvc::grad(phiE)
+    //- rhoEOverrho * fvc::grad(psiE)
     );
 
     if(solveTransient)

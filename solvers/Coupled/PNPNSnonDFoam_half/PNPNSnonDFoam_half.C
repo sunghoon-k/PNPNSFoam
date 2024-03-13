@@ -105,6 +105,7 @@ int main(int argc, char *argv[])
             {
                 while(PNPIter++ < nPNPIter and maxResidual_NS > 1e-6 and maxResidual_PNP > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
                 {
+                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
                     #include "NSEqn.H"
                     #include "PNPEqn.H"
                     maxResidual = max(maxResidual_NS, maxResidual_PNP);
@@ -112,8 +113,10 @@ int main(int argc, char *argv[])
             }
             else // solve steady-state
             {
+
                 while(PNPIter++ < nPNPIter and maxResidual > 1e-9) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
                 {
+                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
                     #include "NSEqn.H"
                     #include "PNPEqn.H"
                     maxResidual = max(maxResidual_NS, maxResidual_PNP);

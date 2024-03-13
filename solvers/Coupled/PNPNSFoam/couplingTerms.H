@@ -6,12 +6,14 @@
     // gradient schemes with limiters.  VV, 9/June/2014
     BlockLduSystem<vector, vector> pInU(fvm::grad(p));
 
-    //BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
+    BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
     // rhoE/rho;
-    //psiEInU *= (netCharge.internalField()/rho.value());
+    volScalarField rhoEOverrho(netCharge/rho);
+    
+    psiEInU *= rhoEOverrho.internalField(); //(netCharge.internalField()/rho.value());
 
     PNPNSEqn.insertBlockCoupling(0, 3, pInU, true); // 0: U <- 3: p
-    // PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
+    PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Continuity Equation */
@@ -42,4 +44,10 @@
     PNPNSEqn.insertEquationCoupling(5, 4, Sp_fvScalarMatrix_cPlus); // 4: psiE <- 5: cPlus
     PNPNSEqn.insertEquationCoupling(6, 4, Sp_fvScalarMatrix_cMinus); // 4: psiE <- 6: cMinus
 */
+    //fvm::laplacian(-zPlus*DPlus*cPlus/psiE0, psiE);
+    fvScalarMatrix psiEincPlus(fvm::laplacian(-zPlus*DPlus*fvc::interpolate(cPlus)/psiE0, psiE));
+    fvScalarMatrix psiEincMinus(fvm::laplacian(-zMinus*DMinus*fvc::interpolate(cMinus)/psiE0, psiE));
+
+    //PNPNSEqn.insertEquationCoupling(5, 4, psiEincPlus); // 4: psiE -> 5: cPlus
+    //PNPNSEqn.insertEquationCoupling(6, 4, psiEincMinus); // 4: psiE -> 6: cMinus
 }

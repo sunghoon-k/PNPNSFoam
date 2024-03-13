@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
     double timeLap = 1.0;
 
     bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
+    bool bounded = true;
     Info<< "\nStarting time loop\n" << endl;
 
     while(ECsystem.phiRun())
@@ -76,7 +77,7 @@ int main(int argc, char *argv[])
                 scalarField& psiEb = psiE.boundaryField()[patchI];
                 forAll(psiEb, faceI)
                 {
-                    psiEb[faceI] = phiInstant_ * psiE0.value(); // psiE0: thermal voltage
+                    psiEb[faceI] = phiInstant_; // psiE0: thermal voltage
                 }
             }
         }
@@ -104,6 +105,7 @@ int main(int argc, char *argv[])
             {
                 while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
                 {
+                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
                     #include "PNPNSEqn.H"
                 }
             }
@@ -111,8 +113,10 @@ int main(int argc, char *argv[])
             {
                 while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
                 {
+                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
+                    bounded = false;
                     #include "PNPNSEqn.H"
-                    netCharge = e*(zPlus*cPlus + zMinus*cMinus);
+                    netCharge = (zPlus*cPlus + zMinus*cMinus);
                     bodyForce = - netCharge * fvc::grad(psiE);
                 }
             }

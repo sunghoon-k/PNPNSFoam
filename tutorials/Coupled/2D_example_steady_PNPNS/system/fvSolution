@@ -64,11 +64,11 @@ none
         solver BiCGStab;
         preconditioner Cholesky;
 
-        tolerance 1e-25;
-        relTol  1e-25;
+        tolerance 1e-20;
+        relTol  1e-20;
 
         minIter 1;
-        maxIter 2000;
+        maxIter 5000;
     }
     PNP
     {
@@ -138,7 +138,7 @@ none
 
 blockSolver
 {
-    convergence 1e-6;
+    convergence 1e-10;
 
     pRefCell 0;
     pRefValue 0;

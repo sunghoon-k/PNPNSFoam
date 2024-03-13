@@ -21,7 +21,7 @@
 
     if(solveTransient)
     {
-        UEqn += (Re/Pe)*fvm::ddt(U);
+        UEqn += (1/Sc)*fvm::ddt(U);
     }
 
     rAU = 1.0/UEqn.A();

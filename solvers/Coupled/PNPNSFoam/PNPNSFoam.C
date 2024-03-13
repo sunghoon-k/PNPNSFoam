@@ -113,6 +113,7 @@ int main(int argc, char *argv[])
             {
                 for(int PNPIter = 0; PNPIter < nPNPIter; PNPIter++)
                 {
+                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
                     bounded = false;
                     #include "PNPNSEqn.H"
                     netCharge = e*(zPlus*cPlus + zMinus*cMinus);

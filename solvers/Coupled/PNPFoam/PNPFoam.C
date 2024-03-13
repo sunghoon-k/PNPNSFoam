@@ -85,21 +85,33 @@ int main(int argc, char *argv[])
 
         Info<< "\nStarting time loop\n" << endl;
         while (runTime.loop())
-        {
+        {            
+            #include "readFieldBounds.H"
             #include "readBlockSolverControls.H"
             maxResidual = 10;
 
             reachedResidual = false;
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
-            scalar PNPIter = 0;
-            while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
+            for(int PNPIter = 0; PNPIter < nPNPIter; PNPIter++)
             {
+                if(solveTransient)
+                {
+                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
+                }
+                else
+                {
+                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
+                }
+
+                bool bounded = false;
+
                 fvBlockMatrix<vector3> PNPEqn(PNP);
 
+                #include "Sang.H"
                 #include "psiEEqn.H"
                 #include "cEqn.H"
-                #include "couplingTerms.H"
+                //#include "couplingTerms.H"
 
                 maxResidual = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
                 
@@ -111,6 +123,37 @@ int main(int argc, char *argv[])
                 psiE.correctBoundaryConditions();
                 cPlus.correctBoundaryConditions();
                 cMinus.correctBoundaryConditions();
+
+                #include "boundC.H"
+
+                // Correct Boundary value according to J-Flux
+                forAll(cPlus.boundaryField(),patchI)
+                {
+                    if(cPlus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                    {
+                        scalarField& Cb1 = cPlus.boundaryField()[patchI];
+                        const tmp<scalarField>&  Ci1 = cPlus.boundaryField()[patchI].patchInternalField();
+                        scalarField& Phib1 = psiE.boundaryField()[patchI];
+                        const tmp<scalarField>& Phii1 = psiE.boundaryField()[patchI].patchInternalField();
+                        Cb1 = Ci1/(1.0 + zPlus.value()*(Phib1 - Phii1));
+                    }
+                }
+
+
+                forAll(cMinus.boundaryField(),patchI)
+                {
+                    if(cMinus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                    {
+                        scalarField& Cb2 = cMinus.boundaryField()[patchI];
+                        const tmp<scalarField>& Ci2 = cMinus.boundaryField()[patchI].patchInternalField();
+                        scalarField& Phib2 = psiE.boundaryField()[patchI];
+                        const tmp<scalarField>&  Phii2 = psiE.boundaryField()[patchI].patchInternalField();
+                        Cb2 = Ci2/(1.0 + zMinus.value()*(Phib2 - Phii2));
+                    }
+                }
+
+                #include "convergenceCheck.H"
+                netCharge = e*(zPlus*cPlus + zMinus*cMinus);
             }
             
             Info<< "maxResidual = " << maxResidual << nl

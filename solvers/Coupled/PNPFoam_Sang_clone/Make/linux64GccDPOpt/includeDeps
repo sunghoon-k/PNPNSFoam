@@ -1,0 +1,8 @@
+include PNPFoam_Sang_clone.dep
+include ElectrochemicalSystem.dep
+include cmtPrePost/cmtFileExport.dep
+include cmtPrePost/vtk-vtu/cmtVTU.dep
+include cmtPrePost/vtk-vtu/internalWriter.dep
+include cmtPrePost/vtk-vtu/vtkMesh.dep
+include cmtPrePost/vtk-vtu/writeFuns.dep
+include cmtPrePost/vtk-vtu/vtkTopo.dep

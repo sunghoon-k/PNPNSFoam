@@ -100,16 +100,13 @@ int main(int argc, char *argv[])
                 // phiE = fvc::snGrad(psiE) * mesh.magSf();
                 surfaceScalarField phiE_old = fvc::snGrad(psiE_old) * mesh.magSf();
 
-                #include "psiEEqn.H"
                 currentIter = 0;
                 cPlusResidual = 10;
                 while(currentIter++ < nInnerIter and cPlusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
                 {
                     #include "cPlusEqn.H"
-                    #include "cMinusEqn.H"
-                    #include "psiEEqn.H"
                 }
-/*
+                    //#include "psiEEqn.H"
                 currentIter = 0;
                 cMinusResidual = 10;
                 while(currentIter++ < nInnerIter and cMinusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
@@ -125,32 +122,36 @@ int main(int argc, char *argv[])
                     //#include "cEqn.H"
 
                 } // Inner loop closed
+            }
 
-*/                    //#include "psiEEqn.H"
+/*
+            for(int OuterIter = 0; OuterIter < nOuterIter; OuterIter++)
+            {
+                psiE_old = psiE;
+                // phiE = fvc::snGrad(psiE) * mesh.magSf();
+                surfaceScalarField phiE_old = fvc::snGrad(psiE_old) * mesh.magSf();
+
+                //#include "psiEEqn.H"
+                currentIter = 0;
+                cPlusResidual = 10;
+                while(currentIter++ < nInnerIter and cPlusResidual > 1e-6)//for (int i=0; i<nOuterIter; i++)
+                {
+                    #include "cPlusEqn.H"
+                    #include "cMinusEqn.H"
+                    #include "psiEEqn.H"
+                }
+
 
             }
+*/
+
             
             maxResidual = max(cMaxResidual, psiEResidual);
             Info<< "cPlusResidual = " << cPlusResidual << nl
                 << "cMinusResidual = " << cMinusResidual << nl
                 << "psiEResidual = " << psiEResidual << nl 
                 << endl;
-
-/*
-                // Segregated solver에서는 이 기준을 사용할 필요가 없다. 
-                // 왜냐? 이미 fvSolution 의 기준으로 이미 tolerance를 통과했기 때문
-                if (maxResidual < 1e-6 )
-                {
-                    reachedResidual = true;
-                    Info<< "\nConvergence reached\n" << endl;
-                    runTime.writeAndEnd();
-
-                    break;
-                }
-
-*/
             
-
             // turbulence->correct();
             runTime.write();
 

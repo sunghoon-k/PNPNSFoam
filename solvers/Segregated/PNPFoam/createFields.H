@@ -79,9 +79,6 @@
 
     word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
 
-    dimensionedScalar mobilityPlus((e*DPlus*zPlus)/(kB*T));
-    dimensionedScalar mobilityMinus((e*DMinus*zMinus)/(kB*T));
-
     Info << "Reading field psiEGrad\n" << endl;
     volVectorField psiEGrad
     (

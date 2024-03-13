@@ -2,7 +2,7 @@ p.storePrevIter();
 
 fvBlockMatrix<vector7> PNPNSEqn(PNPNS);
 
-netCharge = e*(zPlus*cPlus + zMinus*cMinus);
+netCharge = (zPlus*cPlus + zMinus*cMinus);
 
 #include "UEqn.H"
 #include "pEqn.H"
@@ -28,7 +28,7 @@ cMinus.correctBoundaryConditions();
 phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
 
 #include "continuityErrs.H"
-#include "boundPU.H"
+#include "boundC.H"
 
 p.relax();
 

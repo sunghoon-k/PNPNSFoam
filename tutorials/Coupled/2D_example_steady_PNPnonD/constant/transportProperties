@@ -19,7 +19,7 @@ transportModel Newtonian;
 phiDyMBoundary // thermal voltage
 {
 	name	top;
-	phiStart	1;
+	phiStart	0;
 	phiEnd		25;
 	phiInterval	1;
 }

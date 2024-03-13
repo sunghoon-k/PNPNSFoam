@@ -1,25 +1,23 @@
 {
-    // phi /= U0;
-    
     volScalarField divPhi
     (
         "divPhi",
         fvc::div(phi)
     );
 
+    dimensionedScalar nu_one("nu_one", nu.dimensions(), 1.0);
     // Momentum equation
     fvVectorMatrix UEqn
     (
 //        fvm::ddt(U)
-      fvm::div(phi, U)
+        Re * fvm::div(phi, U)
       ==
-      fvm::laplacian(nu, U)
-      // + fvm::grad(rhoE/rho, phiE)
+        fvm::laplacian(nu_one, U)
     );
 
     if(solveTransient)
     {
-        UEqn += fvm::ddt(U);
+        UEqn += (1/Sc)*fvm::ddt(U);
     }
 
     rAU = 1.0/UEqn.A();

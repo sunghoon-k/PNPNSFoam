@@ -1,0 +1,9 @@
+LOCAL_OBJECTS = \
+PNPFoam_Sang_clone.o\
+ElectrochemicalSystem.o\
+cmtFileExport.o\
+cmtVTU.o\
+internalWriter.o\
+vtkMesh.o\
+writeFuns.o\
+vtkTopo.o

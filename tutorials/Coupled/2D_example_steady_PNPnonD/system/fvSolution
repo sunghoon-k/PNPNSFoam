@@ -62,10 +62,10 @@ none
     PNP
     {
         solver BiCGStab;
-        preconditioner diagonal;
+        preconditioner Cholesky;
 
-        tolerance 1e-20;
-        relTol  1e-20;
+        tolerance 1e-25;
+        relTol  1e-25;
 
         minIter 1;
         maxIter 5000;

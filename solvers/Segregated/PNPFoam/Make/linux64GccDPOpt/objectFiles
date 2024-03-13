@@ -1,2 +1,2 @@
 OBJECTS = \
-$(OBJECTS_DIR)/PNPnonDFoam_segregated.o
+$(OBJECTS_DIR)/PNPFoam_segregated.o

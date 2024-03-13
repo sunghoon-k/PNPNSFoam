@@ -85,6 +85,9 @@ Info << "Pelec Number: " << Pe << endl;
 
 Info << "****************************************************************" << endl;
 
+dimensionedScalar mobilityPlus((e*DPlus*zPlus)/(kB*T));
+dimensionedScalar mobilityMinus((e*DMinus*zMinus)/(kB*T));
+
 /*
 
 */

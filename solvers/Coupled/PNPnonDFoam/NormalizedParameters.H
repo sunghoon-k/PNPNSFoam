@@ -24,7 +24,7 @@ dimensionedScalar DPlus(ECsystem.DPlus);
 dimensionedScalar zMinus(ECsystem.zMinus);
 dimensionedScalar DMinus(ECsystem.DMinus);
 // dimensionedScalar D0("D0",dimensionSet(0,2,-1,0,0,0,0), (D1.value() + D2.value())/2);
-dimensionedScalar D0("D0", (DPlus + DMinus)/2);
+dimensionedScalar D0("D0", DPlus + DMinus);
 //Info << "Average-diffusivity: " << D0.value() << endl;
 Info << "Average-diffusivity's value: " << D0.value() << " " << D0.dimensions()<< endl;
 
@@ -79,6 +79,8 @@ dimensionedScalar DebL_nonD("DebL_nonD", DebL/l0);
 // scalar Epsilon2 = sqr(Epsilon);
 Info << "Dimensionless Debye-Length: " << DebL_nonD.value() << endl;
 // Info << "Epsilon2: " << Epsilon2 << endl;
+
+dimensionedScalar oneOverSquareDebL_nonD("oneOverSquareDebL_nonD", 1/(2*sqr(DebL_nonD)));
 
  // Calculate Schmidt Number
 scalar Sc = (nu/D0).value();

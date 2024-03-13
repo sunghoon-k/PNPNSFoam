@@ -1,1 +1,1 @@
-include PNPnonDFoam_segregated.dep
+include PNPFoam_segregated.dep

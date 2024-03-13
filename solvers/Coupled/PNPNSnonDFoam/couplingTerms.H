@@ -8,7 +8,8 @@
 
     BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
     // rhoE/rho;
-    psiEInU *= (netCharge.internalField()/rho.value());
+    volScalarField netChargeoneOverSquareDebL_nonD(netCharge * oneOverSquareDebL_nonD);
+    psiEInU *= netChargeoneOverSquareDebL_nonD.internalField();
 
     PNPNSEqn.insertBlockCoupling(0, 3, pInU, true); // 0: U <- 3: p
     PNPNSEqn.insertBlockCoupling(0, 4, psiEInU, true); // 0: U <- 4: psiE
@@ -25,10 +26,14 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     /* Poisson Equation */
 
-    // Add off-diagonal coupling terms
-    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::SuSp((e*zPlus)/(eps0*epsr), cPlus));
-    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::SuSp((e*zMinus)/(eps0*epsr), cMinus));
+    dimensionedScalar zPlusBy2sqrDebL_nonD("zPlusBy2sqrDebL_nonD", zPlus*oneOverSquareDebL_nonD);
+    dimensionedScalar zMinusBy2sqrDebL_nonD("zMinusBy2sqrDebL_nonD", zMinus*oneOverSquareDebL_nonD);
 
-    PNPNSEqn.insertEquationCoupling(4, 5, Sp_fvScalarMatrix_cPlus); // 4: psiE <- 5: cPlus
-    PNPNSEqn.insertEquationCoupling(4, 6, Sp_fvScalarMatrix_cMinus); // 4: psiE <- 6: cMinus
+    //oneField oneFiedl_temp();
+    
+    // fvm::SuSp(zPlusBy2sqrDebL_nonD, cPlus);
+    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp(zPlusBy2sqrDebL_nonD, cPlus)); // (fvm::Sp((F*zPlus)/(eps0*epsr*NA), cPlus));
+    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp(zMinusBy2sqrDebL_nonD, cMinus)); // (fvm::Sp((F*zMinus)/(eps0*epsr*NA), cMinus));
+    PNPNSEqn.insertEquationCoupling(4, 5, Sp_fvScalarMatrix_cPlus);
+    PNPNSEqn.insertEquationCoupling(4, 6, Sp_fvScalarMatrix_cMinus);
 }

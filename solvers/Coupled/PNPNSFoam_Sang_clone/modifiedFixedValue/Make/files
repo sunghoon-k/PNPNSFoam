@@ -1,0 +1,5 @@
+modifiedFixedValueFvPatchFields.C
+modifiedFixedValueFvPatchVectorNFields.C
+
+LIB = $(FOAM_USER_LIBBIN)/libmodifiedFixedValue
+

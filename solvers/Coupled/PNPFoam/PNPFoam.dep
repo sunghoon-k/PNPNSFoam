@@ -734,10 +734,13 @@ PNPFoam.dep: createFields.H
 PNPFoam.dep: NormalizedParameters.H
 PNPFoam.dep: createControls.H
 PNPFoam.dep: initConvergenceCheck.H
+PNPFoam.dep: readFieldBounds.H
 PNPFoam.dep: readBlockSolverControls.H
+PNPFoam.dep: Sang.H
 PNPFoam.dep: psiEEqn.H
 PNPFoam.dep: cEqn.H
-PNPFoam.dep: couplingTerms.H
+PNPFoam.dep: boundC.H
+PNPFoam.dep: convergenceCheck.H
 $(OBJECTS_DIR)/PNPFoam.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPFoam.o:
 	@SOURCE_DIR=.

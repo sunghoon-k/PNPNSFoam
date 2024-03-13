@@ -187,7 +187,7 @@
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         e*(zPlus*cPlus + zMinus*cMinus)
     );

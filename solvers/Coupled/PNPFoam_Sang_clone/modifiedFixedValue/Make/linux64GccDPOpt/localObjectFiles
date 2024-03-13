@@ -1,0 +1,3 @@
+LOCAL_OBJECTS = \
+modifiedFixedValueFvPatchFields.o\
+modifiedFixedValueFvPatchVectorNFields.o

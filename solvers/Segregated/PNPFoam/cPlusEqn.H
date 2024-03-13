@@ -1,13 +1,15 @@
 {
   phiE = fvc::snGrad(psiE) * mesh.magSf();
 
+  //volScalarField mobilityPluscPlus(mobilityPlus * cPlus);
+  surfaceScalarField mobilityPluscPlus(mobilityPlus * fvc::interpolate(cPlus));
   fvScalarMatrix cPlusEqn
   (
   //    fvm::ddt(cPlus)
     - fvm::laplacian(DPlus, cPlus)
-    - fvm::div(mobilityPlus * phiE, cPlus)
     //- fvm::div(mobilityPlus * phiE, cPlus)
-    //- fvc::laplacian(mobilityPlus * cPlus, psiE)
+    // - fvc::laplacian(mobilityPlus * cPlus, psiE)
+    - fvc::laplacian(mobilityPluscPlus, psiE)
   );
 
   if(solveTransient)

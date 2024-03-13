@@ -1,0 +1,3 @@
+OBJECTS = \
+$(OBJECTS_DIR)/modifiedFixedValueFvPatchFields.o\
+$(OBJECTS_DIR)/modifiedFixedValueFvPatchVectorNFields.o

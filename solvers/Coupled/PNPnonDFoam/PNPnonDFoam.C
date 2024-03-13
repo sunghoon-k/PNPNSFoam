@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
     scalar phiInstant_ = 0;
     double timeEnd = runTime.endTime().value();
     double timeLap = 1.0;
+    scalar sqrDebL_nonD = 1/sqr(DebL_nonD.value());          
 
     bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
     bool reachedResidual = false;
@@ -107,24 +108,96 @@ int main(int argc, char *argv[])
                     Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
                 }
 
+                surfaceScalarField gradcPlusf   = fvc::snGrad(cPlus);            
+                surfaceScalarField gradcMinusf  = fvc::snGrad(cMinus);            
+                surfaceScalarField cPlusf       = fvc::interpolate(cPlus);            
+                surfaceScalarField cMinusf      = fvc::interpolate(cMinus);            
+                surfaceScalarField gradpsiEf    = fvc::snGrad(psiE);    
+                surfaceScalarField gradpsiIf    = fvc::snGrad(psiI);    
+                //surfaceVectorField intergradpsiEf = fvc::interpolate(fvc::grad(psiE));            
+                surfaceScalarField magSf        = mag(mesh.Sf());            
+
                 bool bounded = false;
 
                 fvBlockMatrix<vector3> PNPEqn(PNP);
 
+                //surfaceScalarField DPluszPlusinterphiE("DPluszPlusinterphiE",             -DPlus_nonD*zPlus*intergradpsiEf&mesh.Sf()); // 
+                //surfaceScalarField DMinuszMinusinterphiE("DMinuszMinusinterphiE",         -DMinus_nonD*zMinus*intergradpsiEf&mesh.Sf());
+                surfaceScalarField DPluszPlusphiE("DPluszPlusphiE",             -DPlus_nonD*zPlus*(gradpsiEf+gradpsiIf)*magSf); // 
+                surfaceScalarField DMinuszMinusphiE("DMinuszMinusphiE",         -DMinus_nonD*zMinus*(gradpsiEf+gradpsiIf)*magSf);
+                surfaceScalarField DPluszPluscPlusf("DPluszPluscPlusf",         -DPlus_nonD*zPlus*cPlusf);
+                surfaceScalarField DMinuszMinuscMinusf("DMinuszMinuscMinusf",   -DMinus_nonD*zMinus*cMinusf);
+                
+                
+                forAll(cPlus.boundaryField(),patchI)
+                {
+                    if(cPlus.boundaryField()[patchI].type() == "fixedIonicFlux")//  or "zeroIonicFlux_nonD") // "zeroIonicFlux_nonD" or
+                    {
+                        //scalarField& DPluszPlusinterphiE_ = DPluszPlusinterphiE.boundaryField()[patchI];
+                        //forAll(DPluszPlusinterphiE_, i) { DPluszPlusinterphiE_[i] = 0; }
+                        scalarField& DPluszPlusphiE_ = DPluszPlusphiE.boundaryField()[patchI];
+                        forAll(DPluszPlusphiE_, i) { DPluszPlusphiE_[i] = 0; }
+                        scalarField& DPluszPluscPlusf_ = DPluszPluscPlusf.boundaryField()[patchI];
+                        forAll(DPluszPluscPlusf_, i) { DPluszPluscPlusf_[i] = 0; }
+                    }
+                }
+
+                forAll(cMinus.boundaryField(),patchI)
+                {
+                    if(cMinus.boundaryField()[patchI].type() == "fixedIonicFlux")//  or "zeroIonicFlux_nonD") // "zeroIonicFlux_nonD" or 
+                    {
+                        //scalarField& DMinuszMinusinterphiE_ = DMinuszMinusinterphiE.boundaryField()[patchI];
+                        //forAll(DMinuszMinusinterphiE_, i) { DMinuszMinusinterphiE_[i] = 0; }
+                        scalarField& DMinuszMinusphiE_ = DMinuszMinusphiE.boundaryField()[patchI];
+                        forAll(DMinuszMinusphiE_, i) { DMinuszMinusphiE_[i] = 0; }
+                        scalarField& DMinuszMinuscMinusf_ = DMinuszMinuscMinusf.boundaryField()[patchI];
+                        forAll(DMinuszMinuscMinusf_, i) { DMinuszMinuscMinusf_[i] = 0; }
+                    }
+                }
+                
                 #include "psiEEqn.H"
                 #include "cEqn.H"
                 #include "couplingTerms.H"
+                //#include "calcF.H"
 
                 maxResidual = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
                 
                 // Retrieve solution
-                PNPEqn.retrieveSolution(0, psiE.internalField());
-                PNPEqn.retrieveSolution(1, cPlus.internalField());
-                PNPEqn.retrieveSolution(2, cMinus.internalField());
+                PNPEqn.retrieveSolution(0, cPlus.internalField());
+                PNPEqn.retrieveSolution(1, cMinus.internalField());
+                PNPEqn.retrieveSolution(2, psiE.internalField());
+                //PNPEqn.retrieveSolution(3, psiE.internalField());
 
-                psiE.correctBoundaryConditions();
                 cPlus.correctBoundaryConditions();
                 cMinus.correctBoundaryConditions();
+                psiE.correctBoundaryConditions();
+
+
+                forAll(cPlus.boundaryField(),patchI)
+                {
+                    if(cPlus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                    {
+                        scalarField& Cb1 = cPlus.boundaryField()[patchI];
+                        const tmp<scalarField>&  Ci1 = cPlus.boundaryField()[patchI].patchInternalField();
+                        scalarField& Phib1 = psiE.boundaryField()[patchI];
+                        const tmp<scalarField>& Phii1 = psiE.boundaryField()[patchI].patchInternalField();
+                        Cb1 = Ci1/(1.0 + zPlus.value()*(Phib1 - Phii1));
+                    }
+                }
+
+                forAll(cMinus.boundaryField(),patchI)
+                {
+                    if(cMinus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                    {
+                        //Info<<nl<<"********************************zero!!!"<<endl;
+
+                        scalarField& Cb2 = cMinus.boundaryField()[patchI];
+                        const tmp<scalarField>& Ci2 = cMinus.boundaryField()[patchI].patchInternalField();
+                        scalarField& Phib2 = psiE.boundaryField()[patchI];
+                        const tmp<scalarField>&  Phii2 = psiE.boundaryField()[patchI].patchInternalField();
+                        Cb2 = Ci2/(1.0 + zMinus.value()*(Phib2 - Phii2));
+                    }
+                }
 
                 #include "boundC.H"
                 #include "convergenceCheck.H"
@@ -133,20 +206,6 @@ int main(int argc, char *argv[])
             Info<< "maxResidual = " << maxResidual << nl
                 << endl;
 
-/*
-                // Segregated solver에서는 이 기준을 사용할 필요가 없다. 
-                // 왜냐? 이미 fvSolution 의 기준으로 이미 tolerance를 통과했기 때문
-                if (maxResidual < 1e-6 )
-                {
-                    reachedResidual = true;
-                    Info<< "\nConvergence reached\n" << endl;
-                    runTime.writeAndEnd();
-
-                    break;
-                }
-
-*/
-            
             // turbulence->correct();
             runTime.write();
 

@@ -121,6 +121,34 @@
         fvc::snGrad(psiE) * mesh.magSf()
     );
     
+        Info << "Reading field DPlusphiE\n" << endl;
+    surfaceScalarField DPlusphiE
+    (
+        IOobject
+        (
+            "DPlusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DPlus_nonD * zPlus * phiE
+    );    
+
+    Info << "Reading field DMinusphiE\n" << endl;
+    surfaceScalarField DMinusphiE
+    (
+        IOobject
+        (
+            "DMinusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD * zMinus * phiE
+    );    
+/*
     Info << "Reading field currentcPlus\n" << endl;
     volVectorField currentcPlus
     (
@@ -149,6 +177,8 @@
         -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
     );
 
+*/
+
 
     Info << "Reading field netCharge\n" << endl;
     volScalarField netCharge
@@ -161,7 +191,7 @@
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        e*(zPlus*cPlus + zMinus*cMinus)
+        (zPlus*cPlus + zMinus*cMinus)
     );
 
     Info << "Creating field PNPNS\n" << endl;

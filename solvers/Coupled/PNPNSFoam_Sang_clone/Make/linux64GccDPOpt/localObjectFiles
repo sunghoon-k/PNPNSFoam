@@ -1,0 +1,9 @@
+LOCAL_OBJECTS = \
+main_PNPNSFoam.o\
+ElectrochemicalSystem.o\
+cmtFileExport.o\
+cmtVTU.o\
+internalWriter.o\
+vtkMesh.o\
+writeFuns.o\
+vtkTopo.o

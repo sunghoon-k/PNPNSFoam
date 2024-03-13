@@ -1,26 +1,34 @@
 {
   phiE = fvc::snGrad(psiE) * mesh.magSf();
 
+  DPlusphiE = DPlus_nonD*zPlus*phiE;
+  DMinusphiE = DMinus_nonD*zMinus*phiE;
+
   fvScalarMatrix cPlusEqn
   (
-    - fvm::laplacian(DPlus, cPlus)
-    - fvm::div(mobilityPlus * phiE, cPlus)
+      Pe * fvm::div(phi, cPlus)
+    - fvm::laplacian(DPlus_nonD, cPlus)
+    - fvm::div(DPlusphiE, cPlus)
+    //- fvm::div(DPlus_nonD*zPlus*phiE, cPlus) // 
     //- fvm::div(mobilityPlus * phiE, cPlus)
     //- fvc::laplacian(mobilityPlus * cPlus, psiE)
   );
 
   fvScalarMatrix cMinusEqn
   (
-    - fvm::laplacian(DMinus, cMinus)
-    - fvm::div(mobilityMinus * phiE, cMinus)
-    //- fvm::div(mobilityMinus * phiE, cMinus)
+    Pe * fvm::div(phi, cMinus)
+    - fvm::laplacian(DMinus_nonD, cMinus)
+    - fvm::div(DMinusphiE, cMinus)
+
+    //- fvm::div(DMinus_nonD*zMinus*phiE, cMinus) 
+    // - fvm::div(mobilityMinus * phiE, cMinus)
     //- fvc::laplacian(mobilityMinus * cMinus, psiE)
   );
 
   if(solveTransient)
   {
-    cPlusEqn += fvm::ddt(cPlus);
-    cMinusEqn += fvm::ddt(cMinus);
+    cPlusEqn += (t0_one/sqr(l0_one)) * fvm::ddt(cPlus);
+    cMinusEqn += (t0_one/sqr(l0_one)) * fvm::ddt(cMinus);
   }
   PNPNSEqn.insertEquation(5, cPlusEqn);
   PNPNSEqn.insertEquation(6, cMinusEqn);

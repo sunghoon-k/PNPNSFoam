@@ -1,14 +1,17 @@
 {
   phiE = fvc::snGrad(psiE) * mesh.magSf();
 
+//  volScalarField mobilityMinuscMinus(mobilityMinus * cMinus);
+  surfaceScalarField mobilityMinuscMinus(mobilityMinus * fvc::interpolate(cMinus));
+
   fvScalarMatrix cMinusEqn
   (
   //    fvm::ddt(cPlus)
     - fvm::laplacian(DMinus, cMinus)
-    - fvm::div(mobilityMinus * phiE, cMinus)
+    //- fvm::div(mobilityMinus * phiE, cMinus)
 
     //- fvm::div(mobilityMinus * phiE, cMinus)
-    //- fvc::laplacian(mobilityMinus * cMinus, psiE)
+    - fvc::laplacian(mobilityMinuscMinus, psiE)
   );
 
   if(solveTransient)

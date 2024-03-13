@@ -1,12 +1,23 @@
-// netCharge = (1/NA)*F*(zPlus*cPlus + zMinus*cMinus);
+netCharge = zPlus*cPlus + zMinus*cMinus;
 //Info << netCharge.dimensions() << endl;
 fvScalarMatrix psiEEqn
 (
     fvm::laplacian(psiE)
+  //+ fvc::laplacian(psiE)
+  //- fvc::surfaceIntegrate(gradpsiEf*magSf)
     //==
-    //- netCharge/(eps0*epsr)
+    //- netCharge/2/sqr(DebL_nonD)/sqr(l0_one)//*oneOverSquareDebL_nonD/sqr(l0_one)
 );
-PNPEqn.insertEquation(0, psiEEqn);
+psiEEqn.relax();
+
+fvScalarMatrix psiIEqn
+(
+    fvm::laplacian(psiI)
+);
+
+psiIEqn.relax();
+
+
 
 /*
 if (currentIter != nOuterIter -1)

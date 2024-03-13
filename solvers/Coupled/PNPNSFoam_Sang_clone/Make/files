@@ -1,0 +1,10 @@
+main_PNPNSFoam.C
+ElectrochemicalSystem.C
+cmtPrePost/cmtFileExport.C
+cmtPrePost/vtk-vtu/cmtVTU.C
+cmtPrePost/vtk-vtu/internalWriter.C
+cmtPrePost/vtk-vtu/vtkMesh.C
+cmtPrePost/vtk-vtu/writeFuns.C
+cmtPrePost/vtk-vtu/vtkTopo.C
+
+EXE = $(FOAM_USER_APPBIN)/PNPNSFoam_Sang_clone

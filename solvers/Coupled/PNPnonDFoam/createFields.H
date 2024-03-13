@@ -14,6 +14,20 @@
         mesh
     );
 
+    Info << "Reading field psiI\n" << endl;
+    volScalarField psiI
+    (
+        IOobject
+        (
+            "psiI",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
+
     Info << "Reading field cPlus\n" << endl;
     volScalarField cPlus
     (
@@ -137,7 +151,34 @@
         ),
         DMinus_nonD * zMinus * phiE
     );    
-    
+
+    Info << "Reading field phiDcPlus\n" << endl;
+    surfaceScalarField phiDcPlus
+    (
+        IOobject
+        (
+            "phiDcPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DPlus_nonD*zPlus*fvc::interpolate(cPlus)
+    );
+
+    Info << "Reading field phiDcMinus\n" << endl;
+    surfaceScalarField phiDcMinus
+    (
+        IOobject
+        (
+            "phiDcMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD*zMinus*fvc::interpolate(cMinus)
+    );
 /*
     Info << "Reading field phiMobility\n" << endl;
     surfaceScalarField phiMobilityPlus

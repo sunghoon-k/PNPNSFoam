@@ -29,9 +29,9 @@ writeCompression off;
 timeFormat      general;
 timePrecision   6;
 runTimeModifiable true;
-libs ("libzeroIonicFlux_nonD.so" "libslipEOF.so" "libElectrochemicalSystem.so" "electrokinBC.so");
+libs ("libzeroIonicFlux_nonD.so" "libslipEOF.so" "libElectrochemicalSystem.so" "electrokinBC.so" "libfixedIonicFlux.so");
 
-PNPNStransient no;
+PNPNStransient yes;
 
 /*
 C1C2convergence  1e-3; //1e-3;

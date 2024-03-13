@@ -1,34 +1,61 @@
-{
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* Poisson Equation */
+fvScalarMatrix electroMigrationLaplacianPlus
+(
+    fvm::laplacian(DPluszPluscPlusf, psiE)
+);
+electroMigrationLaplacianPlus.relax();
 
-    // Add off-diagonal coupling terms
-//    scalarField Phicoupling1(mesh.nCells(),(zPlus/(2*sqr(DebL_nonD))).value());
-//    scalarField Phicoupling2(mesh.nCells(),(zMinus/(2*sqr(DebL_nonD))).value());
 
-//    PNPEqn.insertEquationCoupling(0, 1, Phicoupling1);
-//    PNPEqn.insertEquationCoupling(0, 2, Phicoupling2);
-        
-//    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp(zPlus/(2*sqr(DebL_nonD)), cPlus)); // (fvm::Sp((F*zPlus)/(eps0*epsr*NA), cPlus));
-//    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp(zMinus/(2*sqr(DebL_nonD)), cMinus)); // (fvm::Sp((F*zMinus)/(eps0*epsr*NA), cMinus));
-    dimensionedScalar zPlusBy2sqrDebL_nonD("zPlusBy2sqrDebL_nonD", zPlus/2*sqr(DebL_nonD));
-    dimensionedScalar zMinusBy2sqrDebL_nonD("zMinusBy2sqrDebL_nonD", zMinus/2*sqr(DebL_nonD));
-
-    fvScalarMatrix Sp_fvScalarMatrix_cPlus(fvm::Sp(zPlusBy2sqrDebL_nonD, cPlus)); // (fvm::Sp((F*zPlus)/(eps0*epsr*NA), cPlus));
-    fvScalarMatrix Sp_fvScalarMatrix_cMinus(fvm::Sp(zMinusBy2sqrDebL_nonD, cMinus)); // (fvm::Sp((F*zMinus)/(eps0*epsr*NA), cMinus));
-    PNPEqn.insertEquationCoupling(0, 1, Sp_fvScalarMatrix_cPlus);
-    PNPEqn.insertEquationCoupling(0, 2, Sp_fvScalarMatrix_cMinus);
-
+fvScalarMatrix electroMigrationLaplacianMinus
+(
+    fvm::laplacian(DMinuszMinuscMinusf, psiE)
+);
+electroMigrationLaplacianMinus.relax();
 
 /*
-    //- fvc::laplacian(mobilityPlus * cPlus, psiE)
-    phicPlus = fvc::snGrad(cPlus) * mesh.magSf();
-    phicMinus = fvc::snGrad(cMinus) * mesh.magSf();
-    fvScalarMatrix psiEincPlus(- fvm::laplacian(DPlus_nonD * phicPlus, psiE));
-    fvScalarMatrix psiEincMinus(- fvm::laplacian(DMinus_nonD * phicMinus, psiE));
+fvScalarMatrix electroMigrationLaplacianPlus2
+(
+    fvm::laplacian(DPluszPluscPlusf, psiI)
+);
+electroMigrationLaplacianPlus.relax();
 
-    PNPEqn.insertEquationCoupling(1, 0, psiEincPlus); // 1: cPlus <- 0: psiE
-    PNPEqn.insertEquationCoupling(2, 0, psiEincMinus); // 2: cMinus <- 0: psiE
+
+fvScalarMatrix electroMigrationLaplacianMinus2
+(
+    fvm::laplacian(DMinuszMinuscMinusf, psiI)
+);
+electroMigrationLaplacianMinus.relax();
+
 */
 
-}
+
+PNPEqn.insertEquation(0, cPlusEqn);
+PNPEqn.insertEquation(1, cMinusEqn);
+PNPEqn.insertEquation(2, psiEEqn);
+//PNPEqn.insertEquation(3, psiEEqn);
+
+/*
+fvScalarMatrix psiEcouplingPlus
+(
+    fvm::Sp(zPlus*sqrDebL_nonD/2, cPlus)
+);
+psiEcouplingPlus.relax();
+
+fvScalarMatrix psiEcouplingMinus
+(
+    fvm::Sp(zPlus*sqrDebL_nonD/2, cMinus)
+);
+psiEcouplingMinus.relax();
+
+*/
+scalarField psiEcouplingPlus(mesh.nCells(),zPlus.value()*sqrDebL_nonD/2);
+scalarField psiEcouplingMinus(mesh.nCells(),zMinus.value()*sqrDebL_nonD/2);
+
+//PNPEqn.insertEquationCoupling(0, 3, electroMigrationLaplacianPlus); // 0: psiE -> 1: cPlus
+//PNPEqn.insertEquationCoupling(1, 3, electroMigrationLaplacianMinus); // 0: psiE -> 2: cMinus
+PNPEqn.insertEquationCoupling(0, 2, electroMigrationLaplacianPlus); // 0: psiE -> 1: cPlus
+PNPEqn.insertEquationCoupling(1, 2, electroMigrationLaplacianMinus); // 0: psiE -> 2: cMinus
+PNPEqn.insertEquationCoupling(2, 0, psiEcouplingPlus); // 0: psiE <- 1: cPlus
+PNPEqn.insertEquationCoupling(2, 1, psiEcouplingMinus); // 0: psiE <- 2: cMinus
+
+//PNPEqn.insertEquationCoupling(0, 2, electroMigrationLaplacianPlus2); // 0: psiE -> 1: cPlus
+//PNPEqn.insertEquationCoupling(1, 2, electroMigrationLaplacianMinus2); // 0: psiE -> 2: cMinus

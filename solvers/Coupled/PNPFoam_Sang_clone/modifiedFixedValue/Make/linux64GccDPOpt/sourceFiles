@@ -1,0 +1,3 @@
+SOURCE = \
+modifiedFixedValueFvPatchFields.C\
+modifiedFixedValueFvPatchVectorNFields.C

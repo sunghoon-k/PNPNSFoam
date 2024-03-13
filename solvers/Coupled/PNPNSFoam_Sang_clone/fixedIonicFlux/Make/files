@@ -1,0 +1,4 @@
+fixedIonicFluxFvPatchFields.C
+fixedIonicFluxFvPatchVectorNFields.C
+
+LIB = $(FOAM_USER_LIBBIN)/libfixedIonicFlux

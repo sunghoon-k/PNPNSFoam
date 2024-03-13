@@ -1,2 +1,2 @@
 OBJECTS = \
-$(OBJECTS_DIR)/PNPNSFoam.o
+$(OBJECTS_DIR)/transportCFoam.o

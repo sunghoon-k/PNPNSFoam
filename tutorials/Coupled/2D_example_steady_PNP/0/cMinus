@@ -17,16 +17,16 @@ FoamFile
 
 dimensions      [ 0 -3 0 0 0 0 0 ];
 
-internalField   uniform 1;
+internalField   uniform 10;
 
 boundaryField
 {
     bottom
     {
-	type            zeroIonicFlux;
+	type            fixedIonicFlux;	
 	zib		-1;        
 	T		300;
-	value           uniform 1;
+	value           uniform 0;
 
 
 /*
@@ -50,7 +50,7 @@ boundaryField
     top
     {
         type            fixedValue;
-        value           uniform 1;
+        value           uniform 10;
     }
 
     wall
