@@ -738,16 +738,21 @@ PNPNSnonDFoam.dep: createControls.H
 PNPNSnonDFoam.dep: initConvergenceCheck.H
 PNPNSnonDFoam.dep: readBlockSolverControls.H
 PNPNSnonDFoam.dep: readFieldBounds.H
-PNPNSnonDFoam.dep: PNPEqn.H
-PNPNSnonDFoam.dep: boundC.H
-PNPNSnonDFoam.dep: convergenceCheck.H
-PNPNSnonDFoam.dep: PNPNSEqn.H
+PNPNSnonDFoam.dep: PNPNSsplit.H
+PNPNSnonDFoam.dep: cEqn.H
+PNPNSnonDFoam.dep: psiEEqn.H
 PNPNSnonDFoam.dep: UEqn.H
 PNPNSnonDFoam.dep: pEqn.H
-PNPNSnonDFoam.dep: psiEEqn.H
-PNPNSnonDFoam.dep: cEqn.H
-PNPNSnonDFoam.dep: couplingTerms.H
+PNPNSnonDFoam.dep: couplingTermsPNPNSsplit.H
 PNPNSnonDFoam.dep: $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/continuityErrs.H
+PNPNSnonDFoam.dep: boundC.H
+PNPNSnonDFoam.dep: convergenceCheck.H
+PNPNSnonDFoam.dep: PNPNS.H
+PNPNSnonDFoam.dep: couplingTermsPNPNS.H
+PNPNSnonDFoam.dep: PNPsplit.H
+PNPNSnonDFoam.dep: couplingTermsPNPsplit.H
+PNPNSnonDFoam.dep: PNP.H
+PNPNSnonDFoam.dep: couplingTermsPNP.H
 $(OBJECTS_DIR)/PNPNSnonDFoam.o: $(EXE_DEP)
 $(OBJECTS_DIR)/PNPNSnonDFoam.o:
 	@SOURCE_DIR=.

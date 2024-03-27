@@ -77,6 +77,7 @@ public:
 	{
 		return phiInstant_;
 	};
+
 	void set_phiInstant(scalar phi)
 	{
 	  phiInstant_ = phi;

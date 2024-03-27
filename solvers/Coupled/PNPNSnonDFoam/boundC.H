@@ -10,8 +10,8 @@
         Info<< "cPlus: " << dimensioned_cPlus.value() << " "
             << ".  Bounding." << endl;
 
-        cPlus.max(cPlusMin); // max(cPlus, cPlusMin)
-        cPlus.correctBoundaryConditions();
+        //cPlus.max(cPlusMin); // max(cPlus, cPlusMin)
+        //cPlus.correctBoundaryConditions();
         bounded = true;
     }
 
@@ -20,8 +20,8 @@
         Info<< "cMinus: " << dimensioned_cMinus.value() << " "
             << ".  Bounding." << endl;
 
-        cMinus.max(cMinusMin); // max(cPlus, cPlusMin)
-        cMinus.correctBoundaryConditions();
+        //cMinus.max(cMinusMin); // max(cPlus, cPlusMin)
+        //cMinus.correctBoundaryConditions();
         bounded = true;
     }
 

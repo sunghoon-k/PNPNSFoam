@@ -1,222 +1,328 @@
-struct physicalVolumeProperties{
-word name;
-scalar fixedCharge;
-scalar diffusivity;
-scalar transportNumber;
-};
-struct ionProperties{
-word name;
-scalar chargeNumber;
-scalar diffusivity;
+//    #include "NormalizedParameters.H"
 
-};
-struct Ion{
-word name;
-scalar z;
-scalar D;
-};
-
-
-IOdictionary transportProperties
-(
-    IOobject
+    Info << "Reading field psiE\n" << endl;
+    volScalarField psiE
     (
-        "transportProperties",
-        runTime.constant(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::NO_WRITE
-    )
-);
-ElectrochemicalSystem ECsystem(mesh, transportProperties);
+        IOobject
+        (
+            "psiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
 
-Info<< "Reading field Phi\n" << endl;
-volScalarField Phi
-(
-    IOobject
+    Info << "Reading field psiI\n" << endl;
+    volScalarField psiI
     (
-        "Phi",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+        IOobject
+        (
+            "psiI",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
 
-Info<< "Reading field U\n" << endl;
-volVectorField U
-(
-    IOobject
+    Info << "Reading field cPlus\n" << endl;
+    volScalarField cPlus
     (
-        "U",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+        IOobject
+        (
+            "cPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
 
-Info<< "Reading field p\n" << endl;
-volScalarField p
-(
-    IOobject
+    Info << "Reading field cMinus\n" << endl;
+    volScalarField cMinus
     (
-        "p",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "Reading/calculating face flux field phi\n" << endl;
-surfaceScalarField phi
-(
-    IOobject
+        IOobject
+        (
+            "cMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
+    Info << "Reading field p\n" << endl;
+    volScalarField p
     (
-        "phi",
-        runTime.timeName(),
-        mesh,
-        IOobject::READ_IF_PRESENT,
-        IOobject::AUTO_WRITE
-    ),
-    fvc::interpolate(U) & mesh.Sf()
-);
+        IOobject
+        (
+            "p",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
 
-singlePhaseTransportModel laminarTransport(U, phi);
-
-autoPtr<incompressible::turbulenceModel> turbulence
-(
-    incompressible::turbulenceModel::New(U, phi, laminarTransport)
-);
-
-
-Info << "Creating field Up\n" << endl;
-volVector4Field Up
-(
-    IOobject
+    Info << "Reading field U\n" << endl;
+    volVectorField U
     (
-        "Up",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedVector4("zero", dimless, vector4::zero)
-);
+        IOobject
+        (
+            "U",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
 
-Info<< "Creating field rAU\n" << endl;
-volScalarField rAU
-(
-    IOobject
+    #include "createPhi.H"
+
+/**********************************************************************/
+    Info<< "Reading transportProperties\n" << endl;
+
+    IOdictionary transportProperties
     (
-        "rAU",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    runTime.deltaT()
-);
+        IOobject
+        (
+            "transportProperties",
+            runTime.constant(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE
+        )
+    );
 
-mesh.schemesDict().setFluxRequired(p.name());
-mesh.schemesDict().setFluxRequired("pcorr");
-///***
-Info<< "Creating field dC1\n" << endl;
-volScalarField dC1
-(
-    IOobject
+    ElectrochemicalSystem ECsystem(mesh, transportProperties);
+    #include "NormalizedParameters.H"
+
+    word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
+
+    // dimensionedScalar mobilityPlus((e*DPlus*zPlus)/(kB*T));
+    // dimensionedScalar mobilityMinus((e*DMinus*zMinus)/(kB*T));
+
+    Info << "Reading field psiEGrad\n" << endl;
+    volVectorField psiEGrad
     (
-        "dC1",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("F1", dimensionSet(0, -1, 0, 0, 0, 0, 0), 0.0)
-);
+        IOobject
+        (
+            "psiEGrad",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        fvc::grad(psiE)
+    );
 
-Info<< "Creating field dC2\n" << endl;
-volScalarField dC2
-(
-    IOobject
+    Info << "Reading field phiE\n" << endl;
+    surfaceScalarField phiE
     (
-        "dC2",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("F2", dimensionSet(0, -1, 0, 0, 0, 0, 0), 0.0)
-);
+        IOobject
+        (
+            "phiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        fvc::snGrad(psiE) * mesh.magSf()
+    );
 
-Info<< "Creating field dPhi\n" << endl;
-volScalarField dPhi
-(
-    IOobject
+    Info << "Reading field DPlusphiE\n" << endl;
+    surfaceScalarField DPlusphiE
     (
-        "dPhi",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("F3", dimensionSet(0, -1, 0, 0, 0, 0, 0), 0.0)
-);
+        IOobject
+        (
+            "DPlusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DPlus_nonD * zPlus * phiE
+    );    
 
-///***
-Info<< "Reading field C1\n" << endl;
-volScalarField C1
-(
-    IOobject
+    Info << "Reading field DMinusphiE\n" << endl;
+    surfaceScalarField DMinusphiE
     (
-        "C1",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+        IOobject
+        (
+            "DMinusphiE",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD * zMinus * phiE
+    );    
 
-Info<< "Reading field C2\n" << endl;
-volScalarField C2
-(
-    IOobject
+    Info << "Reading field phiDcPlus\n" << endl;
+    surfaceScalarField phiDcPlus
     (
-        "C2",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+        IOobject
+        (
+            "phiDcPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DPlus_nonD*zPlus*fvc::interpolate(cPlus)
+    );
 
-
-
-
-Info<< "Creating field blockPNP\n" << endl;
-volVector3Field blockPNP
-(
-    IOobject
+    Info << "Reading field phiDcMinus\n" << endl;
+    surfaceScalarField phiDcMinus
     (
-        "blockPNP",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedVector3("zero",dimless, vector3::zero)
-);
+        IOobject
+        (
+            "phiDcMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD*zMinus*fvc::interpolate(cMinus)
+    );
+/*
+    Info << "Reading field phiMobility\n" << endl;
+    surfaceScalarField phiMobilityPlus
+    (
+        IOobject
+        (
+            "phiMobilityPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        phiE*(DPlus*e*zPlus)/(kB*T)
+    );
 
-word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
+    surfaceScalarField phiMobilityMinus
+    (
+        IOobject
+        (
+            "phiMobilityMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        phiE*(DMinus*e*zMinus)/(kB*T)
+    );    
+*/
+    /*
+    Info << "Reading field currentcPlus\n" << endl;
+    volVectorField currentcPlus
+    (
+        IOobject
+        (
+            "currentcPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(cPlus) * DPlus + mobilityPlus * psiEGrad * cPlus)
+    );
+    
+    Info << "Reading field currentcMinus\n" << endl;
+    volVectorField currentcMinus
+    (
+        IOobject
+        (
+            "currentcMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
+    );
+
+    */
+    
+    Info << "Reading field netCharge\n" << endl;
+    volScalarField netCharge
+    (
+        IOobject
+        (
+            "netCharge",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        (zPlus*cPlus + zMinus*cMinus)
+    );
+
+    Info << "Reading field bodyForce\n" << endl;
+    volVectorField bodyForce
+    (
+        IOobject
+        (
+            "bodyForce",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        - netCharge * fvc::grad(psiE)*oneOver2SquareDebL_nonD
+    );
+
+    Info<< "Creating field rAU\n" << endl;
+    volScalarField rAU
+    (
+        IOobject
+        (
+            "rAU",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        runTime.deltaT()
+    );
+
+    mesh.schemesDict().setFluxRequired(p.name());
+    mesh.schemesDict().setFluxRequired("pcorr");
+
+
+    Info << "Creating field PNP\n" << endl;
+    volVector3Field PNP
+    (
+        IOobject
+        (
+            "PNP",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedVector3("zero", dimless, vector3::zero)
+    );
+
+    Info << "Creating field Up\n" << endl;
+    volVector4Field Up
+    (
+        IOobject
+        (
+            "Up",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedVector4("zero", dimless, vector4::zero)
+    );

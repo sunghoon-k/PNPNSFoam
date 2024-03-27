@@ -59,11 +59,28 @@ public:
 	{
 		return phiInstant_;
 	};
+
+	inline scalar phiStart()
+	{
+		return phiStart_;
+	};
+
+	inline scalar phiInterval()
+	{
+		return phiInterval_;
+	};
+
+	inline scalar phiEnd()
+	{
+		return phiEnd_;
+	};
 	
 	void set_phiInstant(scalar phi)
 	{
 		phiInstant_ = phi;
 	};
+
+
 
 	void changePhi()
 	{

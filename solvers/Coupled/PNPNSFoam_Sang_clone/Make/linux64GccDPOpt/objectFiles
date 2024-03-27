@@ -1,9 +1,2 @@
 OBJECTS = \
-$(OBJECTS_DIR)/main_PNPNSFoam.o\
-$(OBJECTS_DIR)/ElectrochemicalSystem.o\
-$(OBJECTS_DIR)/cmtFileExport.o\
-$(OBJECTS_DIR)/cmtVTU.o\
-$(OBJECTS_DIR)/internalWriter.o\
-$(OBJECTS_DIR)/vtkMesh.o\
-$(OBJECTS_DIR)/writeFuns.o\
-$(OBJECTS_DIR)/vtkTopo.o
+$(OBJECTS_DIR)/PNPNSFoam_Sang_clone.o

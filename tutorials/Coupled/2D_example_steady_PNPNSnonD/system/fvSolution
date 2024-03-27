@@ -59,50 +59,48 @@ none
 
 */
 
-    psiE
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
-
-    cPlus
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
-
-    cMinus
-    {
-        solver           BiCGStab;
-        preconditioner   DILU;
-        tolerance        1e-25;
-        relTol           1e-25;
-	maxIter		 2000;
-    }
-    PNPNS
-    {
-        solver BiCGStab;
-        preconditioner diagonal;
-
-        tolerance 1e-15;
-        relTol  1e-15;
-
-        minIter 1;
-        maxIter 50;
-    }
     PNP
     {
         solver BiCGStab;
-        preconditioner diagonal;
+        preconditioner Cholesky;
 
-        tolerance 1e-15;
-        relTol  1e-15;
+        tolerance 1e-25;
+        relTol  1e-25;
+
+        minIter 1;
+        maxIter 5000;
+    }
+
+    PNPNS
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-25;
+        relTol  1e-25;
+
+        minIter 1;
+        maxIter 5000;
+    }
+    PNPs
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-25;
+        relTol  1e-25;
+
+        minIter 1;
+        maxIter 5000;
+    }
+
+    PNPNSs
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-25;
+        relTol  1e-25;
 
         minIter 1;
         maxIter 5000;
@@ -182,16 +180,15 @@ relaxationFactors
 {
     fields
     {
-        psiE 1.0;
-        cPlus 1.0;
-        cMinus 1.0;
+        p	0.7;
     }
 
     equations
     {
-        psiEEqn 1.0;
-        cPlusEqn 1.0;
-        cMinusEqn 1.0;
+        cPlus	0.7;
+        cMinus	0.7;
+        //psiE	0.7;
+	U	0.7;
     }
 }
 
@@ -199,7 +196,7 @@ SIMPLE
 {
     nOuterIter 1;
     nInnerIter 15;
-    nPNPIter 15;
+    nPNPIter 1;
 }
 /*
 solvers

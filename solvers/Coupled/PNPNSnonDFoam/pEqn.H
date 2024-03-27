@@ -1,7 +1,6 @@
 // Pressure parts of the continuity equation
 surfaceScalarField presSource
 (
-  
     "presSource",
     fvc::interpolate(rAU)*
     (
@@ -21,5 +20,3 @@ fvScalarMatrix pEqn
 );
 
 pEqn.setReference(pRefCell, pRefValue);
-
-PNPNSEqn.insertEquation(3, pEqn);

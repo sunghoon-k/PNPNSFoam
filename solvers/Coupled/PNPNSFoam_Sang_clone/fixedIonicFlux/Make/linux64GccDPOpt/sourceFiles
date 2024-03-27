@@ -1,3 +1,0 @@
-SOURCE = \
-fixedIonicFluxFvPatchFields.C\
-fixedIonicFluxFvPatchVectorNFields.C

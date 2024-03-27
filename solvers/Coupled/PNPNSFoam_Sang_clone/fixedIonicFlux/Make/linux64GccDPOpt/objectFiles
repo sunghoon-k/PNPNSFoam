@@ -1,3 +1,0 @@
-OBJECTS = \
-$(OBJECTS_DIR)/fixedIonicFluxFvPatchFields.o\
-$(OBJECTS_DIR)/fixedIonicFluxFvPatchVectorNFields.o

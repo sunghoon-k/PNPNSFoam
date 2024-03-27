@@ -52,93 +52,165 @@ int main(int argc, char *argv[])
     #include "createTime.H"
     #include "createMesh.H"
 
+    bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
+    bool solveNS(readBool(runTime.controlDict().lookup("solveNS")));
+    bool splitpsi(readBool(runTime.controlDict().lookup("splitpsi")));
+
 //    simpleControl simple(mesh);
     #include "createFields.H"
     #include "initContinuityErrs.H"
     #include "createControls.H"
     #include "initConvergenceCheck.H"
 
-    scalar phiInstant_ = 0;
-    double timeEnd = runTime.endTime().value();
-    double timeLap = 1.0;
-
-    bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
-    bool bounded = true;
+    bool reachedResidual = false;
     Info<< "\nStarting time loop\n" << endl;
 
-    while(ECsystem.phiRun())
+    Info<< "\nStarting time loop\n" << endl;
+    while (runTime.loop())
     {
-        phiInstant_ = ECsystem.phiInstant();
-        Info << "\n-------------- | psiE = " << phiInstant_<< " |--------------"<<endl;
-        forAll(mesh.boundary(),patchI)
+        #include "readBlockSolverControls.H"
+        #include "readFieldBounds.H"
+
+        maxResidual = 10;
+
+        reachedResidual = false;
+        Info<< "Time = " << runTime.timeName() << nl << endl;
+
+        if(solveTransient)
         {
-            if(mesh.boundary()[patchI].name() == phiDyMBound)
+            if(solveNS)
             {
-                scalarField& psiEb = psiE.boundaryField()[patchI];
-                forAll(psiEb, faceI)
+                if(splitpsi){Info <<"         Transient solver/PNPNS_split Iteration      # " <<endl;}
+                else{Info <<"         Transient solver/PNPNS Iteration      # " <<endl;}
+            }
+            else
+            {
+                if(splitpsi){Info <<"         Transient solver/PNP_split Iteration      # " <<endl;}
+                else{Info <<"         Transient solver/PNP Iteration      # " <<endl;}
+            }
+        }
+        else
+        {
+            if(solveNS)
+            {
+                if(splitpsi){Info <<"         Steady solver/PNPNS_split Iteration      # " <<endl;}
+                else{Info <<"         Steady solver/PNPNS Iteration      # " <<endl;}
+            }
+            else
+            {
+                if(splitpsi){Info <<"         Steady solver/PNP_split Iteration      # " <<endl;}
+                else{Info <<"         Steady solver/PNP Iteration      # " <<endl;}
+            }
+        }
+
+        // scalar PNPIter = 0;
+        // while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // 
+        for(int PNPIter = 0; PNPIter < nPNPIter; PNPIter++)
+        {
+            surfaceScalarField gradcPlusf   = fvc::snGrad(cPlus);            
+            surfaceScalarField gradcMinusf  = fvc::snGrad(cMinus);            
+            surfaceScalarField cPlusf       = fvc::interpolate(cPlus);            
+            surfaceScalarField cMinusf      = fvc::interpolate(cMinus);            
+            surfaceScalarField gradpsiEf    = fvc::snGrad(psiE);    
+            surfaceScalarField gradpsiIf    = fvc::snGrad(psiI);    
+            //surfaceVectorField intergradpsiEf = fvc::interpolate(fvc::grad(psiE));            
+            surfaceScalarField magSf        = mag(mesh.Sf());            
+
+            bool bounded = false;
+
+
+            surfaceScalarField DPluszPlusphiE("DPluszPlusphiE",             -DPlus_nonD*zPlus*(gradpsiEf+gradpsiIf   + Pe*cPlusf*phi/(dimphi*l0_one))*magSf); // 
+            surfaceScalarField DMinuszMinusphiE("DMinuszMinusphiE",         -DMinus_nonD*zMinus*(gradpsiEf+gradpsiIf + Pe*cMinusf*phi/(dimphi*l0_one))*magSf);
+            surfaceScalarField DPluszPluscPlusf("DPluszPluscPlusf",         -DPlus_nonD*zPlus*cPlusf);
+            surfaceScalarField DMinuszMinuscMinusf("DMinuszMinuscMinusf",   -DMinus_nonD*zMinus*cMinusf);
+            
+            forAll(cPlus.boundaryField(),patchI)
+            {
+                if(cPlus.boundaryField()[patchI].type() == "zeroIonicFlux_nonD")//  or "zeroIonicFlux_nonD") // "zeroIonicFlux_nonD" or
                 {
-                    psiEb[faceI] = phiInstant_; // psiE0: thermal voltage
+                    //scalarField& DPluszPlusinterphiE_ = DPluszPlusinterphiE.boundaryField()[patchI];
+                    //forAll(DPluszPlusinterphiE_, i) { DPluszPlusinterphiE_[i] = 0; }
+                    scalarField& DPluszPlusphiE_ = DPluszPlusphiE.boundaryField()[patchI];
+                    forAll(DPluszPlusphiE_, i) { DPluszPlusphiE_[i] = 0; }
+                    scalarField& DPluszPluscPlusf_ = DPluszPluscPlusf.boundaryField()[patchI];
+                    forAll(DPluszPluscPlusf_, i) { DPluszPluscPlusf_[i] = 0; }
+                }
+            }
+
+            forAll(cMinus.boundaryField(),patchI)
+            {
+                if(cMinus.boundaryField()[patchI].type() == "zeroIonicFlux_nonD")//  or "zeroIonicFlux_nonD") // "zeroIonicFlux_nonD" or 
+                {
+                    //Info << "zeroIonicFlux_nonD ############################"<<endl;
+                    scalarField& DMinuszMinusphiE_ = DMinuszMinusphiE.boundaryField()[patchI];
+                    forAll(DMinuszMinusphiE_, i) { DMinuszMinusphiE_[i] = 0; }
+                    scalarField& DMinuszMinuscMinusf_ = DMinuszMinuscMinusf.boundaryField()[patchI];
+                    forAll(DMinuszMinuscMinusf_, i) { DMinuszMinuscMinusf_[i] = 0; }
+                }
+            }
+
+            if(solveNS)
+            {
+                if(splitpsi)
+                {
+                    #include "PNPNSsplit.H"
+                }
+                else
+                {
+                    Info << "PNPNS!" << endl;
+                    #include "PNPNS.H"
+                }
+            }
+            else
+            {
+                if(splitpsi)
+                {
+                    #include "PNPsplit.H"
+                }
+                else
+                {
+                    #include "PNP.H"
+                }
+            }
+
+            forAll(cPlus.boundaryField(),patchI)
+            {
+                if(cPlus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                {
+                    scalarField& Cb1 = cPlus.boundaryField()[patchI];
+                    const tmp<scalarField>&  Ci1 = cPlus.boundaryField()[patchI].patchInternalField();
+                    scalarField& Phib1 = psiE.boundaryField()[patchI];
+                    const tmp<scalarField>& Phii1 = psiE.boundaryField()[patchI].patchInternalField();
+                    Cb1 = Ci1/(1.0 + zPlus.value()*(Phib1 - Phii1));
+                }
+            }
+
+            forAll(cMinus.boundaryField(),patchI)
+            {
+                if(cMinus.boundaryField()[patchI].type() == "fixedIonicFlux")
+                {
+                    //Info<<nl<<"********************************zero!!!"<<endl;
+
+                    scalarField& Cb2 = cMinus.boundaryField()[patchI];
+                    const tmp<scalarField>& Ci2 = cMinus.boundaryField()[patchI].patchInternalField();
+                    scalarField& Phib2 = psiE.boundaryField()[patchI];
+                    const tmp<scalarField>&  Phii2 = psiE.boundaryField()[patchI].patchInternalField();
+                    Cb2 = Ci2/(1.0 + zMinus.value()*(Phib2 - Phii2));
                 }
             }
         }
         
-        runTime.setEndTime(timeEnd*timeLap);
+        Info<< "maxResidual = " << maxResidual << nl
+            << endl;
 
-        Info<< "\nStarting time loop\n" << endl;
-        while (runTime.loop())
-        {
-            #include "readBlockSolverControls.H"
-            #include "readFieldBounds.H"
-            // #include "CourantNo.H" // 얘는 delta time 수정용
-            
-            maxResidual = 10;
+        // turbulence->correct();
+        runTime.write();
 
-            Info<< "Time = " << runTime.timeName() << nl << endl;
+        Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
+            << "  ClockTime = " << runTime.elapsedClockTime() << " s"
+            << nl << endl;
 
-            scalar PNPIter = 0;
-
-            Info<< "#############################################" << nl 
-            << "Get initial value from PNPEqn" << nl << endl;            
-            #include "PNPEqn.H"
-
-            if(solveTransient)
-            {
-                while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
-                {
-                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
-                    #include "PNPNSEqn.H"
-                }
-            }
-            else // solve steady-state
-            {
-                while(PNPIter++ < nPNPIter and maxResidual > 1e-6) // for(int PNPIter = 0; PNPIter < nOuterIter; OuterIter++)
-                {
-                    Info <<"         Steady solver/PNP-NS Iteration      # " << PNPIter+1 <<endl;
-                    bounded = false;
-                    #include "PNPNSEqn.H"
-                    netCharge = (zPlus*cPlus + zMinus*cMinus);
-                    bodyForce = - netCharge * fvc::grad(psiE);
-                }
-            }
-            
-            Info<< "maxResidual = " << maxResidual << nl
-                << endl;
-            
-            // turbulence->correct();
-            runTime.write();
-
-            Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
-                << "  ClockTime = " << runTime.elapsedClockTime() << " s"
-                << nl << endl;
-
-        } // Time loop closed
-
-        timeLap+=1.0;
-
-        ECsystem.changePhi();
-
-    } // phiRun() loop closed
-
+    } // Time loop closed
 
     Info<< "End\n" << endl;
 

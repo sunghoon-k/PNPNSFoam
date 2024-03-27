@@ -1,3 +1,4 @@
+netCharge = zPlus*cPlus + zMinus*cMinus;
 bodyForce = - netCharge * fvc::grad(psiE) * sqrDebL_nonD/2;
 nNewtonIter = 1;
 for(int NewtonIter = 0; NewtonIter < nNewtonIter; NewtonIter++)

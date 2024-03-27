@@ -215,6 +215,7 @@ Foam::tmp<Field<Foam::scalar> > Foam::zeroIonicFlux_nonDFvPatchScalarField::valu
 void Foam::zeroIonicFlux_nonDFvPatchScalarField::write(Ostream& os) const
 {
     fixedGradientFvPatchScalarField::write(os);
+    os.writeKeyword("zib") << zib_ << token::END_STATEMENT << nl;
     writeEntry("value", os);
 }
 

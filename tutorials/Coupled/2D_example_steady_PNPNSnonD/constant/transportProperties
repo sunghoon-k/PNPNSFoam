@@ -19,7 +19,7 @@ transportModel Newtonian;
 phiDyMBoundary // thermal voltage
 {
 	name	top;
-	phiStart	25;
+	phiStart	0;
 	phiEnd		25;
 	phiInterval	1;
 }
@@ -85,7 +85,7 @@ Electrolyte
   	Pressure p;
 
     l0              l0 [0 1 0 0 0 0 0] 10e-6; // length-scale 
-    c0              c0 [0 -3 0 0 1 0 0] 10; // Bulk Concentration   
+    c0              c0 [0 -3 0 0 1 0 0] 1; // Bulk Concentration   
     T               T  [0 0 0 1 0 0 0] 300; // Absolute temperature    
     epsr          epsr [0 0 0 0 0 0 0] 80; // dielectric constant 
     mu              mu [1 -1 -1 0 0 0 0] 1e-3; //[kg/(m*s)] dynamic viscosity

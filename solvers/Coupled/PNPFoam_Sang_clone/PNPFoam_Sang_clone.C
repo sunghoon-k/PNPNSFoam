@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
 
     while(ECsystem.phiRun())
     {
+        Info << ECsystem.phiStart() << endl;
         phiInstant_ = ECsystem.phiInstant();
         Info << "\n-------------- | Phi = " << phiInstant_<< " |--------------"<<endl;
         forAll(mesh.boundary(),patchI)

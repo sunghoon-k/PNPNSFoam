@@ -1,7 +1,0 @@
-$(OBJECTS_DIR)/cmtFileExport.o: cmtPrePost/cmtFileExport.dep
-cmtPrePost/cmtFileExport.dep: cmtPrePost/cmtFileExport.C
-cmtPrePost/cmtFileExport.dep: cmtPrePost/cmtFileExport.H
-$(OBJECTS_DIR)/cmtFileExport.o: $(EXE_DEP)
-$(OBJECTS_DIR)/cmtFileExport.o:
-	@SOURCE_DIR=cmtPrePost
-	SOURCE=cmtPrePost/cmtFileExport.C ; $(Ctoo)

@@ -60,6 +60,11 @@ laplacianSchemes
     laplacian(D1z1C1f,Phi) Gauss linear corrected;
     laplacian(D2z2C2f,Phi) Gauss linear corrected;
     laplacian(rAU,p) Gauss linear corrected;
+    //laplacian(DPluszPluscPlusf, psiE) Gauss linear corrected;
+    //laplacian(DMinuszMinuscMinusf, psiE) Gauss linear corrected;
+    //laplacian(psiE) Gauss linear fourth;
+    //laplacian(cPlus) Gauss linear fourth;
+
 }
 
 interpolationSchemes

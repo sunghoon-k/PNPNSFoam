@@ -1,21 +1,16 @@
-volScalarField netCharge = C1*z1.value() + C2*z2.value();
-volVectorField bodyForce = - netCharge * fvc::grad(Phi) / (Epsilon2*2);
-maxResidual = 10;
+#include "readBlockSolverControls.H"
+fvBlockMatrix<vector4> UpEqn(Up);
 
-for(int NewtonIter = 0; NewtonIter < nNewtonIteration; NewtonIter++)
+for(int NewtonIter = 0; NewtonIter < nNewtonIterNS; NewtonIter++)
 {
-    #include "readBlockSolverControls.H"
-
     p.storePrevIter();
-    fvBlockMatrix<vector4> UpEqn(Up);
 
     #include "UEqn.H"
     #include "pEqn.H"
-    #include "couplingTerms.H"
+    #include "couplingTermsNS.H"
 
     // Solve the block matrix
-    //UpEqn.solve();
-    maxResidual = cmptMax(UpEqn.solve().initialResidual()); // residual = b - A*x_n
+    maxResidual_NS = cmptMax(UpEqn.solve().initialResidual());
 
     // Retrieve solution
     UpEqn.retrieveSolution(0, U.internalField());
@@ -26,8 +21,7 @@ for(int NewtonIter = 0; NewtonIter < nNewtonIteration; NewtonIter++)
 
     phi = (fvc::interpolate(U) & mesh.Sf()) + pEqn.flux() + presSource;
     #include "continuityErrs.H"
-    p.relax();
-    turbulence->correct();
+    if (maxResidual_NS < convergenceCriterionNS){ break; }
 
-    #include "convergenceCheck.H"
+    p.relax();
 }

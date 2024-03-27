@@ -14,6 +14,20 @@
         mesh
     );
 
+    Info << "Reading field psiI\n" << endl;
+    volScalarField psiI
+    (
+        IOobject
+        (
+            "psiI",
+            runTime.timeName(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh
+    );
+
     Info << "Reading field cPlus\n" << endl;
     volScalarField cPlus
     (
@@ -71,7 +85,6 @@
 
     #include "createPhi.H"
 
-
 /**********************************************************************/
     Info<< "Reading transportProperties\n" << endl;
 
@@ -92,6 +105,8 @@
 
     word phiDyMBound(transportProperties.subDict("phiDyMBoundary").lookup("name"));
 
+    // dimensionedScalar mobilityPlus((e*DPlus*zPlus)/(kB*T));
+    // dimensionedScalar mobilityMinus((e*DMinus*zMinus)/(kB*T));
 
     Info << "Reading field psiEGrad\n" << endl;
     volVectorField psiEGrad
@@ -120,8 +135,8 @@
         ),
         fvc::snGrad(psiE) * mesh.magSf()
     );
-    
-        Info << "Reading field DPlusphiE\n" << endl;
+
+    Info << "Reading field DPlusphiE\n" << endl;
     surfaceScalarField DPlusphiE
     (
         IOobject
@@ -148,7 +163,63 @@
         ),
         DMinus_nonD * zMinus * phiE
     );    
+
+    Info << "Reading field phiDcPlus\n" << endl;
+    surfaceScalarField phiDcPlus
+    (
+        IOobject
+        (
+            "phiDcPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DPlus_nonD*zPlus*fvc::interpolate(cPlus)
+    );
+
+    Info << "Reading field phiDcMinus\n" << endl;
+    surfaceScalarField phiDcMinus
+    (
+        IOobject
+        (
+            "phiDcMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        DMinus_nonD*zMinus*fvc::interpolate(cMinus)
+    );
 /*
+    Info << "Reading field phiMobility\n" << endl;
+    surfaceScalarField phiMobilityPlus
+    (
+        IOobject
+        (
+            "phiMobilityPlus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        phiE*(DPlus*e*zPlus)/(kB*T)
+    );
+
+    surfaceScalarField phiMobilityMinus
+    (
+        IOobject
+        (
+            "phiMobilityMinus",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        phiE*(DMinus*e*zMinus)/(kB*T)
+    );    
+*/
+    /*
     Info << "Reading field currentcPlus\n" << endl;
     volVectorField currentcPlus
     (
@@ -177,9 +248,8 @@
         -( fvc::grad(cMinus) * DMinus + mobilityMinus* psiEGrad * cMinus)
     );
 
-*/
-
-
+    */
+    
     Info << "Reading field netCharge\n" << endl;
     volScalarField netCharge
     (
@@ -189,24 +259,23 @@
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
         (zPlus*cPlus + zMinus*cMinus)
     );
 
-    Info << "Creating field PNPNS\n" << endl;
-    volVector7Field PNPNS
+    Info << "Reading field bodyForce\n" << endl;
+    volVectorField bodyForce
     (
         IOobject
         (
-            "PNPNS",
+            "bodyForce",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::AUTO_WRITE
         ),
-        mesh,
-        dimensionedVector7("zero", dimless, vector7::zero)
+        - netCharge * fvc::grad(psiE)*oneOver2SquareDebL_nonD
     );
 
     Info<< "Creating field rAU\n" << endl;
@@ -227,6 +296,36 @@
     mesh.schemesDict().setFluxRequired(p.name());
     mesh.schemesDict().setFluxRequired("pcorr");
 
+    Info << "Creating field PNPs\n" << endl;
+    volVector4Field PNPs
+    (
+        IOobject
+        (
+            "PNPs",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedVector4("zero", dimless, vector4::zero)
+    );
+
+    Info << "Creating field PNPNSs\n" << endl;
+    volVector8Field PNPNSs
+    (
+        IOobject
+        (
+            "PNPNSs",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedVector8("zero", dimless, vector8::zero)
+    );
+
     Info << "Creating field PNP\n" << endl;
     volVector3Field PNP
     (
@@ -242,16 +341,84 @@
         dimensionedVector3("zero", dimless, vector3::zero)
     );
 
-    Info << "Reading field bodyForce\n" << endl;
-    volVectorField bodyForce
+    Info << "Creating field PNPNS\n" << endl;
+    volVector7Field PNPNS
     (
         IOobject
         (
-            "bodyForce",
+            "PNPNS",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
-        -( fvc::grad(psiE) * netCharge)
+        mesh,
+        dimensionedVector7("zero", dimless, vector7::zero)
     );
+/*
+    if(splitpsi)
+    {
+        Info << "Creating field PNPs\n" << endl;
+        volVector4Field PNPs
+        (
+            IOobject
+            (
+                "PNPs",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedVector4("zero", dimless, vector4::zero)
+        );
+
+        Info << "Creating field PNPNSs\n" << endl;
+        volVector8Field PNPNSs
+        (
+            IOobject
+            (
+                "PNPNSs",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedVector8("zero", dimless, vector8::zero)
+        );
+    }
+    else
+    {
+        Info << "Creating field PNP\n" << endl;
+        volVector3Field PNP
+        (
+            IOobject
+            (
+                "PNP",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedVector3("zero", dimless, vector3::zero)
+        );
+
+        Info << "Creating field PNPNS\n" << endl;
+        volVector7Field PNPNS
+        (
+            IOobject
+            (
+                "PNPNS",
+                runTime.timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedVector7("zero", dimless, vector7::zero)
+        );
+    }
+
+*/

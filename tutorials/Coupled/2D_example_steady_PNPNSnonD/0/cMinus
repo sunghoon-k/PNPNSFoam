@@ -23,9 +23,10 @@ boundaryField
 {
     bottom
     {
+	//type            fixedIonicFlux;
 	type            zeroIonicFlux_nonD;
 	zib		-1;        
-	//T		300;
+//	T		300;
 	value           uniform 1;
 
 

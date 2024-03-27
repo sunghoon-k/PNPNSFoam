@@ -1,9 +1,2 @@
 DEPENDENCIES = \
-main_PNPNSFoam.dep\
-ElectrochemicalSystem.dep\
-cmtPrePost/cmtFileExport.dep\
-cmtPrePost/vtk-vtu/cmtVTU.dep\
-cmtPrePost/vtk-vtu/internalWriter.dep\
-cmtPrePost/vtk-vtu/vtkMesh.dep\
-cmtPrePost/vtk-vtu/writeFuns.dep\
-cmtPrePost/vtk-vtu/vtkTopo.dep
+PNPNSFoam_Sang_clone.dep

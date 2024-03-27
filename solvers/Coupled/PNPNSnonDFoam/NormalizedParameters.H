@@ -6,6 +6,7 @@ Info << "****************************************************************" << en
 
 dimensionedScalar l0(ECsystem.l0);
 dimensionedScalar l0_one("l0_one", l0.dimensions(), 1.0);
+dimensionedScalar dimphi("dimphi",dimensionSet(0,3,-1,0,0,0,0), 1);
 dimensionedScalar c0(ECsystem.c0);
 dimensionedScalar T(ECsystem.T);
 dimensionedScalar e(ElectrochemicalSystem::e);
@@ -24,7 +25,7 @@ dimensionedScalar DPlus(ECsystem.DPlus);
 dimensionedScalar zMinus(ECsystem.zMinus);
 dimensionedScalar DMinus(ECsystem.DMinus);
 // dimensionedScalar D0("D0",dimensionSet(0,2,-1,0,0,0,0), (D1.value() + D2.value())/2);
-dimensionedScalar D0("D0", (DPlus + DMinus)/2);
+dimensionedScalar D0("D0", DPlus + DMinus);
 //Info << "Average-diffusivity: " << D0.value() << endl;
 Info << "Average-diffusivity's value: " << D0.value() << " " << D0.dimensions()<< endl;
 
@@ -76,11 +77,11 @@ Info << "Dimensionless diffusion coefficient DMinus_nonD: " << DMinus_nonD.value
 //scalar DebL_nonD = (DebL/l0).value();
 dimensionedScalar DebL_nonD("DebL_nonD", DebL/l0);
 
-dimensionedScalar oneOverSquareDebL_nonD("oneOverSquareDebL_nonD", 1/(2*sqr(DebL_nonD)));
-
 // scalar Epsilon2 = sqr(Epsilon);
 Info << "Dimensionless Debye-Length: " << DebL_nonD.value() << endl;
 // Info << "Epsilon2: " << Epsilon2 << endl;
+
+scalar oneOver2SquareDebL_nonD = 1/(2*sqr(DebL_nonD.value()));
 
  // Calculate Schmidt Number
 scalar Sc = (nu/D0).value();

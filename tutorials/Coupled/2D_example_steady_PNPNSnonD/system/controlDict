@@ -15,13 +15,13 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 application     PNPNSFoam;
-startFrom       startTime;
+startFrom       latestTime; // latestTime; // startTime;
 startTime       0;
 stopAt          endTime;
-endTime         1; // 1;
+endTime         5000; // 1;
 deltaT          1;
 writeControl    timeStep;
-writeInterval   1;
+writeInterval   20;
 purgeWrite      0;
 writeFormat     ascii;
 writePrecision  6;
@@ -29,11 +29,11 @@ writeCompression off;
 timeFormat      general;
 timePrecision   6;
 runTimeModifiable true;
-//libs ("libzeroIonicFlux.so" "libElectrochemicalSystem.so" "electrokinBC.so");
-nInIter 15; //15;
-nNSPNPIteration  100;
-PNPNStransient no;
+libs ("libzeroIonicFlux_nonD.so" "libslipEOF.so" "libElectrochemicalSystem.so" "electrokinBC.so" "libfixedIonicFlux.so");
 
+PNPNStransient no;
+solveNS yes;
+splitpsi no;
 /*
 C1C2convergence  1e-3; //1e-3;
 solveNS yes;
