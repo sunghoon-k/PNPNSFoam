@@ -117,6 +117,17 @@ for(int NewtonIter = 0; NewtonIter < nNewtonIter; NewtonIter++)
         FU += FUt;
     }
 
+    if(solveTransient)
+    {
+        volScalarField F1t = ddtc_one * ddtcPlus;
+        volScalarField F2t = ddtc_one * ddtcMinus;
+        F1 += F1t;
+        F2 += F2t;
+
+        volVectorField FUt = (1/Sc) * ddtU;
+        FU += FUt;
+    }
+
     // Assign F to blockM's right-hand side
     forAll(PNPNSEqn.source(),cellI)
     {

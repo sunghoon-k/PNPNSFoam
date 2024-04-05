@@ -4,8 +4,6 @@ volScalarField divPhi
     fvc::div(phi)
 );
 
-dimensionedScalar nu_one("nu_one", nu.dimensions(), 1.0);
-dimensionedScalar bodyForce_one("bodyForce_one", dimensionSet(0,2,-2,0,0,0,0), 1.0);
 
 netCharge = zPlus*cPlus + zMinus*cMinus;
 
@@ -21,7 +19,7 @@ fvVectorMatrix UEqn
   + bodyForce*bodyForce_one
 );
 
-if(solveTransient)
+if(pseudoTransient)
 {
     UEqn += (1/Sc)*fvm::ddt(U);
 }

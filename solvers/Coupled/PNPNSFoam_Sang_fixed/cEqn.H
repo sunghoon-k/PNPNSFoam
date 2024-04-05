@@ -16,10 +16,10 @@ fvScalarMatrix cMinusEqn
   //+ F2
 );
 
-if(solveTransient)
+if(pseudoTransient)
 {
-  cPlusEqn += (t0_one/sqr(l0_one)) * fvm::ddt(cPlus);
-  cMinusEqn += (t0_one/sqr(l0_one)) * fvm::ddt(cMinus);
+  cPlusEqn += ddtc_one * fvm::ddt(cPlus);
+  cMinusEqn += ddtc_one * fvm::ddt(cMinus);
 }
 
 cPlusEqn.relax();

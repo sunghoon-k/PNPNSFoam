@@ -111,70 +111,76 @@ int main(int argc, char *argv[])
             reachedResidual = false;
             Info<< "Time = " << runTime.timeName() << nl << endl;
 
-            Info <<dVstring<<phiInstant_<<":         SteadyState solver"<<endl;
+            if(solveTransient)
+            {
+                Info <<dVstring<<phiInstant_<<":         TransientState solver"<<endl;
+            }
+            else if(pseudoTransient)
+            {
+                Info <<dVstring<<phiInstant_<<":         PseudoTransientState solver"<<endl;
+            }   
+            else
+            {
+                Info <<dVstring<<phiInstant_<<":         SteadyState solver"<<endl;
+            }                 
+
             //while(ipnp_ns < nPNPNSIter and max(dC, dU)>dCmin)
             for(int PNPNSIter=0; PNPNSIter < nPNPNSIter; PNPNSIter++) 
             {
                 if(solveTransient)
                 {
-                    Info << "Transient not yet" << endl;
-                    break;
+                    Info <<"         Transient solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
                 }
+                else if(pseudoTransient)
+                {
+                    Info <<"         PseudoTransient solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
+                }   
                 else
                 {
-                    if(pseudoTransient)
-                    {
-                        Info <<"         PseudoTransient solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
-                    }   
-                    else
-                    {
-                        Info <<"         SteadyState solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
-                    }                 
-                    volScalarField cPlusold = cPlus;
-                    volVectorField Uold = U;
-                    volScalarField psiEold = psiE;
+                    Info <<"         SteadyState solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
+                }                 
+                volScalarField cPlusold = cPlus;
+                volScalarField cMinusold = cMinus;
+                volVectorField Uold = U;
 
-                    if(solveNS)// (runTime.controlDict().lookupOrDefault<Switch>("solveNS",true))
-                    {
-                        Info<<endl<<"*** PNPNS ***"<<endl;
-                        #include "PNPNSEqn.H"
-                        //#include "PNPEqn.H"
-                        //#include "NSNewtonEqn.H"
-                    } else 
-                    {
-                        Info<<endl<<"****** only PNP ******"<<endl;
-                        /*
-                        */
-                        // test laplacian(psiE) Newton raphson
-                        #include "PNPEqn.H"
-                    }
-                    
-                    dC = mag(gMax((cPlus.internalField() - cPlusold.internalField())));///psiEold.internalField()
-                    Info <<endl<<nl<<dVstring<<phiInstant_<<": C convergence: "<<dC<<endl<<endl;
-                    
-                    dU = mag(gMax((U.internalField() - Uold.internalField()))); // /Uold.internalField()
-                    Info <<endl<<nl<<dVstring<<phiInstant_<<": U convergence: "<<dU<<endl<<endl;
-                    //ipnp_ns++;
-                    if(max(dC, dU)<dCmin)
-                    {
-                        reachedResidual = true;
-                        break;
-                    }
+                volScalarField ddtcPlus = fvc::ddt(cPlus);
+                volScalarField ddtcMinus = fvc::ddt(cMinus);
+                volVectorField ddtU = fvc::ddt(U);
 
+                if(solveNS)// (runTime.controlDict().lookupOrDefault<Switch>("solveNS",true))
+                {
+                    Info<<endl<<"*** PNPNS ***"<<endl;
+                    #include "PNPNSEqn.H"
+                } else 
+                {
+                    Info<<endl<<"****** only PNP ******"<<endl;
+                    #include "PNPEqn.H"
                 }
-            }
-
-            runTime.write();
-            if(!reachedResidual)
-            {
-                Info << "not Reached!!!!!!!!!!!!!" << endl;
-                break;
+                
+                dC = mag(gMax((cPlus.internalField() - cPlusold.internalField())));///psiEold.internalField()
+                Info <<endl<<nl<<dVstring<<phiInstant_<<": C convergence: "<<dC<<endl<<endl;
+                
+                dU = mag(gMax((U.internalField() - Uold.internalField()))); // /Uold.internalField()
+                Info <<endl<<nl<<dVstring<<phiInstant_<<": U convergence: "<<dU<<endl<<endl;
+                //ipnp_ns++;
+                if(max(dC, dU)<dCmin)
+                {
+                    reachedResidual = true;
+                    break;
+                }
             }
 
             Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
                 << "  ClockTime = " << runTime.elapsedClockTime() << " s"
                 << nl << endl;
 
+            runTime.write();
+
+            if(reachedResidual)
+            {
+                Info << "Reached!!!!!!!!!!!!!" << endl;
+                break;
+            }
         } // Time loop closed
         timeLap+=1.0;
         ECsystem.changePhi();

@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
     bool solveTransient(readBool(runTime.controlDict().lookup("PNPNStransient")));
     bool solveNS(readBool(runTime.controlDict().lookup("solveNS")));
-    bool debugMode(readBool(runTime.controlDict().lookup("debugMode")));
+    bool pseudoTransient(readBool(runTime.controlDict().lookup("pseudoTransient")));
 
 //    simpleControl simple(mesh);
     #include "createFields.H"
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 //    #include "initConvergenceCheck.H"
 
     Info<< "\nCalculating scalar transport  \n" << endl;
-    double timeEnd = runTime.endTime().value();
+    //double timeEnd = runTime.endTime().value();
     double timeLap = 1.0;
     scalar phiInstant_ = ECsystem.phiInstant();
 
@@ -84,18 +84,16 @@ int main(int argc, char *argv[])
             }
         }
 
-        
-        // runTime.setEndTime(timeEnd*timeLap);
-        runTime.setEndTime(phiInstant_);// (timeEnd*timeLap);
-        runTime.setTime(runTime.endTime() - runTime.deltaT(), runTime.timeIndex());        
+        if(ECsystem.phiStart() != ECsystem.phiEnd())
+        {
+            runTime.setEndTime(phiInstant_);// (timeEnd*timeLap);
+            runTime.setTime(runTime.endTime() - runTime.deltaT(), runTime.timeIndex());        
+        }
 
-        scalarList Is(nPNPNSIter,0);
-        scalar ipnp_ns = 0,dC(10), dU(0);
+        scalar dC(10), dU(0);
         scalar dCmin(readScalar(runTime.controlDict().lookup("C1C2convergence")));
         word dVstring(" >>> dV = ");
-        char phiInstant_str[6];
-        gcvt(phiInstant_,6,phiInstant_str);
-
+        
         bool reachedResidual = false;
         Info<< "\nStarting time loop\n" << endl;
 
@@ -115,36 +113,52 @@ int main(int argc, char *argv[])
             //while(ipnp_ns < nPNPNSIter and max(dC, dU)>dCmin)
             for(int PNPNSIter=0; PNPNSIter < nPNPNSIter; PNPNSIter++) 
             {
-                Info <<"         SteadyState solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
-                volScalarField cPlusold = cPlus;
-                volVectorField Uold = U;
-                volScalarField psiEold = psiE;
-//                Info<<endl<<"*** PNPEqn ***"<<endl;
-                if(runTime.controlDict().lookupOrDefault<Switch>("solveNS",true))
+                if(solveTransient)
                 {
-                    Info<<endl<<"*** PNPNS ***"<<endl;
-                    #include "PNPNSEqn.H"
-                    //#include "PNPEqn.H"
-                    //#include "NSNewtonEqn.H"
-                } else 
-                {
-                    Info<<endl<<"****** only PNP ******"<<endl;
-                    /*
-                    */
-                    // test laplacian(psiE) Newton raphson
-                    #include "PNPEqn.H"
-                }
-                
-                dC = mag(gMax((cPlus.internalField() - cPlusold.internalField())));///psiEold.internalField()
-                Info <<endl<<nl<<dVstring<<phiInstant_<<": C convergence: "<<dC<<endl<<endl;
-                
-                dU = mag(gMax((U.internalField() - Uold.internalField()))); // /Uold.internalField()
-                Info <<endl<<nl<<dVstring<<phiInstant_<<": U convergence: "<<dU<<endl<<endl;
-                //ipnp_ns++;
-                if(max(dC, dU)<dCmin)
-                {
-                    reachedResidual = true;
+                    Info << "Transient not yet" << endl;
                     break;
+                }
+                else
+                {
+                    if(pseudoTransient)
+                    {
+                        Info <<"         PseudoTransient solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
+                    }   
+                    else
+                    {
+                        Info <<"         SteadyState solver/PNP-NS Iteration      # " << PNPNSIter+1 <<endl;
+                    }                 
+                    volScalarField cPlusold = cPlus;
+                    volVectorField Uold = U;
+                    volScalarField psiEold = psiE;
+
+                    if(solveNS)// (runTime.controlDict().lookupOrDefault<Switch>("solveNS",true))
+                    {
+                        Info<<endl<<"*** PNPNS ***"<<endl;
+                        #include "PNPNSEqn.H"
+                        //#include "PNPEqn.H"
+                        //#include "NSNewtonEqn.H"
+                    } else 
+                    {
+                        Info<<endl<<"****** only PNP ******"<<endl;
+                        /*
+                        */
+                        // test laplacian(psiE) Newton raphson
+                        #include "PNPEqn.H"
+                    }
+                    
+                    dC = mag(gMax((cPlus.internalField() - cPlusold.internalField())));///psiEold.internalField()
+                    Info <<endl<<nl<<dVstring<<phiInstant_<<": C convergence: "<<dC<<endl<<endl;
+                    
+                    dU = mag(gMax((U.internalField() - Uold.internalField()))); // /Uold.internalField()
+                    Info <<endl<<nl<<dVstring<<phiInstant_<<": U convergence: "<<dU<<endl<<endl;
+                    //ipnp_ns++;
+                    if(max(dC, dU)<dCmin)
+                    {
+                        reachedResidual = true;
+                        break;
+                    }
+
                 }
             }
 

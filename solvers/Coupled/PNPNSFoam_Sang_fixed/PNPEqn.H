@@ -18,8 +18,6 @@ volScalarField cV
 scalarField& cV_ = cV.internalField();
 forAll(cV_, k) {cV_[k] = mesh.V()[k];}
 
-dimensionedScalar dimL("dimL",dimensionSet(0,1,0,0,0,0,0), 1);
-dimensionedScalar dimU("dimU",dimensionSet(0,1,-1,0,0,0,0), 1);
 for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
 {
 //    volScalarField dcPlus(cPlus);
@@ -116,19 +114,6 @@ for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
         PNPEqn.source()[cellI](1) = -F2[cellI];
         PNPEqn.source()[cellI](2) = -F3[cellI];
     }
-
-    if(debugMode)
-    {
-        // Before Assigning F to blockM's right-hand side
-        forAll(PNPEqn.source(),cellI)
-        {
-            Info<<"cPlus.source: "<<PNPEqn.source()[cellI](0)<<endl;
-            Info<<"cMinus.source: "<<PNPEqn.source()[cellI](1)<<endl;
-            Info<<"psiE.source: "<<PNPEqn.source()[cellI](2)<<endl;
-
-        }
-    }
-
 
     maxResidual_PNP = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
 

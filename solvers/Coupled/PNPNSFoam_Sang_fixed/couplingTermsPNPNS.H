@@ -33,3 +33,11 @@ PNPNSEqn.insertBlockCoupling(3, 6, pInU, true); // 0: U <- 3: p
 
 BlockLduSystem<vector, scalar> UInp(fvm::UDiv(U));
 PNPNSEqn.insertBlockCoupling(6, 3, UInp, false); // 3: p <- 0: U
+
+netCharge = zPlus*cPlus + zMinus*cMinus;
+
+//bodyForce = - netCharge * fvc::grad(psiE) * oneOver2SquareDebL_nonD;
+
+BlockLduSystem<vector, vector> psiEInU(fvm::grad(psiE));
+psiEInU *= (netCharge.internalField() * oneOver2SquareDebL_nonD);
+PNPNSEqn.insertBlockCoupling(3, 2, psiEInU, true); // 0: U <- 2: psiE

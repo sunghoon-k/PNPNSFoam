@@ -18,8 +18,6 @@ volScalarField cV
 scalarField& cV_ = cV.internalField();
 forAll(cV_, k) {cV_[k] = mesh.V()[k];}
 
-dimensionedScalar dimL("dimL",dimensionSet(0,1,0,0,0,0,0), 1);
-dimensionedScalar dimU("dimU",dimensionSet(0,1,-1,0,0,0,0), 1);
 for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
 {
 //    volScalarField dcPlus(cPlus);
@@ -102,16 +100,18 @@ for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
     // Calculate Right-Hand Side F
     volScalarField zPluscPlusVol = zPlus*cPlus*oneOver2SquareDebL_nonD; // *cV
     volScalarField zMinuscMinusVol = zMinus*cMinus*oneOver2SquareDebL_nonD; // *cV
-/*
-    volScalarField F1 = (fvc::laplacian(-DPlus_nonD, cPlus) + fvc::div(DPluszPlusphiE, cPlus))*cV; //  + fvc::laplacian(DPluszPluscPlusf, psiE)
-    volScalarField F2 = (fvc::laplacian(-DMinus_nonD, cMinus) + fvc::div(DMinuszMinusphiE, cMinus) )*cV; // + fvc::laplacian(DMinuszMinuscMinusf, psiE)
-    volScalarField F3 = (fvc::laplacian(psiE) + (zPlus*cPlus + zMinus*cMinus)*oneOver2SquareDebL_nonD/sqr(dimL))*cV;
 
-*/
     volScalarField F1 = fvc::surfaceIntegrate(jPlus)*cV;// *sqr(dimL);
     volScalarField F2 = fvc::surfaceIntegrate(jMinus)*cV;// *sqr(dimL);
     volScalarField F3 = fvc::surfaceIntegrate(gradpsiEf*magSf)*cV + (zPluscPlusVol + zMinuscMinusVol)/sqr(dimL)*cV; // *cV
 
+    if(pseudoTransient)
+    {
+        volScalarField F1t = ddtc_one * fvc::ddt(cPlus)*cV;
+        volScalarField F2t = ddtc_one * fvc::ddt(cMinus)*cV;
+        F1 += F1t;
+        F2 += F2t;
+    }
 
     // Assign F to blockM's right-hand side
     forAll(PNPNSEqn.source(),cellI)

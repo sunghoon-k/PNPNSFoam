@@ -21,7 +21,7 @@ fvScalarMatrix cMinusEqn
 //Info << fvc::ddt(cPlus).dimensions() << endl;
 //(t0_one/sqr(l0_one)) * 
 
-if(pseudoTransient)
+if(pseudoTransient or solveTransient)
 {
   cPlusEqn += ddtc_one * fvm::ddt(cPlus);
   cMinusEqn += ddtc_one * fvm::ddt(cMinus);

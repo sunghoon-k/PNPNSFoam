@@ -14,7 +14,7 @@ fvVectorMatrix UEqn
   //+ bodyForce*bodyForce_one
 );
 
-if(solveTransient)
+if(pseudoTransient)
 {
     UEqn += (1/Sc)*fvm::ddt(U);
 }

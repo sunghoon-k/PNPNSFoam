@@ -96,6 +96,11 @@ scalar Pe = (U0*l0/D0).value();
 Info << "Pelec Number: " << Pe << endl;
 
 Info << "****************************************************************" << endl;
+dimensionedScalar dimL("dimL",dimensionSet(0,1,0,0,0,0,0), 1);
+dimensionedScalar dimU("dimU",dimensionSet(0,1,-1,0,0,0,0), 1);
+dimensionedScalar nu_one("nu_one", nu.dimensions(), 1.0);
+dimensionedScalar bodyForce_one("bodyForce_one", dimensionSet(0,2,-2,0,0,0,0), 1.0);
+dimensionedScalar ddtc_one("ddtc_one", dimensionSet(0, -2, 1, 0, 0, 0, 0), 1.0);
 
 /*
 

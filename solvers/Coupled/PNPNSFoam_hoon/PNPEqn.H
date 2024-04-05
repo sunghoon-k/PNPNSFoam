@@ -2,22 +2,6 @@ volScalarField cPlusT = cPlus;
 volScalarField cMinusT = cMinus;
 volScalarField psiET = psiE;
 
-volScalarField cV
-(
-    IOobject
-    (
-        "cV",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    mesh,
-    dimensionedScalar("zero", dimensionSet(0, 3, 0, 0, 0, 0, 0), 0.0)
-);
-scalarField& cV_ = cV.internalField();
-forAll(cV_, k) {cV_[k] = mesh.V()[k];}
-
 dimensionedScalar dimL("dimL",dimensionSet(0,1,0,0,0,0,0), 1);
 dimensionedScalar dimU("dimU",dimensionSet(0,1,-1,0,0,0,0), 1);
 for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
@@ -104,17 +88,34 @@ for(int NewtonIter = 0; NewtonIter < nNewtonIterPNP; NewtonIter++)
     volScalarField F3 = (fvc::laplacian(psiE) + (zPlus*cPlus + zMinus*cMinus)*oneOver2SquareDebL_nonD/sqr(dimL))*cV;
 
 */
-    volScalarField F1 = fvc::surfaceIntegrate(jPlus)*cV;// *sqr(dimL);
-    volScalarField F2 = fvc::surfaceIntegrate(jMinus)*cV;// *sqr(dimL);
-    volScalarField F3 = fvc::surfaceIntegrate(gradpsiEf*magSf)*cV + (zPluscPlusVol + zMinuscMinusVol)/sqr(dimL)*cV; // *cV
+    volScalarField F1 = fvc::surfaceIntegrate(jPlus);// *sqr(dimL);
+    volScalarField F2 = fvc::surfaceIntegrate(jMinus);// *sqr(dimL);
+    volScalarField F3 = fvc::surfaceIntegrate(gradpsiEf*magSf) + (zPluscPlusVol + zMinuscMinusVol)/sqr(dimL); // *cV
 
+    if(pseudoTransient)
+    {
+        volScalarField F1t = ddtc_one * fvc::ddt(cPlus);
+        volScalarField F2t = ddtc_one * fvc::ddt(cMinus);
+        F1 += F1t;
+        F2 += F2t;
+    }
+
+    if(pseudoTransient)
+    {
+        volScalarField F1t = ddtc_one * ddtcPlus;
+        volScalarField F2t = ddtc_one * ddtcMinus;
+        F1 += F1t;
+        F2 += F2t;
+    }
 
     // Assign F to blockM's right-hand side
     forAll(PNPEqn.source(),cellI)
     {
-        PNPEqn.source()[cellI](0) = -F1[cellI];
-        PNPEqn.source()[cellI](1) = -F2[cellI];
-        PNPEqn.source()[cellI](2) = -F3[cellI];
+        scalar cellVol = mesh.V()[cellI];
+
+        PNPEqn.source()[cellI](0) = -F1[cellI]*cellVol;
+        PNPEqn.source()[cellI](1) = -F2[cellI]*cellVol;
+        PNPEqn.source()[cellI](2) = -F3[cellI]*cellVol;
     }
 
     maxResidual = cmptMax(PNPEqn.solve().initialResidual()); // residual = b - A*x_n
