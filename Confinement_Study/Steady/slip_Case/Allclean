@@ -1,0 +1,4 @@
+shopt -s extglob
+rm -r !("0"|"constant"|"system"|"Allclean"|"Allrun"|"Cube_Steady_noSlip.OpenFOAM"|"result"|"log.txt")
+blockMesh
+reset

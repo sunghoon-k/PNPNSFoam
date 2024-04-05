@@ -1,0 +1,154 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    Up
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000; //5000;
+
+	convergenceCriterionNS 1e-4; // 1e-4
+    }
+
+    NS
+    {
+        solver BiCGStab;
+        preconditioner Cholesky;
+
+        tolerance 1e-15;
+        relTol  1e-15;
+
+        minIter 1;
+        maxIter 5000; //5000;
+
+	convergenceCriterionNS 1e-4; // 1e-4
+    }
+
+    p
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    pFinal
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    U
+    {
+        solver          BiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-06;
+        relTol          0;
+    }
+
+    PNP
+    {
+        solver          BiCGStab;//petsc;//
+        preconditioner  Cholesky;
+        
+        tolerance       1e-20;
+        relTol          1e-15;
+        
+        minIter         1;
+        maxIter         20000; //5000;
+
+	convergenceCriterionPNP 1e-3; // 1e-4
+    }
+    PNPNS
+    {
+        solver          BiCGStab;//petsc;//
+        preconditioner  Cholesky;
+        
+        tolerance       1e-20;
+        relTol          1e-15;
+        
+        minIter         1;
+        maxIter         20000;
+
+	convergenceCriterion 1e-3; // 1e-4
+    }
+
+}
+
+convergenceCriterionTotal 1e-6; // 1e-4
+
+blockSolver
+{
+    //convergence 1e-3;
+    //convergenceNS 1e-6;
+    pRefCell 0;
+    pRefValue 0;
+}
+
+convergenceCriterion 1e-4;
+PISO
+{
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+}
+
+fieldBounds
+{
+    U      15000;
+    p      -10e4 10e4;
+}
+SIMPLE
+{
+}
+relaxationFactors
+{
+    fields
+    {
+        p               0.7;
+    }
+
+    equations
+    {
+        U               0.7;
+	//dcPlus		1.0;
+	//dcMinus		1.0;
+	//cPlus		0.8;
+	//cMinus		0.8;    
+    }
+}
+/*
+cache
+{
+    grad(U);
+    grad(p);
+    grad(k);
+    grad(omega);
+    grad(epsilon);
+}
+*/
+// ************************************************************************* //

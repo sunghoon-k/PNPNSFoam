@@ -1,0 +1,6 @@
+shopt -s extglob
+# RESULT=$(find ./ -name AR*)
+# gmshToFoam $RESULT
+rm -r !("0"|"constant"|"system"|"Allclean"|"Allrun")
+# reset
+PNPNSFoam_hoon | tee log.txt

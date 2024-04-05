@@ -1,0 +1,2376 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  | For copyright notice see file Copyright         |
+\*---------------------------------------------------------------------------*/
+Build    : 4.0-268bb07d15d8
+Exec     : PNPNSFoam_hoon
+Date     : Apr 03 2024
+Time     : 20:56:14
+Host     : sh-Precision-7920-Tower
+PID      : 1421
+CtrlDict : "/media/sh/drive1/NextFoam/tutorials/3D/Cube_Steady_noSlip/system/controlDict"
+Case     : /media/sh/drive1/NextFoam/tutorials/3D/Cube_Steady_noSlip
+nProcs   : 1
+SigFpe   : Enabling floating point exception trapping (FOAM_SIGFPE).
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Reading field psiE
+
+Reading field psiI
+
+Reading field cPlus
+
+Reading field cMinus
+
+Reading field p
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Reading transportProperties
+
+****************************************************************
+
+Scale Parameters
+****************************************************************
+Average-diffusivity's value: 3.36e-09 [0 -3 -1 0 0 0 0]
+Time-scale's value: 0.0297619 [0 5 1 0 0 0 0]
+Potential-scale's value: 0.025852 [1 2 -3 0 0 -1 0]
+Velocity-scale's value: 4.73398e-05 [0 1 -1 0 0 0 0]
+pressure-scale's value: 4.73398e-06 [0 2 -2 0 0 0 0]
+Debye-Length's value: 3.0805e-09 [0 1 0 0 0 0 0]
+Dimensionless diffusion coefficient DPlus_nonD: 0.395833
+Dimensionless diffusion coefficient DMinus_nonD: 0.604167
+Dimensionless Debye-Length: 0.00030805
+Schmidt Number: 297.619
+Reynold Number: 0.000473398
+Pelec Number: 0.140892
+****************************************************************
+Reading field psiEGrad
+
+Reading field phiE
+
+Reading field DPlusphiE
+
+Reading field DMinusphiE
+
+Reading field phiDcPlus
+
+Reading field phiDcMinus
+
+Reading field netCharge
+
+Reading field bodyForce
+
+Creating field rAU
+
+Creating field PNP
+
+Creating field Up
+
+Creating field PNPNS
+
+
+Calculating scalar transport  
+
+
+-------------- | Applied Voltage = 1 |--------------
+
+Starting time loop
+
+Time = 1
+
+ >>> dV = 1:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.201514 0.615149 0.509089), Final residual = (1.29561e-21 7.14004e-21 6.09123e-21), No Iterations 199
+ Iter # 0 - Residual: [cPlus:93.2593  cMinus:93.2624  psiE:246.774]
+residual: 279.808
+BiCGStab:  Solving for PNP, Initial residual = (0.305855 0.00360911 0.255571), Final residual = (5.97603e-22 3.39672e-21 3.50601e-21), No Iterations 194
+ Iter # 1 - Residual: [cPlus:12.5915  cMinus:12.5919  psiE:7.77285]
+residual: 19.4298
+BiCGStab:  Solving for PNP, Initial residual = (0.313595 0.00260214 0.264078), Final residual = (5.67255e-22 5.43927e-21 5.6355e-21), No Iterations 196
+ Iter # 2 - Residual: [cPlus:0.437114  cMinus:0.437129  psiE:0.349254]
+residual: 0.71002
+BiCGStab:  Solving for PNP, Initial residual = (0.313371 0.00232336 0.263891), Final residual = (2.42589e-21 2.52217e-21 3.59669e-21), No Iterations 190
+ Iter # 3 - Residual: [cPlus:0.000795999  cMinus:0.000796026  psiE:0.000996053]
+residual: 0.00150313
+BiCGStab:  Solving for PNP, Initial residual = (0.31337 0.00232248 0.263891), Final residual = (5.7447e-22 6.93371e-22 1.11178e-21), No Iterations 194
+ Iter # 4 - Residual: [cPlus:3.37284e-09  cMinus:3.37295e-09  psiE:5.46694e-09]
+residual: 7.25536e-09
+break!!!!!!
+
+
+ >>> dV = 1: C convergence: 0.00724732
+
+
+
+ >>> dV = 1: U convergence: 0
+
+         SteadyState solver/PNP-NS Iteration      # 2
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.31337 0.00232248 0.263891), Final residual = (4.3078e-22 1.41598e-22 8.12515e-22), No Iterations 189
+ Iter # 0 - Residual: [cPlus:4.77557e-12  cMinus:4.77531e-12  psiE:9.96299e-12]
+residual: 1.20362e-11
+break!!!!!!
+
+
+ >>> dV = 1: C convergence: 5.88418e-14
+
+
+
+ >>> dV = 1: U convergence: 0
+
+ExecutionTime = 41.48 s  ClockTime = 42 s
+
+
+-------------- | Applied Voltage = 2 |--------------
+
+Starting time loop
+
+Time = 2
+
+ >>> dV = 2:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.222589 0.169883 9.12893e-12), Final residual = (3.49807e-21 2.2217e-21 3.52318e-21), No Iterations 196
+ Iter # 0 - Residual: [cPlus:68.2072  cMinus:68.2094  psiE:245.477]
+residual: 263.749
+BiCGStab:  Solving for PNP, Initial residual = (0.225395 0.0884395 0.282026), Final residual = (8.29606e-22 5.30339e-21 6.56052e-21), No Iterations 195
+ Iter # 1 - Residual: [cPlus:14.297  cMinus:14.2975  psiE:8.75981]
+residual: 22.0353
+BiCGStab:  Solving for PNP, Initial residual = (0.226855 0.089159 0.286544), Final residual = (9.20956e-22 5.5116e-21 5.8268e-21), No Iterations 189
+ Iter # 2 - Residual: [cPlus:0.832222  cMinus:0.832251  psiE:1.31584]
+residual: 1.76541
+BiCGStab:  Solving for PNP, Initial residual = (0.22681 0.0886622 0.286497), Final residual = (3.49449e-22 2.46997e-21 3.42203e-21), No Iterations 195
+ Iter # 3 - Residual: [cPlus:0.00518183  cMinus:0.00518201  psiE:0.0128499]
+residual: 0.0147927
+BiCGStab:  Solving for PNP, Initial residual = (0.22681 0.0886572 0.286497), Final residual = (4.72785e-21 8.21982e-21 2.46863e-21), No Iterations 196
+ Iter # 4 - Residual: [cPlus:2.77124e-07  cMinus:2.77133e-07  psiE:8.45378e-07]
+residual: 9.31807e-07
+break!!!!!!
+
+
+ >>> dV = 2: C convergence: 0.00489203
+
+
+
+ >>> dV = 2: U convergence: 0
+
+         SteadyState solver/PNP-NS Iteration      # 2
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.22681 0.0886572 0.286497), Final residual = (4.91572e-22 1.58278e-21 2.3568e-21), No Iterations 192
+ Iter # 0 - Residual: [cPlus:7.48502e-12  cMinus:7.48428e-12  psiE:1.08538e-11]
+residual: 1.51606e-11
+break!!!!!!
+
+
+ >>> dV = 2: C convergence: 1.03584e-13
+
+
+
+ >>> dV = 2: U convergence: 0
+
+ExecutionTime = 82.46 s  ClockTime = 83 s
+
+
+-------------- | Applied Voltage = 3 |--------------
+
+Starting time loop
+
+Time = 3
+
+ >>> dV = 3:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.202506 0.00251317 0.170532), Final residual = (1.41083e-22 8.88741e-22 1.3902e-21), No Iterations 191
+ Iter # 0 - Residual: [cPlus:41.63  cMinus:41.6313  psiE:254.414]
+residual: 261.137
+BiCGStab:  Solving for PNP, Initial residual = (0.196488 0.121918 0.2946), Final residual = (1.1628e-21 1.58146e-22 3.19301e-21), No Iterations 199
+ Iter # 1 - Residual: [cPlus:12.1649  cMinus:12.1653  psiE:14.4521]
+residual: 22.4687
+BiCGStab:  Solving for PNP, Initial residual = (0.195146 0.121717 0.295774), Final residual = (1.35746e-21 4.96339e-21 4.91842e-21), No Iterations 193
+ Iter # 2 - Residual: [cPlus:1.00119  cMinus:1.00122  psiE:3.45274]
+residual: 3.73179
+BiCGStab:  Solving for PNP, Initial residual = (0.195285 0.121026 0.29601), Final residual = (1.40001e-21 3.04417e-21 7.28952e-21), No Iterations 187
+ Iter # 3 - Residual: [cPlus:0.0163059  cMinus:0.0163065  psiE:0.0805856]
+residual: 0.0838202
+BiCGStab:  Solving for PNP, Initial residual = (0.195288 0.121008 0.296016), Final residual = (3.60058e-21 1.96121e-21 6.63196e-21), No Iterations 194
+ Iter # 4 - Residual: [cPlus:6.17782e-06  cMinus:6.17803e-06  psiE:3.53692e-05]
+residual: 3.64323e-05
+break!!!!!!
+
+
+ >>> dV = 3: C convergence: 0.00272382
+
+
+
+ >>> dV = 3: U convergence: 0
+
+         SteadyState solver/PNP-NS Iteration      # 2
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.195288 0.121008 0.296016), Final residual = (6.64294e-22 2.27351e-21 5.17736e-21), No Iterations 189
+ Iter # 0 - Residual: [cPlus:5.71939e-12  cMinus:5.71912e-12  psiE:9.51539e-12]
+residual: 1.24885e-11
+break!!!!!!
+
+
+ >>> dV = 3: C convergence: 1.19238e-13
+
+
+
+ >>> dV = 3: U convergence: 0
+
+ExecutionTime = 123.08 s  ClockTime = 124 s
+
+
+-------------- | Applied Voltage = 4 |--------------
+
+Starting time loop
+
+Time = 4
+
+ >>> dV = 4:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.177436 0.0697266 0.22413), Final residual = (1.27311e-21 2.34049e-21 6.04958e-21), No Iterations 187
+ Iter # 0 - Residual: [cPlus:20.7944  cMinus:20.795  psiE:272.065]
+residual: 273.649
+BiCGStab:  Solving for PNP, Initial residual = (0.180527 0.139209 0.300878), Final residual = (2.44493e-21 4.52357e-22 8.83816e-21), No Iterations 190
+ Iter # 1 - Residual: [cPlus:7.28369  cMinus:7.28395  psiE:18.2332]
+residual: 20.9418
+BiCGStab:  Solving for PNP, Initial residual = (0.178086 0.138106 0.299885), Final residual = (3.28912e-21 9.21662e-22 8.61958e-21), No Iterations 190
+ Iter # 2 - Residual: [cPlus:0.669812  cMinus:0.669835  psiE:4.66168]
+residual: 4.75695
+BiCGStab:  Solving for PNP, Initial residual = (0.178371 0.137617 0.300411), Final residual = (1.95117e-21 2.0277e-21 2.26959e-21), No Iterations 187
+ Iter # 3 - Residual: [cPlus:0.0165335  cMinus:0.0165341  psiE:0.150864]
+residual: 0.152666
+BiCGStab:  Solving for PNP, Initial residual = (0.17838 0.137599 0.300429), Final residual = (3.00421e-21 1.6514e-21 7.86185e-21), No Iterations 187
+ Iter # 4 - Residual: [cPlus:1.373e-05  cMinus:1.37304e-05  psiE:0.000138902]
+residual: 0.000140252
+break!!!!!!
+
+
+ >>> dV = 4: C convergence: 0.00126865
+
+
+
+ >>> dV = 4: U convergence: 0
+
+         SteadyState solver/PNP-NS Iteration      # 2
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.17838 0.137599 0.300429), Final residual = (2.98631e-21 3.42956e-22 9.48735e-21), No Iterations 196
+ Iter # 0 - Residual: [cPlus:1.34293e-11  cMinus:1.34294e-11  psiE:1.20121e-10]
+residual: 1.21613e-10
+break!!!!!!
+
+
+ >>> dV = 4: C convergence: 1.67755e-13
+
+
+
+ >>> dV = 4: U convergence: 0
+
+ExecutionTime = 163.12 s  ClockTime = 164 s
+
+
+-------------- | Applied Voltage = 5 |--------------
+
+Starting time loop
+
+Time = 5
+
+ >>> dV = 5:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.163717 0.10157 0.24816), Final residual = (2.47455e-21 5.37353e-22 7.43528e-21), No Iterations 190
+ Iter # 0 - Residual: [cPlus:9.00424  cMinus:9.00444  psiE:290.254]
+residual: 290.534
+BiCGStab:  Solving for PNP, Initial residual = (0.168578 0.147883 0.301861), Final residual = (1.28368e-21 3.37023e-22 4.50976e-21), No Iterations 195
+ Iter # 1 - Residual: [cPlus:3.22765  cMinus:3.22777  psiE:14.1546]
+residual: 14.8724
+BiCGStab:  Solving for PNP, Initial residual = (0.166552 0.146755 0.300504), Final residual = (3.57358e-22 2.14505e-22 1.53517e-21), No Iterations 197
+ Iter # 2 - Residual: [cPlus:0.222695  cMinus:0.222703  psiE:2.66953]
+residual: 2.68804
+BiCGStab:  Solving for PNP, Initial residual = (0.166714 0.146621 0.300837), Final residual = (1.5309e-21 2.72521e-23 5.27056e-21), No Iterations 195
+ Iter # 3 - Residual: [cPlus:0.00322629  cMinus:0.00322641  psiE:0.0476574]
+residual: 0.0478754
+BiCGStab:  Solving for PNP, Initial residual = (0.166717 0.14662 0.300844), Final residual = (1.94017e-21 1.31706e-21 9.3519e-21), No Iterations 184
+ Iter # 4 - Residual: [cPlus:8.63748e-07  cMinus:8.63779e-07  psiE:1.37272e-05]
+residual: 1.37815e-05
+break!!!!!!
+
+
+ >>> dV = 5: C convergence: 0.000536459
+
+
+
+ >>> dV = 5: U convergence: 0
+
+ExecutionTime = 196.95 s  ClockTime = 198 s
+
+
+-------------- | Applied Voltage = 6 |--------------
+
+Starting time loop
+
+Time = 6
+
+ >>> dV = 6:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.154316 0.119077 0.259901), Final residual = (1.99163e-21 2.51779e-21 4.49238e-21), No Iterations 187
+ Iter # 0 - Residual: [cPlus:3.77734  cMinus:3.77737  psiE:302.938]
+residual: 302.985
+BiCGStab:  Solving for PNP, Initial residual = (0.158993 0.152079 0.299919), Final residual = (2.44227e-21 1.33533e-22 9.21938e-21), No Iterations 191
+ Iter # 1 - Residual: [cPlus:1.23169  cMinus:1.23173  psiE:7.91651]
+residual: 8.10588
+BiCGStab:  Solving for PNP, Initial residual = (0.157893 0.151697 0.29915), Final residual = (1.49375e-21 1.23839e-21 7.84501e-21), No Iterations 188
+ Iter # 2 - Residual: [cPlus:0.0431028  cMinus:0.0431044  psiE:0.770046]
+residual: 0.772455
+BiCGStab:  Solving for PNP, Initial residual = (0.157931 0.151676 0.299236), Final residual = (1.78305e-21 1.04247e-21 9.18758e-21), No Iterations 187
+ Iter # 3 - Residual: [cPlus:0.000161496  cMinus:0.000161502  psiE:0.00343775]
+residual: 0.00344533
+BiCGStab:  Solving for PNP, Initial residual = (0.157932 0.151677 0.299236), Final residual = (3.59412e-22 4.88625e-22 9.96319e-22), No Iterations 190
+ Iter # 4 - Residual: [cPlus:2.77596e-09  cMinus:2.77606e-09  psiE:6.25493e-08]
+residual: 6.26724e-08
+break!!!!!!
+
+
+ >>> dV = 6: C convergence: 0.000231478
+
+
+
+ >>> dV = 6: U convergence: 0
+
+ExecutionTime = 230.14 s  ClockTime = 231 s
+
+
+-------------- | Applied Voltage = 7 |--------------
+
+Starting time loop
+
+Time = 7
+
+ >>> dV = 7:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.14723 0.129496 0.265676), Final residual = (1.9145e-21 5.48154e-22 8.06939e-21), No Iterations 191
+ Iter # 0 - Residual: [cPlus:1.71967  cMinus:1.71963  psiE:309.797]
+residual: 309.807
+BiCGStab:  Solving for PNP, Initial residual = (0.151737 0.154925 0.297475), Final residual = (2.3106e-21 1.79079e-22 8.68859e-21), No Iterations 182
+ Iter # 1 - Residual: [cPlus:0.478728  cMinus:0.478744  psiE:3.93742]
+residual: 3.9952
+BiCGStab:  Solving for PNP, Initial residual = (0.151218 0.154746 0.297128), Final residual = (1.92284e-21 4.82379e-21 3.72819e-21), No Iterations 173
+ Iter # 2 - Residual: [cPlus:0.00712174  cMinus:0.00712205  psiE:0.171311]
+residual: 0.171607
+BiCGStab:  Solving for PNP, Initial residual = (0.151229 0.154752 0.297144), Final residual = (3.91461e-21 7.35244e-21 4.74103e-21), No Iterations 169
+ Iter # 3 - Residual: [cPlus:5.01683e-06  cMinus:5.01701e-06  psiE:0.000141845]
+residual: 0.000142022
+break!!!!!!
+
+
+ >>> dV = 7: C convergence: 0.000111692
+
+
+
+ >>> dV = 7: U convergence: 0
+
+ExecutionTime = 255.35 s  ClockTime = 256 s
+
+
+-------------- | Applied Voltage = 8 |--------------
+
+Starting time loop
+
+Time = 8
+
+ >>> dV = 8:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.141844 0.13623 0.268749), Final residual = (1.07759e-21 1.31564e-21 6.22514e-21), No Iterations 174
+ Iter # 0 - Residual: [cPlus:0.893846  cMinus:0.893796  psiE:313.155]
+residual: 313.157
+BiCGStab:  Solving for PNP, Initial residual = (0.146289 0.156875 0.295306), Final residual = (2.28568e-21 2.20782e-22 8.55282e-21), No Iterations 195
+ Iter # 1 - Residual: [cPlus:0.208002  cMinus:0.208009  psiE:1.99891]
+residual: 2.02044
+BiCGStab:  Solving for PNP, Initial residual = (0.146042 0.156792 0.295149), Final residual = (2.14714e-21 1.73755e-22 8.25192e-21), No Iterations 182
+ Iter # 2 - Residual: [cPlus:0.00132699  cMinus:0.00132707  psiE:0.0402288]
+residual: 0.0402725
+BiCGStab:  Solving for PNP, Initial residual = (0.146045 0.156794 0.295152), Final residual = (2.33744e-21 9.07299e-23 8.90378e-21), No Iterations 199
+ Iter # 3 - Residual: [cPlus:1.84214e-07  cMinus:1.84221e-07  psiE:6.54444e-06]
+residual: 6.54962e-06
+break!!!!!!
+
+
+ >>> dV = 8: C convergence: 6.1587e-05
+
+
+
+ >>> dV = 8: U convergence: 0
+
+ExecutionTime = 281.74 s  ClockTime = 283 s
+
+
+-------------- | Applied Voltage = 9 |--------------
+
+Starting time loop
+
+Time = 9
+
+ >>> dV = 9:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.137703 0.140911 0.27056), Final residual = (1.97318e-21 5.85989e-22 8.81181e-21), No Iterations 182
+ Iter # 0 - Residual: [cPlus:0.525628  cMinus:0.525586  psiE:314.842]
+residual: 314.842
+BiCGStab:  Solving for PNP, Initial residual = (0.142084 0.158286 0.293482), Final residual = (8.90986e-22 1.03434e-21 3.1164e-21), No Iterations 193
+ Iter # 1 - Residual: [cPlus:0.102464  cMinus:0.102468  psiE:1.08976]
+residual: 1.09936
+BiCGStab:  Solving for PNP, Initial residual = (0.141957 0.158246 0.293406), Final residual = (2.54931e-21 1.68229e-21 6.72824e-21), No Iterations 175
+ Iter # 2 - Residual: [cPlus:0.000303993  cMinus:0.000304015  psiE:0.0111205]
+residual: 0.0111288
+BiCGStab:  Solving for PNP, Initial residual = (0.141958 0.158247 0.293407), Final residual = (2.47803e-21 9.68981e-23 9.47856e-21), No Iterations 184
+ Iter # 3 - Residual: [cPlus:9.90478e-09  cMinus:9.90518e-09  psiE:4.25223e-07]
+residual: 4.25453e-07
+break!!!!!!
+
+
+ >>> dV = 9: C convergence: 3.80307e-05
+
+
+
+ >>> dV = 9: U convergence: 0
+
+ExecutionTime = 307.57 s  ClockTime = 308 s
+
+
+-------------- | Applied Voltage = 10 |--------------
+
+Starting time loop
+
+Time = 10
+
+ >>> dV = 10:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.134457 0.144352 0.271726), Final residual = (1.14332e-21 1.42058e-21 7.83239e-21), No Iterations 176
+ Iter # 0 - Residual: [cPlus:0.340625  cMinus:0.340604  psiE:315.755]
+residual: 315.755
+BiCGStab:  Solving for PNP, Initial residual = (0.138741 0.159354 0.291952), Final residual = (2.47613e-21 5.00266e-22 8.85582e-21), No Iterations 199
+ Iter # 1 - Residual: [cPlus:0.0562096  cMinus:0.0562115  psiE:0.640772]
+residual: 0.645684
+BiCGStab:  Solving for PNP, Initial residual = (0.138668 0.159334 0.291912), Final residual = (7.65106e-22 4.12845e-22 3.74641e-21), No Iterations 184
+ Iter # 2 - Residual: [cPlus:8.49147e-05  cMinus:8.49233e-05  psiE:0.00363705]
+residual: 0.00363903
+BiCGStab:  Solving for PNP, Initial residual = (0.138668 0.159334 0.291912), Final residual = (3.4986e-22 5.90784e-22 4.01527e-21), No Iterations 184
+ Iter # 3 - Residual: [cPlus:7.83492e-10  cMinus:7.83528e-10  psiE:3.93557e-08]
+residual: 3.93713e-08
+break!!!!!!
+
+
+ >>> dV = 10: C convergence: 2.56162e-05
+
+
+
+ >>> dV = 10: U convergence: 0
+
+ExecutionTime = 333.74 s  ClockTime = 335 s
+
+
+-------------- | Applied Voltage = 11 |--------------
+
+Starting time loop
+
+Time = 11
+
+ >>> dV = 11:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.131859 0.146988 0.272529), Final residual = (3.2057e-22 1.57221e-22 1.24046e-21), No Iterations 201
+ Iter # 0 - Residual: [cPlus:0.237614  cMinus:0.237623  psiE:316.289]
+residual: 316.289
+BiCGStab:  Solving for PNP, Initial residual = (0.136017 0.160192 0.290658), Final residual = (4.91e-22 4.30187e-22 1.90679e-21), No Iterations 186
+ Iter # 1 - Residual: [cPlus:0.0335885  cMinus:0.0335897  psiE:0.40244]
+residual: 0.405233
+BiCGStab:  Solving for PNP, Initial residual = (0.135972 0.16018 0.290635), Final residual = (2.13532e-21 2.53565e-22 7.99798e-21), No Iterations 201
+ Iter # 2 - Residual: [cPlus:2.80153e-05  cMinus:2.80193e-05  psiE:0.00137428]
+residual: 0.00137485
+BiCGStab:  Solving for PNP, Initial residual = (0.135972 0.16018 0.290636), Final residual = (8.31799e-22 6.33033e-22 5.5728e-21), No Iterations 200
+ Iter # 3 - Residual: [cPlus:8.25167e-11  cMinus:8.25214e-11  psiE:4.9483e-09]
+residual: 4.94967e-09
+break!!!!!!
+
+
+ >>> dV = 11: C convergence: 1.84284e-05
+
+
+
+ >>> dV = 11: U convergence: 0
+
+ExecutionTime = 361.41 s  ClockTime = 362 s
+
+
+-------------- | Applied Voltage = 12 |--------------
+
+Starting time loop
+
+Time = 12
+
+ >>> dV = 12:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.12974 0.149074 0.273112), Final residual = (1.67813e-21 1.40867e-22 6.97253e-21), No Iterations 198
+ Iter # 0 - Residual: [cPlus:0.17536  cMinus:0.175406  psiE:316.624]
+residual: 316.624
+BiCGStab:  Solving for PNP, Initial residual = (0.133754 0.160865 0.289555), Final residual = (1.70953e-21 1.74137e-22 6.79057e-21), No Iterations 196
+ Iter # 1 - Residual: [cPlus:0.0214646  cMinus:0.0214653  psiE:0.266904]
+residual: 0.268624
+BiCGStab:  Solving for PNP, Initial residual = (0.133725 0.160858 0.289541), Final residual = (1.86975e-21 8.21282e-22 8.66531e-21), No Iterations 184
+ Iter # 2 - Residual: [cPlus:1.05794e-05  cMinus:1.05815e-05  psiE:0.000584392]
+residual: 0.000584583
+break!!!!!!
+
+
+ >>> dV = 12: C convergence: 1.39465e-05
+
+
+
+ >>> dV = 12: U convergence: 0
+
+ExecutionTime = 381.74 s  ClockTime = 383 s
+
+
+-------------- | Applied Voltage = 13 |--------------
+
+Starting time loop
+
+Time = 13
+
+ >>> dV = 13:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.127982 0.150766 0.273552), Final residual = (8.80635e-22 1.19808e-22 3.2874e-21), No Iterations 196
+ Iter # 0 - Residual: [cPlus:0.135234  cMinus:0.135322  psiE:316.845]
+residual: 316.845
+BiCGStab:  Solving for PNP, Initial residual = (0.131845 0.161417 0.288605), Final residual = (1.43982e-21 5.47499e-22 4.72081e-21), No Iterations 195
+ Iter # 1 - Residual: [cPlus:0.0144649  cMinus:0.0144654  psiE:0.185077]
+residual: 0.186204
+BiCGStab:  Solving for PNP, Initial residual = (0.131825 0.161413 0.288596), Final residual = (1.84025e-21 3.33101e-22 7.42836e-21), No Iterations 205
+ Iter # 2 - Residual: [cPlus:4.45662e-06  cMinus:4.45783e-06  psiE:0.000273519]
+residual: 0.000273592
+break!!!!!!
+
+
+ >>> dV = 13: C convergence: 1.09838e-05
+
+
+
+ >>> dV = 13: U convergence: 0
+
+ExecutionTime = 402.65 s  ClockTime = 404 s
+
+
+-------------- | Applied Voltage = 14 |--------------
+
+Starting time loop
+
+Time = 14
+
+ >>> dV = 14:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.126501 0.152166 0.273895), Final residual = (1.41202e-21 4.34119e-21 5.77937e-21), No Iterations 183
+ Iter # 0 - Residual: [cPlus:0.108016  cMinus:0.108151  psiE:316.998]
+residual: 316.998
+BiCGStab:  Solving for PNP, Initial residual = (0.130213 0.161879 0.287781), Final residual = (1.33615e-21 5.13937e-22 5.89052e-21), No Iterations 197
+ Iter # 1 - Residual: [cPlus:0.0101723  cMinus:0.0101726  psiE:0.133117]
+residual: 0.133892
+BiCGStab:  Solving for PNP, Initial residual = (0.130199 0.161876 0.287775), Final residual = (1.52661e-21 1.67156e-22 5.91059e-21), No Iterations 209
+ Iter # 2 - Residual: [cPlus:2.05269e-06  cMinus:2.05344e-06  psiE:0.000138449]
+residual: 0.000138479
+break!!!!!!
+
+
+ >>> dV = 14: C convergence: 8.93211e-06
+
+
+
+ >>> dV = 14: U convergence: 0
+
+ExecutionTime = 423.27 s  ClockTime = 424 s
+
+
+-------------- | Applied Voltage = 15 |--------------
+
+Starting time loop
+
+Time = 15
+
+ >>> dV = 15:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.125237 0.153344 0.27417), Final residual = (1.71984e-22 2.40204e-23 6.68844e-22), No Iterations 216
+ Iter # 0 - Residual: [cPlus:0.0887817  cMinus:0.0889666  psiE:317.108]
+residual: 317.108
+BiCGStab:  Solving for PNP, Initial residual = (0.128803 0.162271 0.287059), Final residual = (2.18414e-21 4.273e-21 3.97714e-21), No Iterations 186
+ Iter # 1 - Residual: [cPlus:0.00740647  cMinus:0.00740669  psiE:0.0986902]
+residual: 0.0992445
+BiCGStab:  Solving for PNP, Initial residual = (0.128792 0.162269 0.287055), Final residual = (1.20683e-21 1.48905e-22 5.70808e-21), No Iterations 198
+ Iter # 2 - Residual: [cPlus:1.01785e-06  cMinus:1.01834e-06  psiE:7.47597e-05]
+residual: 7.47736e-05
+break!!!!!!
+
+
+ >>> dV = 15: C convergence: 7.45682e-06
+
+
+
+ >>> dV = 15: U convergence: 0
+
+ExecutionTime = 444.29 s  ClockTime = 446 s
+
+
+-------------- | Applied Voltage = 16 |--------------
+
+Starting time loop
+
+Time = 16
+
+ >>> dV = 16:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.124147 0.15435 0.274394), Final residual = (1.8208e-21 6.00575e-23 7.3822e-21), No Iterations 202
+ Iter # 0 - Residual: [cPlus:0.0747273  cMinus:0.0749643  psiE:317.189]
+residual: 317.189
+BiCGStab:  Solving for PNP, Initial residual = (0.127571 0.162608 0.286422), Final residual = (8.22415e-22 8.58058e-22 5.2663e-21), No Iterations 201
+ Iter # 1 - Residual: [cPlus:0.00554989  cMinus:0.00555005  psiE:0.0750476]
+residual: 0.0754569
+BiCGStab:  Solving for PNP, Initial residual = (0.127563 0.162606 0.286419), Final residual = (2.27256e-21 6.96789e-22 8.2166e-21), No Iterations 207
+ Iter # 2 - Residual: [cPlus:5.36832e-07  cMinus:5.37161e-07  psiE:4.26074e-05]
+residual: 4.26142e-05
+break!!!!!!
+
+
+ >>> dV = 16: C convergence: 6.36269e-06
+
+
+
+ >>> dV = 16: U convergence: 0
+
+ExecutionTime = 465.65 s  ClockTime = 467 s
+
+
+-------------- | Applied Voltage = 17 |--------------
+
+Starting time loop
+
+Time = 17
+
+ >>> dV = 17:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.123197 0.155218 0.27458), Final residual = (7.20803e-22 3.46635e-23 3.03666e-21), No Iterations 212
+ Iter # 0 - Residual: [cPlus:0.0641704  cMinus:0.0644611  psiE:317.251]
+residual: 317.251
+BiCGStab:  Solving for PNP, Initial residual = (0.126486 0.1629 0.285857), Final residual = (9.08688e-22 1.44534e-21 8.4187e-21), No Iterations 200
+ Iter # 1 - Residual: [cPlus:0.00426013  cMinus:0.00426024  psiE:0.0583076]
+residual: 0.0586181
+BiCGStab:  Solving for PNP, Initial residual = (0.12648 0.162899 0.285855), Final residual = (5.74746e-23 3.2795e-23 4.66965e-22), No Iterations 217
+ Iter # 2 - Residual: [cPlus:2.98335e-07  cMinus:2.98566e-07  psiE:2.54151e-05]
+residual: 2.54186e-05
+break!!!!!!
+
+
+ >>> dV = 17: C convergence: 5.53007e-06
+
+
+
+ >>> dV = 17: U convergence: 0
+
+ExecutionTime = 487.64 s  ClockTime = 489 s
+
+
+-------------- | Applied Voltage = 18 |--------------
+
+Starting time loop
+
+Time = 18
+
+ >>> dV = 18:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.122362 0.155975 0.274738), Final residual = (1.78558e-21 1.0138e-22 7.33994e-21), No Iterations 227
+ Iter # 0 - Residual: [cPlus:0.0560554  cMinus:0.0564002  psiE:317.299]
+residual: 317.299
+BiCGStab:  Solving for PNP, Initial residual = (0.125524 0.163156 0.285352), Final residual = (2.03778e-21 4.80202e-22 7.67415e-21), No Iterations 206
+ Iter # 1 - Residual: [cPlus:0.00333766  cMinus:0.00333774  psiE:0.0461404]
+residual: 0.0463812
+BiCGStab:  Solving for PNP, Initial residual = (0.125519 0.163156 0.28535), Final residual = (4.04741e-21 6.27359e-21 6.41885e-21), No Iterations 199
+ Iter # 2 - Residual: [cPlus:1.73365e-07  cMinus:1.73532e-07  psiE:1.57608e-05]
+residual: 1.57627e-05
+break!!!!!!
+
+
+ >>> dV = 18: C convergence: 4.88253e-06
+
+
+
+ >>> dV = 18: U convergence: 0
+
+ExecutionTime = 509.73 s  ClockTime = 511 s
+
+
+-------------- | Applied Voltage = 19 |--------------
+
+Starting time loop
+
+Time = 19
+
+ >>> dV = 19:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.121622 0.156641 0.274872), Final residual = (2.08402e-21 9.1673e-22 9.13067e-21), No Iterations 223
+ Iter # 0 - Residual: [cPlus:0.0496941  cMinus:0.0500928  psiE:317.337]
+residual: 317.337
+BiCGStab:  Solving for PNP, Initial residual = (0.124665 0.163383 0.284898), Final residual = (1.58961e-21 1.66455e-22 6.81639e-21), No Iterations 217
+ Iter # 1 - Residual: [cPlus:0.0026612  cMinus:0.00266126  psiE:0.0370939]
+residual: 0.0372843
+BiCGStab:  Solving for PNP, Initial residual = (0.124661 0.163383 0.284897), Final residual = (2.34926e-21 2.24946e-22 9.62712e-21), No Iterations 240
+ Iter # 2 - Residual: [cPlus:1.04717e-07  cMinus:1.0484e-07  psiE:1.01065e-05]
+residual: 1.01075e-05
+break!!!!!!
+
+
+ >>> dV = 19: C convergence: 4.36952e-06
+
+
+
+ >>> dV = 19: U convergence: 0
+
+ExecutionTime = 533.47 s  ClockTime = 535 s
+
+
+-------------- | Applied Voltage = 20 |--------------
+
+Starting time loop
+
+Time = 20
+
+ >>> dV = 20:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.120963 0.157231 0.274988), Final residual = (7.82368e-22 7.55869e-23 3.19061e-21), No Iterations 226
+ Iter # 0 - Residual: [cPlus:0.0446233  cMinus:0.045075  psiE:317.368]
+residual: 317.368
+BiCGStab:  Solving for PNP, Initial residual = (0.123893 0.163585 0.284488), Final residual = (1.5591e-21 6.95859e-22 5.99422e-21), No Iterations 233
+ Iter # 1 - Residual: [cPlus:0.0021543  cMinus:0.00215434  psiE:0.0302333]
+residual: 0.0303864
+BiCGStab:  Solving for PNP, Initial residual = (0.12389 0.163585 0.284488), Final residual = (1.69102e-22 3.39164e-23 8.07354e-22), No Iterations 227
+ Iter # 2 - Residual: [cPlus:6.54156e-08  cMinus:6.55081e-08  psiE:6.67178e-06]
+residual: 6.67242e-06
+break!!!!!!
+
+
+ >>> dV = 20: C convergence: 3.95653e-06
+
+
+
+ >>> dV = 20: U convergence: 0
+
+ExecutionTime = 557.38 s  ClockTime = 559 s
+
+
+-------------- | Applied Voltage = 21 |--------------
+
+Starting time loop
+
+Time = 21
+
+ >>> dV = 21:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.120371 0.157759 0.27509), Final residual = (9.15407e-22 1.03172e-22 4.16725e-21), No Iterations 223
+ Iter # 0 - Residual: [cPlus:0.0405222  cMinus:0.0410256  psiE:317.393]
+residual: 317.393
+BiCGStab:  Solving for PNP, Initial residual = (0.123195 0.163766 0.284117), Final residual = (1.42253e-21 7.86528e-23 6.08091e-21), No Iterations 234
+ Iter # 1 - Residual: [cPlus:0.00176722  cMinus:0.00176724  psiE:0.0249391]
+residual: 0.025064
+BiCGStab:  Solving for PNP, Initial residual = (0.123193 0.163766 0.284116), Final residual = (1.58023e-21 1.45847e-21 7.71709e-21), No Iterations 238
+ Iter # 2 - Residual: [cPlus:4.21414e-08  cMinus:4.22121e-08  psiE:4.51764e-06]
+residual: 4.51804e-06
+break!!!!!!
+
+
+ >>> dV = 21: C convergence: 3.6194e-06
+
+
+
+ >>> dV = 21: U convergence: 0
+
+ExecutionTime = 581.6 s  ClockTime = 583 s
+
+
+-------------- | Applied Voltage = 22 |--------------
+
+Starting time loop
+
+Time = 22
+
+ >>> dV = 22:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.119837 0.158232 0.275179), Final residual = (1.90095e-21 2.02302e-22 8.23111e-21), No Iterations 247
+ Iter # 0 - Residual: [cPlus:0.0371633  cMinus:0.0377163  psiE:317.413]
+residual: 317.413
+BiCGStab:  Solving for PNP, Initial residual = (0.122562 0.163929 0.283778), Final residual = (5.25782e-22 1.50825e-22 2.04712e-21), No Iterations 224
+ Iter # 1 - Residual: [cPlus:0.00146668  cMinus:0.0014667  psiE:0.0207903]
+residual: 0.0208935
+BiCGStab:  Solving for PNP, Initial residual = (0.12256 0.163929 0.283777), Final residual = (2.09748e-21 6.98386e-22 9.59596e-21), No Iterations 277
+ Iter # 2 - Residual: [cPlus:2.78162e-08  cMinus:2.7871e-08  psiE:3.12846e-06]
+residual: 3.12871e-06
+break!!!!!!
+
+
+ >>> dV = 22: C convergence: 3.34084e-06
+
+
+
+ >>> dV = 22: U convergence: 0
+
+ExecutionTime = 607.61 s  ClockTime = 609 s
+
+
+-------------- | Applied Voltage = 23 |--------------
+
+Starting time loop
+
+Time = 23
+
+ >>> dV = 23:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.119353 0.15866 0.275258), Final residual = (1.45739e-21 3.25721e-22 6.01801e-21), No Iterations 224
+ Iter # 0 - Residual: [cPlus:0.0343816  cMinus:0.034982  psiE:317.43]
+residual: 317.43
+BiCGStab:  Solving for PNP, Initial residual = (0.121985 0.164077 0.283468), Final residual = (8.3235e-22 1.26057e-22 3.67625e-21), No Iterations 286
+ Iter # 1 - Residual: [cPlus:0.00122987  cMinus:0.00122988  psiE:0.0174942]
+residual: 0.0175804
+BiCGStab:  Solving for PNP, Initial residual = (0.121983 0.164077 0.283467), Final residual = (1.12607e-21 2.01786e-21 8.12703e-21), No Iterations 214
+ Iter # 2 - Residual: [cPlus:1.87759e-08  cMinus:1.88191e-08  psiE:2.20976e-06]
+residual: 2.20992e-06
+break!!!!!!
+
+
+ >>> dV = 23: C convergence: 3.10819e-06
+
+
+
+ >>> dV = 23: U convergence: 0
+
+ExecutionTime = 632.8 s  ClockTime = 634 s
+
+
+-------------- | Applied Voltage = 24 |--------------
+
+Starting time loop
+
+Time = 24
+
+ >>> dV = 24:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.118912 0.159049 0.275328), Final residual = (9.68763e-22 1.35128e-22 5.21635e-21), No Iterations 244
+ Iter # 0 - Residual: [cPlus:0.0320552  cMinus:0.0327004  psiE:317.445]
+residual: 317.445
+BiCGStab:  Solving for PNP, Initial residual = (0.121456 0.164212 0.283183), Final residual = (1.16208e-21 1.31621e-22 4.96266e-21), No Iterations 248
+ Iter # 1 - Residual: [cPlus:0.00104081  cMinus:0.00104081  psiE:0.014843]
+residual: 0.0149158
+BiCGStab:  Solving for PNP, Initial residual = (0.121455 0.164212 0.283183), Final residual = (2.61434e-23 6.17089e-24 1.15875e-22), No Iterations 262
+ Iter # 2 - Residual: [cPlus:1.29831e-08  cMinus:1.30175e-08  psiE:1.58859e-06]
+residual: 1.5887e-06
+break!!!!!!
+
+
+ >>> dV = 24: C convergence: 2.91201e-06
+
+
+
+ >>> dV = 24: U convergence: 0
+
+ExecutionTime = 659.03 s  ClockTime = 661 s
+
+
+-------------- | Applied Voltage = 25 |--------------
+
+Starting time loop
+
+Time = 25
+
+ >>> dV = 25:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.118509 0.159403 0.275392), Final residual = (1.15792e-21 1.0166e-22 4.93846e-21), No Iterations 238
+ Iter # 0 - Residual: [cPlus:0.0300925  cMinus:0.0307798  psiE:317.457]
+residual: 317.457
+BiCGStab:  Solving for PNP, Initial residual = (0.120971 0.164335 0.282921), Final residual = (7.77535e-22 1.07942e-22 3.62546e-21), No Iterations 287
+ Iter # 1 - Residual: [cPlus:0.000888081  cMinus:0.000888077  psiE:0.0126868]
+residual: 0.0127489
+BiCGStab:  Solving for PNP, Initial residual = (0.120969 0.164335 0.282921), Final residual = (1.23904e-21 1.91821e-22 6.04873e-21), No Iterations 261
+ Iter # 2 - Residual: [cPlus:9.10584e-09  cMinus:9.13346e-09  psiE:1.16029e-06]
+residual: 1.16036e-06
+break!!!!!!
+
+
+ >>> dV = 25: C convergence: 2.74519e-06
+
+
+
+ >>> dV = 25: U convergence: 0
+
+ExecutionTime = 686.31 s  ClockTime = 688 s
+
+
+-------------- | Applied Voltage = 26 |--------------
+
+Starting time loop
+
+Time = 26
+
+ >>> dV = 26:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.118139 0.159727 0.275449), Final residual = (2.08626e-21 2.68897e-22 8.84354e-21), No Iterations 262
+ Iter # 0 - Residual: [cPlus:0.0284237  cMinus:0.0291502  psiE:317.467]
+residual: 317.467
+BiCGStab:  Solving for PNP, Initial residual = (0.120523 0.164448 0.282679), Final residual = (1.18695e-21 1.40904e-22 5.45321e-21), No Iterations 290
+ Iter # 1 - Residual: [cPlus:0.000763377  cMinus:0.000763369  psiE:0.0109156]
+residual: 0.0109689
+BiCGStab:  Solving for PNP, Initial residual = (0.120522 0.164448 0.282678), Final residual = (2.1732e-21 3.06672e-22 9.57457e-21), No Iterations 301
+ Iter # 2 - Residual: [cPlus:6.52041e-09  cMinus:6.54275e-09  psiE:8.59504e-07]
+residual: 8.59554e-07
+break!!!!!!
+
+
+ >>> dV = 26: C convergence: 2.60224e-06
+
+
+
+ >>> dV = 26: U convergence: 0
+
+ExecutionTime = 715.83 s  ClockTime = 718 s
+
+
+-------------- | Applied Voltage = 27 |--------------
+
+Starting time loop
+
+Time = 27
+
+ >>> dV = 27:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.117798 0.160025 0.275501), Final residual = (1.54617e-21 1.70271e-22 6.50963e-21), No Iterations 275
+ Iter # 0 - Residual: [cPlus:0.0269948  cMinus:0.0277576  psiE:317.476]
+residual: 317.476
+BiCGStab:  Solving for PNP, Initial residual = (0.120109 0.164552 0.282454), Final residual = (4.54518e-22 1.35455e-22 2.53664e-21), No Iterations 356
+ Iter # 1 - Residual: [cPlus:0.000660571  cMinus:0.000660559  psiE:0.00944718]
+residual: 0.00949325
+BiCGStab:  Solving for PNP, Initial residual = (0.120108 0.164552 0.282454), Final residual = (9.69098e-22 1.41174e-22 4.5044e-21), No Iterations 298
+ Iter # 2 - Residual: [cPlus:4.75553e-09  cMinus:4.77369e-09  psiE:6.44846e-07]
+residual: 6.44881e-07
+break!!!!!!
+
+
+ >>> dV = 27: C convergence: 2.47891e-06
+
+
+
+ >>> dV = 27: U convergence: 0
+
+ExecutionTime = 747.89 s  ClockTime = 750 s
+
+
+-------------- | Applied Voltage = 28 |--------------
+
+Starting time loop
+
+Time = 28
+
+ >>> dV = 28:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.117483 0.1603 0.275548), Final residual = (1.77098e-22 2.44916e-22 8.62253e-21), No Iterations 264
+ Iter # 0 - Residual: [cPlus:0.0257635  cMinus:0.0265596  psiE:317.484]
+residual: 317.484
+BiCGStab:  Solving for PNP, Initial residual = (0.119725 0.164648 0.282245), Final residual = (2.32181e-22 5.22617e-22 3.29362e-21), No Iterations 267
+ Iter # 1 - Residual: [cPlus:0.000575069  cMinus:0.000575054  psiE:0.00821962]
+residual: 0.00825975
+BiCGStab:  Solving for PNP, Initial residual = (0.119724 0.164648 0.282245), Final residual = (5.34771e-22 5.21622e-23 2.66467e-21), No Iterations 367
+ Iter # 2 - Residual: [cPlus:3.52818e-09  cMinus:3.543e-09  psiE:4.89356e-07]
+residual: 4.89381e-07
+break!!!!!!
+
+
+ >>> dV = 28: C convergence: 1.42057e-06
+
+
+
+ >>> dV = 28: U convergence: 0
+
+ExecutionTime = 778.95 s  ClockTime = 781 s
+
+
+-------------- | Applied Voltage = 29 |--------------
+
+Starting time loop
+
+Time = 29
+
+ >>> dV = 29:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.117191 0.160554 0.275592), Final residual = (5.48497e-22 9.41203e-23 3.2574e-21), No Iterations 298
+ Iter # 0 - Residual: [cPlus:0.0246964  cMinus:0.0255229  psiE:317.491]
+residual: 317.491
+BiCGStab:  Solving for PNP, Initial residual = (0.119368 0.164737 0.282051), Final residual = (1.8741e-21 2.62712e-22 8.46492e-21), No Iterations 307
+ Iter # 1 - Residual: [cPlus:0.000503386  cMinus:0.000503368  psiE:0.00718552]
+residual: 0.0072207
+BiCGStab:  Solving for PNP, Initial residual = (0.119367 0.164737 0.282051), Final residual = (9.75419e-22 9.56336e-22 6.94762e-21), No Iterations 265
+ Iter # 2 - Residual: [cPlus:2.61026e-09  cMinus:2.6226e-09  psiE:3.75299e-07]
+residual: 3.75317e-07
+break!!!!!!
+
+
+ >>> dV = 29: C convergence: 4.30089e-06
+
+
+
+ >>> dV = 29: U convergence: 0
+
+ExecutionTime = 809.01 s  ClockTime = 811 s
+
+
+-------------- | Applied Voltage = 30 |--------------
+
+Starting time loop
+
+Time = 30
+
+ >>> dV = 30:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11692 0.16079 0.275632), Final residual = (1.31618e-22 2.54129e-23 1.06704e-21), No Iterations 316
+ Iter # 0 - Residual: [cPlus:0.0237667  cMinus:0.0246208  psiE:317.497]
+residual: 317.497
+BiCGStab:  Solving for PNP, Initial residual = (0.119034 0.16482 0.281869), Final residual = (8.09498e-22 8.08588e-23 4.58039e-21), No Iterations 456
+ Iter # 1 - Residual: [cPlus:0.000442843  cMinus:0.000442824  psiE:0.00630825]
+residual: 0.00633926
+BiCGStab:  Solving for PNP, Initial residual = (0.119034 0.16482 0.281869), Final residual = (3.6935e-22 5.31161e-23 2.16007e-21), No Iterations 717
+ Iter # 2 - Residual: [cPlus:1.99263e-09  cMinus:2.00277e-09  psiE:2.90559e-07]
+residual: 2.90573e-07
+break!!!!!!
+
+
+ >>> dV = 30: C convergence: 9.36486e-06
+
+
+
+ >>> dV = 30: U convergence: 0
+
+ExecutionTime = 859.96 s  ClockTime = 862 s
+
+
+-------------- | Applied Voltage = 31 |--------------
+
+Starting time loop
+
+Time = 31
+
+ >>> dV = 31:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.116667 0.16101 0.275669), Final residual = (2.92353e-22 3.12044e-22 9.82193e-21), No Iterations 344
+ Iter # 0 - Residual: [cPlus:0.0229529  cMinus:0.0238318  psiE:317.502]
+residual: 317.502
+BiCGStab:  Solving for PNP, Initial residual = (0.118723 0.164898 0.2817), Final residual = (9.97243e-23 1.78442e-23 4.52911e-22), No Iterations 328
+ Iter # 1 - Residual: [cPlus:0.000391362  cMinus:0.00039134  psiE:0.00555915]
+residual: 0.00558663
+BiCGStab:  Solving for PNP, Initial residual = (0.118722 0.164898 0.281699), Final residual = (8.89387e-22 1.05914e-22 4.08621e-21), No Iterations 315
+ Iter # 2 - Residual: [cPlus:1.51802e-09  cMinus:1.5265e-09  psiE:2.26895e-07]
+residual: 2.26905e-07
+break!!!!!!
+
+
+ >>> dV = 31: C convergence: 1.38712e-05
+
+
+
+ >>> dV = 31: U convergence: 0
+
+ExecutionTime = 893.99 s  ClockTime = 896 s
+
+
+-------------- | Applied Voltage = 32 |--------------
+
+Starting time loop
+
+Time = 32
+
+ >>> dV = 32:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11643 0.161215 0.275703), Final residual = (1.65305e-21 4.81033e-22 7.2712e-21), No Iterations 357
+ Iter # 0 - Residual: [cPlus:0.0222375  cMinus:0.0231386  psiE:317.506]
+residual: 317.506
+BiCGStab:  Solving for PNP, Initial residual = (0.118431 0.16497 0.28154), Final residual = (8.99216e-22 1.36934e-22 4.9786e-21), No Iterations 341
+ Iter # 1 - Residual: [cPlus:0.000347311  cMinus:0.000347288  psiE:0.00491563]
+residual: 0.0049401
+BiCGStab:  Solving for PNP, Initial residual = (0.118431 0.16497 0.28154), Final residual = (3.33908e-22 4.28679e-23 1.56634e-21), No Iterations 533
+ Iter # 2 - Residual: [cPlus:1.14785e-09  cMinus:1.15509e-09  psiE:1.785e-07]
+residual: 1.78508e-07
+break!!!!!!
+
+
+ >>> dV = 32: C convergence: 1.79015e-05
+
+
+
+ >>> dV = 32: U convergence: 0
+
+ExecutionTime = 936.31 s  ClockTime = 939 s
+
+
+-------------- | Applied Voltage = 33 |--------------
+
+Starting time loop
+
+Time = 33
+
+ >>> dV = 33:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.116209 0.161406 0.275734), Final residual = (3.74426e-22 5.75834e-23 1.83044e-21), No Iterations 415
+ Iter # 0 - Residual: [cPlus:0.021606  cMinus:0.0225268  psiE:317.51]
+residual: 317.51
+BiCGStab:  Solving for PNP, Initial residual = (0.118158 0.165038 0.281391), Final residual = (2.21552e-21 2.51442e-22 9.63793e-21), No Iterations 626
+ Iter # 1 - Residual: [cPlus:0.000309398  cMinus:0.000309373  psiE:0.0043597]
+residual: 0.0043816
+BiCGStab:  Solving for PNP, Initial residual = (0.118157 0.165038 0.28139), Final residual = (4.1352e-22 4.45116e-23 2.21965e-21), No Iterations 1823
+ Iter # 2 - Residual: [cPlus:9.80223e-10  cMinus:9.85773e-10  psiE:1.41386e-07]
+residual: 1.41393e-07
+break!!!!!!
+
+
+ >>> dV = 33: C convergence: 2.15231e-05
+
+
+
+ >>> dV = 33: U convergence: 0
+
+ExecutionTime = 1033.83 s  ClockTime = 1036 s
+
+
+-------------- | Applied Voltage = 34 |--------------
+
+Starting time loop
+
+Time = 34
+
+ >>> dV = 34:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.116002 0.161586 0.275764), Final residual = (1.15872e-21 3.74804e-22 6.19114e-21), No Iterations 622
+ Iter # 0 - Residual: [cPlus:0.0210467  cMinus:0.0219847  psiE:317.514]
+residual: 317.514
+BiCGStab:  Solving for PNP, Initial residual = (0.1179 0.165102 0.28125), Final residual = (6.2751e-22 2.10833e-22 8.31738e-21), No Iterations 314
+ Iter # 1 - Residual: [cPlus:0.000276591  cMinus:0.000276566  psiE:0.00387692]
+residual: 0.0038966
+BiCGStab:  Solving for PNP, Initial residual = (0.1179 0.165102 0.28125), Final residual = (1.43689e-21 2.16196e-22 6.09142e-21), No Iterations 727
+ Iter # 2 - Residual: [cPlus:6.99581e-10  cMinus:7.04719e-10  psiE:1.12803e-07]
+residual: 1.12807e-07
+break!!!!!!
+
+
+ >>> dV = 34: C convergence: 2.47918e-05
+
+
+
+ >>> dV = 34: U convergence: 0
+
+ExecutionTime = 1090.75 s  ClockTime = 1093 s
+
+
+-------------- | Applied Voltage = 35 |--------------
+
+Starting time loop
+
+Time = 35
+
+ >>> dV = 35:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.115807 0.161754 0.275792), Final residual = (1.02002e-21 1.15894e-22 4.67834e-21), No Iterations 670
+ Iter # 0 - Residual: [cPlus:0.0205495  cMinus:0.0215026  psiE:317.517]
+residual: 317.517
+BiCGStab:  Solving for PNP, Initial residual = (0.117658 0.165161 0.281117), Final residual = (1.30859e-21 2.26624e-22 6.55608e-21), No Iterations 940
+ Iter # 1 - Residual: [cPlus:0.000248061  cMinus:0.000248035  psiE:0.00345562]
+residual: 0.00347338
+BiCGStab:  Solving for PNP, Initial residual = (0.117657 0.165161 0.281117), Final residual = (1.16279e-21 2.28472e-22 5.08597e-21), No Iterations 565
+ Iter # 2 - Residual: [cPlus:5.52642e-10  cMinus:5.56985e-10  psiE:9.0414e-08]
+residual: 9.04174e-08
+break!!!!!!
+
+
+ >>> dV = 35: C convergence: 2.77543e-05
+
+
+
+ >>> dV = 35: U convergence: 0
+
+ExecutionTime = 1165.02 s  ClockTime = 1167 s
+
+
+-------------- | Applied Voltage = 36 |--------------
+
+Starting time loop
+
+Time = 36
+
+ >>> dV = 36:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.115623 0.161913 0.275818), Final residual = (8.00126e-22 1.47276e-22 6.13776e-21), No Iterations 575
+ Iter # 0 - Residual: [cPlus:0.0201063  cMinus:0.0210724  psiE:317.52]
+residual: 317.52
+BiCGStab:  Solving for PNP, Initial residual = (0.117429 0.165218 0.280991), Final residual = (3.1383e-22 4.89153e-23 1.45789e-21), No Iterations 915
+ Iter # 1 - Residual: [cPlus:0.000223134  cMinus:0.000223107  psiE:0.00308628]
+residual: 0.00310237
+BiCGStab:  Solving for PNP, Initial residual = (0.117428 0.165218 0.280991), Final residual = (5.83959e-22 1.39673e-22 5.09119e-21), No Iterations 889
+ Iter # 2 - Residual: [cPlus:4.86754e-10  cMinus:4.90085e-10  psiE:7.29741e-08]
+residual: 7.29774e-08
+break!!!!!!
+
+
+ >>> dV = 36: C convergence: 3.04497e-05
+
+
+
+ >>> dV = 36: U convergence: 0
+
+ExecutionTime = 1246.23 s  ClockTime = 1249 s
+
+
+-------------- | Applied Voltage = 37 |--------------
+
+Starting time loop
+
+Time = 37
+
+ >>> dV = 37:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11545 0.162062 0.275842), Final residual = (9.23845e-22 1.41479e-22 6.52906e-21), No Iterations 484
+ Iter # 0 - Residual: [cPlus:0.0197102  cMinus:0.0206872  psiE:317.523]
+residual: 317.523
+BiCGStab:  Solving for PNP, Initial residual = (0.117212 0.165271 0.280873), Final residual = (5.38292e-22 1.15305e-22 3.14672e-21), No Iterations 1415
+ Iter # 1 - Residual: [cPlus:0.000201258  cMinus:0.000201231  psiE:0.0027611]
+residual: 0.00277573
+BiCGStab:  Solving for PNP, Initial residual = (0.117212 0.165271 0.280873), Final residual = (6.6531e-22 5.38883e-23 3.61598e-21), No Iterations 437
+ Iter # 2 - Residual: [cPlus:3.51291e-10  cMinus:3.54425e-10  psiE:5.90544e-08]
+residual: 5.90565e-08
+break!!!!!!
+
+
+ >>> dV = 37: C convergence: 3.29112e-05
+
+
+
+ >>> dV = 37: U convergence: 0
+
+ExecutionTime = 1325.92 s  ClockTime = 1328 s
+
+
+-------------- | Applied Voltage = 38 |--------------
+
+Starting time loop
+
+Time = 38
+
+ >>> dV = 38:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.115287 0.162204 0.275865), Final residual = (7.60678e-22 1.6793e-22 4.32421e-21), No Iterations 426
+ Iter # 0 - Residual: [cPlus:0.0193552  cMinus:0.0203414  psiE:317.525]
+residual: 317.525
+BiCGStab:  Solving for PNP, Initial residual = (0.117007 0.165321 0.28076), Final residual = (9.15901e-22 1.47864e-21 8.18824e-21), No Iterations 627
+ Iter # 1 - Residual: [cPlus:0.000181982  cMinus:0.000181954  psiE:0.00247365]
+residual: 0.002487
+BiCGStab:  Solving for PNP, Initial residual = (0.117007 0.165321 0.28076), Final residual = (3.95584e-22 6.93599e-22 4.68001e-21), No Iterations 335
+ Iter # 2 - Residual: [cPlus:3.29103e-10  cMinus:3.31398e-10  psiE:4.82195e-08]
+residual: 4.82217e-08
+break!!!!!!
+
+
+ >>> dV = 38: C convergence: 3.51669e-05
+
+
+
+ >>> dV = 38: U convergence: 0
+
+ExecutionTime = 1373.57 s  ClockTime = 1376 s
+
+
+-------------- | Applied Voltage = 39 |--------------
+
+Starting time loop
+
+Time = 39
+
+ >>> dV = 39:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.115132 0.162337 0.275886), Final residual = (1.91296e-21 2.46148e-22 9.06201e-21), No Iterations 1374
+ Iter # 0 - Residual: [cPlus:0.0190364  cMinus:0.02003  psiE:317.527]
+residual: 317.527
+BiCGStab:  Solving for PNP, Initial residual = (0.116813 0.165369 0.280654), Final residual = (5.48768e-22 2.14756e-22 8.92711e-21), No Iterations 382
+ Iter # 1 - Residual: [cPlus:0.000164932  cMinus:0.000164904  psiE:0.00221857]
+residual: 0.00223079
+BiCGStab:  Solving for PNP, Initial residual = (0.116813 0.165369 0.280654), Final residual = (8.83498e-22 1.04484e-22 5.34626e-21), No Iterations 374
+ Iter # 2 - Residual: [cPlus:4.2252e-10  cMinus:4.23764e-10  psiE:3.93816e-08]
+residual: 3.93862e-08
+break!!!!!!
+
+
+ >>> dV = 39: C convergence: 3.7241e-05
+
+
+
+ >>> dV = 39: U convergence: 0
+
+ExecutionTime = 1446.39 s  ClockTime = 1449 s
+
+
+-------------- | Applied Voltage = 40 |--------------
+
+Starting time loop
+
+Time = 40
+
+ >>> dV = 40:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114985 0.162464 0.275907), Final residual = (1.49139e-21 1.92403e-22 7.90001e-21), No Iterations 347
+ Iter # 0 - Residual: [cPlus:0.0187495  cMinus:0.0197489  psiE:317.529]
+residual: 317.529
+BiCGStab:  Solving for PNP, Initial residual = (0.116629 0.165414 0.280553), Final residual = (1.39246e-21 2.89156e-22 6.41362e-21), No Iterations 860
+ Iter # 1 - Residual: [cPlus:0.000149796  cMinus:0.000149767  psiE:0.0019914]
+residual: 0.00200263
+BiCGStab:  Solving for PNP, Initial residual = (0.116629 0.165414 0.280553), Final residual = (1.89255e-21 3.40659e-22 8.69412e-21), No Iterations 439
+ Iter # 2 - Residual: [cPlus:1.75795e-10  cMinus:1.77836e-10  psiE:3.20148e-08]
+residual: 3.20158e-08
+break!!!!!!
+
+
+ >>> dV = 40: C convergence: 3.91542e-05
+
+
+
+ >>> dV = 40: U convergence: 0
+
+ExecutionTime = 1502.71 s  ClockTime = 1505 s
+
+
+-------------- | Applied Voltage = 41 |--------------
+
+Starting time loop
+
+Time = 41
+
+ >>> dV = 41:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114846 0.162584 0.275926), Final residual = (9.24718e-22 2.04603e-22 8.34493e-21), No Iterations 355
+ Iter # 0 - Residual: [cPlus:0.0184909  cMinus:0.0194945  psiE:317.531]
+residual: 317.531
+BiCGStab:  Solving for PNP, Initial residual = (0.116454 0.165458 0.280456), Final residual = (1.53584e-21 3.10229e-22 6.09325e-21), No Iterations 493
+ Iter # 1 - Residual: [cPlus:0.000136313  cMinus:0.000136285  psiE:0.0017884]
+residual: 0.00179876
+BiCGStab:  Solving for PNP, Initial residual = (0.116453 0.165458 0.280456), Final residual = (1.70177e-21 1.30908e-22 8.26973e-21), No Iterations 352
+ Iter # 2 - Residual: [cPlus:1.66134e-10  cMinus:1.67631e-10  psiE:2.63636e-08]
+residual: 2.63646e-08
+break!!!!!!
+
+
+ >>> dV = 41: C convergence: 4.09242e-05
+
+
+
+ >>> dV = 41: U convergence: 0
+
+ExecutionTime = 1543.94 s  ClockTime = 1547 s
+
+
+-------------- | Applied Voltage = 42 |--------------
+
+Starting time loop
+
+Time = 42
+
+ >>> dV = 42:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114714 0.162698 0.275944), Final residual = (7.57473e-22 1.30535e-22 4.34729e-21), No Iterations 518
+ Iter # 0 - Residual: [cPlus:0.0182573  cMinus:0.0192639  psiE:317.532]
+residual: 317.532
+BiCGStab:  Solving for PNP, Initial residual = (0.116287 0.165498 0.280365), Final residual = (4.00073e-22 9.16015e-23 7.804e-21), No Iterations 432
+ Iter # 1 - Residual: [cPlus:0.000124265  cMinus:0.000124237  psiE:0.00160641]
+residual: 0.00161599
+BiCGStab:  Solving for PNP, Initial residual = (0.116287 0.165498 0.280365), Final residual = (2.62317e-21 3.20541e-21 8.78003e-21), No Iterations 327
+ Iter # 2 - Residual: [cPlus:1.24389e-10  cMinus:1.25789e-10  psiE:2.16144e-08]
+residual: 2.16152e-08
+break!!!!!!
+
+
+ >>> dV = 42: C convergence: 4.25665e-05
+
+
+
+ >>> dV = 42: U convergence: 0
+
+ExecutionTime = 1587.76 s  ClockTime = 1591 s
+
+
+-------------- | Applied Voltage = 43 |--------------
+
+Starting time loop
+
+Time = 43
+
+ >>> dV = 43:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114588 0.162806 0.275962), Final residual = (1.37576e-21 5.7327e-23 7.55921e-21), No Iterations 984
+ Iter # 0 - Residual: [cPlus:0.0180462  cMinus:0.0190544  psiE:317.534]
+residual: 317.534
+BiCGStab:  Solving for PNP, Initial residual = (0.116128 0.165537 0.280278), Final residual = (3.37607e-22 7.8646e-23 1.99613e-21), No Iterations 504
+ Iter # 1 - Residual: [cPlus:0.000113467  cMinus:0.000113438  psiE:0.00144275]
+residual: 0.00145164
+BiCGStab:  Solving for PNP, Initial residual = (0.116128 0.165537 0.280277), Final residual = (8.86123e-22 3.34572e-22 3.69749e-21), No Iterations 424
+ Iter # 2 - Residual: [cPlus:3.31399e-09  cMinus:3.31408e-09  psiE:1.87723e-08]
+residual: 1.93485e-08
+break!!!!!!
+
+
+ >>> dV = 43: C convergence: 4.40945e-05
+
+
+
+ >>> dV = 43: U convergence: 0
+
+ExecutionTime = 1653.03 s  ClockTime = 1656 s
+
+
+-------------- | Applied Voltage = 44 |--------------
+
+Starting time loop
+
+Time = 44
+
+ >>> dV = 44:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114468 0.162909 0.275978), Final residual = (1.45684e-21 7.02742e-23 7.17911e-21), No Iterations 394
+ Iter # 0 - Residual: [cPlus:0.017855  cMinus:0.0188636  psiE:317.535]
+residual: 317.535
+BiCGStab:  Solving for PNP, Initial residual = (0.115976 0.165575 0.280194), Final residual = (1.76129e-21 9.51932e-23 9.59239e-21), No Iterations 366
+ Iter # 1 - Residual: [cPlus:0.000103762  cMinus:0.000103734  psiE:0.00129516]
+residual: 0.00130344
+BiCGStab:  Solving for PNP, Initial residual = (0.115976 0.165575 0.280194), Final residual = (1.39476e-21 4.13721e-22 9.76254e-21), No Iterations 398
+ Iter # 2 - Residual: [cPlus:1.25553e-10  cMinus:1.26223e-10  psiE:1.46024e-08]
+residual: 1.46035e-08
+break!!!!!!
+
+
+ >>> dV = 44: C convergence: 4.55199e-05
+
+
+
+ >>> dV = 44: U convergence: 0
+
+ExecutionTime = 1692.82 s  ClockTime = 1696 s
+
+
+-------------- | Applied Voltage = 45 |--------------
+
+Starting time loop
+
+Time = 45
+
+ >>> dV = 45:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114354 0.163008 0.275994), Final residual = (6.8072e-23 4.08741e-23 1.6004e-21), No Iterations 471
+ Iter # 0 - Residual: [cPlus:0.0176818  cMinus:0.0186897  psiE:317.536]
+residual: 317.536
+BiCGStab:  Solving for PNP, Initial residual = (0.115832 0.16561 0.280115), Final residual = (1.45347e-21 1.21135e-22 6.71979e-21), No Iterations 689
+ Iter # 1 - Residual: [cPlus:9.50162e-05  cMinus:9.49885e-05  psiE:0.00116168]
+residual: 0.00116942
+BiCGStab:  Solving for PNP, Initial residual = (0.115831 0.16561 0.280115), Final residual = (4.60751e-22 6.22401e-23 3.13495e-21), No Iterations 504
+ Iter # 2 - Residual: [cPlus:5.60027e-10  cMinus:5.60168e-10  psiE:1.22447e-08]
+residual: 1.22703e-08
+break!!!!!!
+
+
+ >>> dV = 45: C convergence: 4.68531e-05
+
+
+
+ >>> dV = 45: U convergence: 0
+
+ExecutionTime = 1749.67 s  ClockTime = 1753 s
+
+
+-------------- | Applied Voltage = 46 |--------------
+
+Starting time loop
+
+Time = 46
+
+ >>> dV = 46:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114245 0.163102 0.276009), Final residual = (1.28349e-21 2.01639e-22 6.04506e-21), No Iterations 929
+ Iter # 0 - Residual: [cPlus:0.0175248  cMinus:0.0185309  psiE:317.537]
+residual: 317.537
+BiCGStab:  Solving for PNP, Initial residual = (0.115693 0.165644 0.280039), Final residual = (9.31809e-22 1.2993e-22 7.64201e-21), No Iterations 454
+ Iter # 1 - Residual: [cPlus:8.71151e-05  cMinus:8.70878e-05  psiE:0.00104064]
+residual: 0.00104791
+BiCGStab:  Solving for PNP, Initial residual = (0.115693 0.165644 0.280039), Final residual = (1.07037e-21 2.06637e-21 9.51207e-21), No Iterations 367
+ Iter # 2 - Residual: [cPlus:8.55486e-10  cMinus:8.59395e-10  psiE:7.87368e-08]
+residual: 7.87461e-08
+break!!!!!!
+
+
+ >>> dV = 46: C convergence: 4.81029e-05
+
+
+
+ >>> dV = 46: U convergence: 0
+
+ExecutionTime = 1809.49 s  ClockTime = 1812 s
+
+
+-------------- | Applied Voltage = 47 |--------------
+
+Starting time loop
+
+Time = 47
+
+ >>> dV = 47:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11414 0.163192 0.276024), Final residual = (1.09426e-21 1.6341e-22 7.42946e-21), No Iterations 568
+ Iter # 0 - Residual: [cPlus:0.0173823  cMinus:0.0183857  psiE:317.538]
+residual: 317.538
+BiCGStab:  Solving for PNP, Initial residual = (0.115561 0.165677 0.279966), Final residual = (1.27818e-21 3.12414e-22 6.39164e-21), No Iterations 614
+ Iter # 1 - Residual: [cPlus:7.99605e-05  cMinus:7.99338e-05  psiE:0.000930625]
+residual: 0.000937468
+break!!!!!!
+
+
+ >>> dV = 47: C convergence: 4.92776e-05
+
+
+
+ >>> dV = 47: U convergence: 0
+
+ExecutionTime = 1849.85 s  ClockTime = 1853 s
+
+
+-------------- | Applied Voltage = 48 |--------------
+
+Starting time loop
+
+Time = 48
+
+ >>> dV = 48:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.114041 0.163278 0.276038), Final residual = (1.4126e-21 2.10161e-22 6.81725e-21), No Iterations 721
+ Iter # 0 - Residual: [cPlus:0.017253  cMinus:0.0182528  psiE:317.539]
+residual: 317.539
+BiCGStab:  Solving for PNP, Initial residual = (0.115434 0.165708 0.279896), Final residual = (1.87405e-22 3.02025e-23 2.89669e-21), No Iterations 754
+ Iter # 1 - Residual: [cPlus:7.34685e-05  cMinus:7.34426e-05  psiE:0.000830378]
+residual: 0.000836851
+break!!!!!!
+
+
+ >>> dV = 48: C convergence: 5.03837e-05
+
+
+
+ >>> dV = 48: U convergence: 0
+
+ExecutionTime = 1900.15 s  ClockTime = 1903 s
+
+
+-------------- | Applied Voltage = 49 |--------------
+
+Starting time loop
+
+Time = 49
+
+ >>> dV = 49:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113945 0.16336 0.276051), Final residual = (1.11884e-21 7.06395e-23 5.82032e-21), No Iterations 718
+ Iter # 0 - Residual: [cPlus:0.0171356  cMinus:0.018131  psiE:317.539]
+residual: 317.539
+BiCGStab:  Solving for PNP, Initial residual = (0.115312 0.165738 0.27983), Final residual = (1.09501e-21 2.35813e-22 7.39665e-21), No Iterations 1081
+ Iter # 1 - Residual: [cPlus:6.75644e-05  cMinus:6.75392e-05  psiE:0.00073883]
+residual: 0.000744981
+break!!!!!!
+
+
+ >>> dV = 49: C convergence: 5.14279e-05
+
+
+
+ >>> dV = 49: U convergence: 0
+
+ExecutionTime = 1961.44 s  ClockTime = 1965 s
+
+
+-------------- | Applied Voltage = 50 |--------------
+
+Starting time loop
+
+Time = 50
+
+ >>> dV = 50:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113854 0.163439 0.276064), Final residual = (1.88572e-22 2.43182e-22 2.27376e-21), No Iterations 689
+ Iter # 0 - Residual: [cPlus:0.0170291  cMinus:0.0180193  psiE:317.54]
+residual: 317.54
+BiCGStab:  Solving for PNP, Initial residual = (0.115196 0.165767 0.279766), Final residual = (1.12515e-21 2.28064e-22 6.3906e-21), No Iterations 1034
+ Iter # 1 - Residual: [cPlus:6.21863e-05  cMinus:6.21621e-05  psiE:0.000655013]
+residual: 0.000660888
+break!!!!!!
+
+
+ >>> dV = 50: C convergence: 5.2416e-05
+
+
+
+ >>> dV = 50: U convergence: 0
+
+ExecutionTime = 2020.15 s  ClockTime = 2023 s
+
+
+-------------- | Applied Voltage = 51 |--------------
+
+Starting time loop
+
+Time = 51
+
+ >>> dV = 51:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113766 0.163515 0.276076), Final residual = (1.71373e-21 3.6074e-22 7.99945e-21), No Iterations 1366
+ Iter # 0 - Residual: [cPlus:0.0169325  cMinus:0.0179167  psiE:317.541]
+residual: 317.541
+BiCGStab:  Solving for PNP, Initial residual = (0.115084 0.165794 0.279704), Final residual = (1.65111e-21 1.2653e-21 7.41102e-21), No Iterations 1292
+ Iter # 1 - Residual: [cPlus:5.72797e-05  cMinus:5.72566e-05  psiE:0.00057824]
+residual: 0.000583884
+break!!!!!!
+
+
+ >>> dV = 51: C convergence: 5.33521e-05
+
+
+
+ >>> dV = 51: U convergence: 0
+
+ExecutionTime = 2110.43 s  ClockTime = 2114 s
+
+
+-------------- | Applied Voltage = 52 |--------------
+
+Starting time loop
+
+Time = 52
+
+ >>> dV = 52:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113682 0.163587 0.276088), Final residual = (7.87259e-22 1.95636e-22 7.62484e-21), No Iterations 2829
+ Iter # 0 - Residual: [cPlus:0.0168449  cMinus:0.0178225  psiE:317.541]
+residual: 317.541
+BiCGStab:  Solving for PNP, Initial residual = (0.114976 0.165821 0.279645), Final residual = (2.42477e-18 8.3382e-18 3.16715e-17), No Iterations 20000
+ Iter # 1 - Residual: [cPlus:5.27931e-05  cMinus:5.27712e-05  psiE:0.000507667]
+residual: 0.000513125
+break!!!!!!
+
+
+ >>> dV = 52: C convergence: 5.4241e-05
+
+
+
+ >>> dV = 52: U convergence: 0
+
+ExecutionTime = 2886.5 s  ClockTime = 2890 s
+
+
+-------------- | Applied Voltage = 53 |--------------
+
+Starting time loop
+
+Time = 53
+
+ >>> dV = 53:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113601 0.163657 0.276099), Final residual = (1.61238e-22 2.22413e-21 9.06787e-21), No Iterations 7985
+ Iter # 0 - Residual: [cPlus:0.0167655  cMinus:0.0177359  psiE:317.542]
+residual: 317.542
+BiCGStab:  Solving for PNP, Initial residual = (0.114872 0.165846 0.279589), Final residual = (3.40428e-22 1.9246e-22 4.0543e-21), No Iterations 3468
+ Iter # 1 - Residual: [cPlus:4.86925e-05  cMinus:4.8672e-05  psiE:0.000442751]
+residual: 0.000448072
+break!!!!!!
+
+
+ >>> dV = 53: C convergence: 5.50869e-05
+
+
+
+ >>> dV = 53: U convergence: 0
+
+ExecutionTime = 3245.34 s  ClockTime = 3249 s
+
+
+-------------- | Applied Voltage = 54 |--------------
+
+Starting time loop
+
+Time = 54
+
+ >>> dV = 54:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113523 0.163725 0.27611), Final residual = (4.39336e-22 4.85652e-22 4.21503e-21), No Iterations 2140
+ Iter # 0 - Residual: [cPlus:0.0166938  cMinus:0.0176564  psiE:317.542]
+residual: 317.542
+BiCGStab:  Solving for PNP, Initial residual = (0.114773 0.165871 0.279534), Final residual = (3.60693e-22 2.56588e-21 9.26155e-21), No Iterations 12556
+ Iter # 1 - Residual: [cPlus:4.49274e-05  cMinus:4.49085e-05  psiE:0.000383]
+residual: 0.000388232
+break!!!!!!
+
+
+ >>> dV = 54: C convergence: 5.58931e-05
+
+
+
+ >>> dV = 54: U convergence: 0
+
+ExecutionTime = 3710.47 s  ClockTime = 3714 s
+
+
+-------------- | Applied Voltage = 55 |--------------
+
+Starting time loop
+
+Time = 55
+
+ >>> dV = 55:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113448 0.163789 0.276121), Final residual = (1.2884e-21 3.79645e-22 8.18553e-21), No Iterations 5117
+ Iter # 0 - Residual: [cPlus:0.016629  cMinus:0.0175832  psiE:317.542]
+residual: 317.542
+BiCGStab:  Solving for PNP, Initial residual = (0.114677 0.165895 0.279482), Final residual = (1.22091e-21 2.92632e-22 6.18425e-21), No Iterations 1656
+ Iter # 1 - Residual: [cPlus:4.14796e-05  cMinus:4.14625e-05  psiE:0.000327915]
+residual: 0.000333118
+break!!!!!!
+
+
+ >>> dV = 55: C convergence: 5.66631e-05
+
+
+
+ >>> dV = 55: U convergence: 0
+
+ExecutionTime = 3923.51 s  ClockTime = 3927 s
+
+
+-------------- | Applied Voltage = 56 |--------------
+
+Starting time loop
+
+Time = 56
+
+ >>> dV = 56:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113376 0.163852 0.276131), Final residual = (8.22564e-22 1.84462e-22 6.33377e-21), No Iterations 5694
+ Iter # 0 - Residual: [cPlus:0.0165706  cMinus:0.017516  psiE:317.543]
+residual: 317.543
+BiCGStab:  Solving for PNP, Initial residual = (0.114584 0.165918 0.279431), Final residual = (1.81802e-21 3.51312e-22 9.58025e-21), No Iterations 2676
+ Iter # 1 - Residual: [cPlus:3.83139e-05  cMinus:3.82988e-05  psiE:0.000277129]
+residual: 0.000282375
+break!!!!!!
+
+
+ >>> dV = 56: C convergence: 5.73997e-05
+
+
+
+ >>> dV = 56: U convergence: 0
+
+ExecutionTime = 4185.16 s  ClockTime = 4189 s
+
+
+-------------- | Applied Voltage = 57 |--------------
+
+Starting time loop
+
+Time = 57
+
+ >>> dV = 57:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113307 0.163912 0.276141), Final residual = (1.52261e-21 3.60245e-22 7.96481e-21), No Iterations 4022
+ Iter # 0 - Residual: [cPlus:0.0165181  cMinus:0.0174541  psiE:317.543]
+residual: 317.543
+BiCGStab:  Solving for PNP, Initial residual = (0.114495 0.16594 0.279382), Final residual = (6.31159e-22 6.60526e-23 5.97681e-21), No Iterations 1909
+ Iter # 1 - Residual: [cPlus:3.54076e-05  cMinus:3.53947e-05  psiE:0.000230414]
+residual: 0.000235791
+break!!!!!!
+
+
+ >>> dV = 57: C convergence: 5.81053e-05
+
+
+
+ >>> dV = 57: U convergence: 0
+
+ExecutionTime = 4371.35 s  ClockTime = 4375 s
+
+
+-------------- | Applied Voltage = 58 |--------------
+
+Starting time loop
+
+Time = 58
+
+ >>> dV = 58:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11324 0.16397 0.276151), Final residual = (5.3457e-22 1.30794e-22 8.35014e-21), No Iterations 3328
+ Iter # 0 - Residual: [cPlus:0.016471  cMinus:0.0173973  psiE:317.543]
+residual: 317.543
+BiCGStab:  Solving for PNP, Initial residual = (0.114409 0.165961 0.279336), Final residual = (7.59203e-22 3.90072e-23 4.17623e-21), No Iterations 3589
+ Iter # 1 - Residual: [cPlus:3.27391e-05  cMinus:3.27286e-05  psiE:0.000187616]
+residual: 0.000193243
+break!!!!!!
+
+
+ >>> dV = 58: C convergence: 5.87826e-05
+
+
+
+ >>> dV = 58: U convergence: 0
+
+ExecutionTime = 4587.56 s  ClockTime = 4592 s
+
+
+-------------- | Applied Voltage = 59 |--------------
+
+Starting time loop
+
+Time = 59
+
+ >>> dV = 59:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113175 0.164026 0.27616), Final residual = (1.81773e-21 1.28051e-22 9.72649e-21), No Iterations 1518
+ Iter # 0 - Residual: [cPlus:0.016429  cMinus:0.0173452  psiE:317.543]
+residual: 317.543
+BiCGStab:  Solving for PNP, Initial residual = (0.114326 0.165982 0.27929), Final residual = (4.34435e-23 4.37275e-23 6.90175e-22), No Iterations 2057
+ Iter # 1 - Residual: [cPlus:3.02885e-05  cMinus:3.02809e-05  psiE:0.00014881]
+residual: 0.000154851
+break!!!!!!
+
+
+ >>> dV = 59: C convergence: 5.94335e-05
+
+
+
+ >>> dV = 59: U convergence: 0
+
+ExecutionTime = 4699.73 s  ClockTime = 4704 s
+
+
+-------------- | Applied Voltage = 60 |--------------
+
+Starting time loop
+
+Time = 60
+
+ >>> dV = 60:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113113 0.16408 0.276169), Final residual = (1.00566e-21 2.19207e-21 8.26828e-21), No Iterations 3043
+ Iter # 0 - Residual: [cPlus:0.0163917  cMinus:0.0172973  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.114246 0.166002 0.279246), Final residual = (2.98443e-22 1.42768e-22 1.63491e-21), No Iterations 2839
+ Iter # 1 - Residual: [cPlus:2.80406e-05  cMinus:2.8036e-05  psiE:0.000114502]
+residual: 0.000121174
+break!!!!!!
+
+
+ >>> dV = 60: C convergence: 6.00601e-05
+
+
+
+ >>> dV = 60: U convergence: 0
+
+ExecutionTime = 4883.31 s  ClockTime = 4888 s
+
+
+-------------- | Applied Voltage = 61 |--------------
+
+Starting time loop
+
+Time = 61
+
+ >>> dV = 61:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.113053 0.164132 0.276178), Final residual = (1.26345e-21 2.7963e-22 9.24515e-21), No Iterations 1590
+ Iter # 0 - Residual: [cPlus:0.0163587  cMinus:0.0172534  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.114168 0.166021 0.279204), Final residual = (4.07957e-22 4.0396e-23 4.28365e-21), No Iterations 2130
+ Iter # 1 - Residual: [cPlus:2.59801e-05  cMinus:2.59789e-05  psiE:8.61389e-05]
+residual: 9.36471e-05
+break!!!!!!
+
+
+ >>> dV = 61: C convergence: 6.06642e-05
+
+
+
+ >>> dV = 61: U convergence: 0
+
+ExecutionTime = 4999.66 s  ClockTime = 5004 s
+
+
+-------------- | Applied Voltage = 62 |--------------
+
+Starting time loop
+
+Time = 62
+
+ >>> dV = 62:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112994 0.164183 0.276186), Final residual = (1.82814e-21 4.22814e-22 9.64257e-21), No Iterations 3449
+ Iter # 0 - Residual: [cPlus:0.0163298  cMinus:0.0172132  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.114093 0.16604 0.279163), Final residual = (1.76824e-21 3.39114e-22 9.54238e-21), No Iterations 3361
+ Iter # 1 - Residual: [cPlus:2.4095e-05  cMinus:2.40975e-05  psiE:6.71226e-05]
+residual: 7.52775e-05
+break!!!!!!
+
+
+ >>> dV = 62: C convergence: 6.12474e-05
+
+
+
+ >>> dV = 62: U convergence: 0
+
+ExecutionTime = 5212.37 s  ClockTime = 5217 s
+
+
+-------------- | Applied Voltage = 63 |--------------
+
+Starting time loop
+
+Time = 63
+
+ >>> dV = 63:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112938 0.164232 0.276195), Final residual = (5.79388e-22 1.59091e-22 8.45743e-21), No Iterations 4962
+ Iter # 0 - Residual: [cPlus:0.0163047  cMinus:0.0171765  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.114021 0.166058 0.279124), Final residual = (9.16692e-22 1.46526e-22 4.76226e-21), No Iterations 3025
+ Iter # 1 - Residual: [cPlus:2.23744e-05  cMinus:2.2381e-05  psiE:6.24448e-05]
+residual: 7.00063e-05
+break!!!!!!
+
+
+ >>> dV = 63: C convergence: 6.18111e-05
+
+
+
+ >>> dV = 63: U convergence: 0
+
+ExecutionTime = 5462.78 s  ClockTime = 5467 s
+
+
+-------------- | Applied Voltage = 64 |--------------
+
+Starting time loop
+
+Time = 64
+
+ >>> dV = 64:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112884 0.164279 0.276203), Final residual = (1.10572e-21 3.56466e-22 5.65516e-21), No Iterations 2142
+ Iter # 0 - Residual: [cPlus:0.016283  cMinus:0.017143  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.11395 0.166076 0.279086), Final residual = (1.05545e-21 1.84745e-22 6.61042e-21), No Iterations 2962
+ Iter # 1 - Residual: [cPlus:2.08089e-05  cMinus:2.08201e-05  psiE:7.21571e-05]
+residual: 7.79303e-05
+break!!!!!!
+
+
+ >>> dV = 64: C convergence: 6.23568e-05
+
+
+
+ >>> dV = 64: U convergence: 0
+
+ExecutionTime = 5631.05 s  ClockTime = 5636 s
+
+
+-------------- | Applied Voltage = 65 |--------------
+
+Starting time loop
+
+Time = 65
+
+ >>> dV = 65:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112831 0.164325 0.276211), Final residual = (1.06044e-22 4.30734e-22 3.91883e-21), No Iterations 3319
+ Iter # 0 - Residual: [cPlus:0.0162647  cMinus:0.0171125  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113882 0.166093 0.279049), Final residual = (2.47182e-22 1.34599e-22 6.32075e-21), No Iterations 1913
+ Iter # 1 - Residual: [cPlus:1.93908e-05  cMinus:1.94069e-05  psiE:8.99906e-05]
+residual: 9.40795e-05
+break!!!!!!
+
+
+ >>> dV = 65: C convergence: 6.28857e-05
+
+
+
+ >>> dV = 65: U convergence: 0
+
+ExecutionTime = 5814.62 s  ClockTime = 5819 s
+
+
+-------------- | Applied Voltage = 66 |--------------
+
+Starting time loop
+
+Time = 66
+
+ >>> dV = 66:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.11278 0.16437 0.276219), Final residual = (9.2937e-23 6.01978e-23 4.6927e-21), No Iterations 1964
+ Iter # 0 - Residual: [cPlus:0.0162494  cMinus:0.0170849  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113816 0.16611 0.279013), Final residual = (1.23071e-21 7.02863e-22 9.49231e-21), No Iterations 3691
+ Iter # 1 - Residual: [cPlus:1.81133e-05  cMinus:1.81347e-05  psiE:0.000110908]
+residual: 0.000113831
+break!!!!!!
+
+
+ >>> dV = 66: C convergence: 6.3399e-05
+
+
+
+ >>> dV = 66: U convergence: 0
+
+ExecutionTime = 6013.38 s  ClockTime = 6018 s
+
+
+-------------- | Applied Voltage = 67 |--------------
+
+Starting time loop
+
+Time = 67
+
+ >>> dV = 67:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112731 0.164413 0.276226), Final residual = (7.61401e-22 2.82747e-22 9.2364e-21), No Iterations 3592
+ Iter # 0 - Residual: [cPlus:0.016237  cMinus:0.0170598  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113752 0.166126 0.278978), Final residual = (1.00106e-21 1.75835e-21 8.58237e-21), No Iterations 2143
+ Iter # 1 - Residual: [cPlus:1.69703e-05  cMinus:1.69975e-05  psiE:0.000132586]
+residual: 0.000134744
+break!!!!!!
+
+
+ >>> dV = 67: C convergence: 6.38976e-05
+
+
+
+ >>> dV = 67: U convergence: 0
+
+ExecutionTime = 6214.39 s  ClockTime = 6219 s
+
+
+-------------- | Applied Voltage = 68 |--------------
+
+Starting time loop
+
+Time = 68
+
+ >>> dV = 68:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112683 0.164455 0.276233), Final residual = (1.26637e-21 2.62348e-22 9.55624e-21), No Iterations 2992
+ Iter # 0 - Residual: [cPlus:0.0162273  cMinus:0.0170372  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.11369 0.166141 0.278945), Final residual = (1.17485e-21 1.42803e-22 9.39293e-21), No Iterations 2950
+ Iter # 1 - Residual: [cPlus:1.59574e-05  cMinus:1.59905e-05  psiE:0.000154091]
+residual: 0.000155738
+break!!!!!!
+
+
+ >>> dV = 68: C convergence: 6.43827e-05
+
+
+
+ >>> dV = 68: U convergence: 0
+
+ExecutionTime = 6422.31 s  ClockTime = 6427 s
+
+
+-------------- | Applied Voltage = 69 |--------------
+
+Starting time loop
+
+Time = 69
+
+ >>> dV = 69:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112636 0.164495 0.276241), Final residual = (2.25369e-22 1.66258e-21 5.99141e-21), No Iterations 2603
+ Iter # 0 - Residual: [cPlus:0.0162201  cMinus:0.017017  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.11363 0.166157 0.278912), Final residual = (1.78353e-22 1.00453e-22 8.00031e-21), No Iterations 4230
+ Iter # 1 - Residual: [cPlus:1.50682e-05  cMinus:1.51077e-05  psiE:0.000175014]
+residual: 0.00017631
+break!!!!!!
+
+
+ >>> dV = 69: C convergence: 6.48551e-05
+
+
+
+ >>> dV = 69: U convergence: 0
+
+ExecutionTime = 6661.14 s  ClockTime = 6666 s
+
+
+-------------- | Applied Voltage = 70 |--------------
+
+Starting time loop
+
+Time = 70
+
+ >>> dV = 70:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112591 0.164535 0.276248), Final residual = (9.30029e-22 1.62361e-22 7.29172e-21), No Iterations 3054
+ Iter # 0 - Residual: [cPlus:0.0162154  cMinus:0.0169989  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113571 0.166172 0.278881), Final residual = (8.54074e-22 1.17716e-21 7.44255e-21), No Iterations 3339
+ Iter # 1 - Residual: [cPlus:1.43013e-05  cMinus:1.43474e-05  psiE:0.000195179]
+residual: 0.000196227
+break!!!!!!
+
+
+ >>> dV = 70: C convergence: 6.53166e-05
+
+
+
+ >>> dV = 70: U convergence: 0
+
+ExecutionTime = 6884.62 s  ClockTime = 6890 s
+
+
+-------------- | Applied Voltage = 71 |--------------
+
+Starting time loop
+
+Time = 71
+
+ >>> dV = 71:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112548 0.164573 0.276255), Final residual = (1.67295e-22 1.93848e-21 6.98006e-21), No Iterations 4651
+ Iter # 0 - Residual: [cPlus:0.0162128  cMinus:0.0169829  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113515 0.166186 0.27885), Final residual = (1.40183e-21 3.41415e-22 8.01612e-21), No Iterations 5073
+ Iter # 1 - Residual: [cPlus:1.36464e-05  cMinus:1.36991e-05  psiE:0.000214573]
+residual: 0.000215443
+break!!!!!!
+
+
+ >>> dV = 71: C convergence: 6.57658e-05
+
+
+
+ >>> dV = 71: U convergence: 0
+
+ExecutionTime = 7223.95 s  ClockTime = 7229 s
+
+
+-------------- | Applied Voltage = 72 |--------------
+
+Starting time loop
+
+Time = 72
+
+ >>> dV = 72:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112505 0.164611 0.276261), Final residual = (2.40466e-22 3.27719e-22 3.41869e-21), No Iterations 4401
+ Iter # 0 - Residual: [cPlus:0.0162124  cMinus:0.0169689  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113459 0.1662 0.278821), Final residual = (9.81977e-22 1.3208e-21 7.32069e-21), No Iterations 17104
+ Iter # 1 - Residual: [cPlus:1.31028e-05  cMinus:1.31621e-05  psiE:0.000233214]
+residual: 0.000233952
+break!!!!!!
+
+
+ >>> dV = 72: C convergence: 6.6204e-05
+
+
+
+ >>> dV = 72: U convergence: 0
+
+ExecutionTime = 7974.03 s  ClockTime = 7979 s
+
+
+-------------- | Applied Voltage = 73 |--------------
+
+Starting time loop
+
+Time = 73
+
+ >>> dV = 73:         SteadyState solver
+         SteadyState solver/PNP-NS Iteration      # 1
+
+****** only PNP ******
+BiCGStab:  Solving for PNP, Initial residual = (0.112464 0.164647 0.276268), Final residual = (1.11138e-21 3.84398e-22 9.50207e-21), No Iterations 16688
+ Iter # 0 - Residual: [cPlus:0.016214  cMinus:0.0169567  psiE:317.544]
+residual: 317.544
+BiCGStab:  Solving for PNP, Initial residual = (0.113406 0.166214 0.278792), Final residual = (8.67915e-05 0.000135746 0.000583457), No Iterations 20000
+ Iter # 1 - Residual: [cPlus:14.9495  cMinus:14.9497  psiE:234.254]
+residual: 235.206
+BiCGStab:  Solving for PNP, Initial residual = (0.114006 0.167102 0.280891), Final residual = (5.83817e-16 6.12147e-16 4.74154e-15), No Iterations 20000
+ Iter # 2 - Residual: [cPlus:14.9541  cMinus:14.9544  psiE:255.651]
+residual: 256.524
+BiCGStab:  Solving for PNP, Initial residual = (0.113454 0.166287 0.278854), Final residual = (1.37107e-13 2.0764e-13 1.04834e-12), No Iterations 20000
+ Iter # 3 - Residual: [cPlus:0.00810419  cMinus:0.00863436  psiE:22.666]
+residual: 22.666
+BiCGStab:  Solving for PNP, Initial residual = (0.113406 0.166214 0.278792), Final residual = (0.200585 0.31251 1.28817), No Iterations 20000
+ Iter # 4 - Residual: [cPlus:22171.8  cMinus:22172.3  psiE:591189]
+residual: 592020
+BiCGStab:  Solving for PNP, Initial residual = (0.127414 0.194532 0.00439458), Final residual = (2.06697e+45 3.07305e+45 6.45945e+44), No Iterations 20000
+ Iter # 5 - Residual: [cPlus:1.48844e+51  cMinus:1.46127e+51  psiE:4.70496e+51]
