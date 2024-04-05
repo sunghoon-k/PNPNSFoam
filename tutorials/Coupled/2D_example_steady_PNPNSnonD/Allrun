@@ -1,6 +1,0 @@
-shopt -s extglob
-# RESULT=$(find ./ -name AR*)
-# gmshToFoam $RESULT
-rm -r !("0"|"constant"|"system"|"Allclean"|"Allrun"|"2D_example_steady_PNPNSnonD.OpenFOAM")
-# reset
-PNPNSFoam_org_Ueof

@@ -1,4 +1,0 @@
-shopt -s extglob
-rm -r !("0"|"constant"|"system"|"Allclean"|"Allrun"|"result"|"2D_example_steady_PNPNSnonD.OpenFOAM")
-blockMesh
-reset
